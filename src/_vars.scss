@@ -1,0 +1,20 @@
+// Z-Indexing
+$z-index-bg: 1;
+$z-index-sections: 2;
+
+// Colors
+$mn8-blue: #65f9f6;
+$mn8-blue-lighter: lighten($mn8-blue, 20);
+$mn8-blue-lighter-again: lighten($mn8-blue, 25);
+$mn8-blue-darker: darken($mn8-blue, 20);
+$mn8-blue-darker-again: #173449;
+$mn8-pink: #fbceff;
+$error-red: darken(#ff0000, 15);
+$grey: #f4f7fd;
+$grey-darker: darken($grey, 50);
+$dark-blue-transparent: rgba(8,24,31, .7);
+
+$gutter: 20px;
+$border-radius: 4px;
+$navbar-height: 80px;
+$common-transition: all .2s;

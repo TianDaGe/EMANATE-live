@@ -1,0 +1,22 @@
+body {
+  font-family: "BrownLight", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+h1, h2 , h3, h4, h5, h6 {
+  &.center {
+    text-align: center;
+  }
+}
+h1, h2 {
+  font-family: "AvantGardeStd", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: bold;
+}
+h3, h4, h5, h6 {
+  font-family: "BrownBold", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: bold;
+}
+.btn {
+  font-family: "AvantGardeStd";
+}
+.btn-naked {
+  font-family: "BrownBold", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
