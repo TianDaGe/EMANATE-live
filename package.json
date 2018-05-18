@@ -5,8 +5,11 @@
   "homepage": "./",
   "dependencies": {
     "bootstrap": "3",
+    "bootstrap-sass": "^3.3.7",
+    "bufferutil": "^3.0.5",
     "glamor": "^2.20.40",
     "museblockchain-js": "^0.1.0",
+    "node-sass-chokidar": "^1.3.0",
     "react": "^16.0.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^16.0.0",
@@ -17,10 +20,13 @@
     "react-toastify": "^2.1.5",
     "sound-engine": "file:./libs/sound-engine",
     "tools": "file:./libs/tools",
+    "utf-8-validate": "^4.0.2",
     "waveform-drawer": "file:./libs/waveform-drawer",
     "web3": "0.19"
   },
   "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./node_modules src/ -o src/ --match-regex '/^(?!_).+/'",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./node_modules src/ -o src/ --watch --recursive",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
