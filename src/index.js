@@ -5,9 +5,10 @@ import { IntlProvider } from 'react-intl';
 
 import i18n from './i18n';
 
-import './index.css';
 import App from './containers/App/';
 import registerServiceWorker from './registerServiceWorker';
+
+import './index.css';
 
 
 // Configure i18n

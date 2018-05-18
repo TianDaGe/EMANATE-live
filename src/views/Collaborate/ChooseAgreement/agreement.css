@@ -1,0 +1,13 @@
+.collaborate_agreement {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  margin: 25px 0;
+  padding: 0 13px;
+  background: #f4f7fd;
+  color: #255dcd; }
+  .collaborate_agreement.current {
+    background: #c7fdfc;
+    color: #09efea; }
+  .collaborate_agreement a:focus {
+    outline: none; }

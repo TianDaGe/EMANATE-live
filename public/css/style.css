@@ -199,13 +199,6 @@ template {
 
 /* --- All pages --- */
 
-.main-page {
-  padding: 30px;
-  margin-top: 50px;
-  margin-bottom: 50px;
-  background-color: #fff;
-}
-
 .fill {
   min-height: 100vh;
 }

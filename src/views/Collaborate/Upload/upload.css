@@ -1,0 +1,25 @@
+/* DRAG/DROP */
+.sound-uploader-title {
+  /* flex: 1 0 50%; */
+  height: 150px;
+  border-radius: 4px;
+  border: 3px dashed #65f9f6;
+  display: flex;
+  background: #e0fefd;
+  align-items: center;
+  font-weight: bold; }
+  .sound-uploader-title span {
+    display: block;
+    text-align: center;
+    width: 100%; }
+
+/* OR */
+.sound-uploader-text {
+  /* flex: 0 1 auto; */ }
+
+/* SELECT FILE */
+.sound-uploader-file {
+  /* flex: 0 1 auto; */ }
+
+.height100 {
+  height: 100%; }

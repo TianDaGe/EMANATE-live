@@ -1,7 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import { injectIntl, intlShape } from 'react-intl';
+import { LinkContainer } from 'react-router-bootstrap';
 
+import { Col } from 'react-bootstrap';
 import './Home.css';
 
 
@@ -55,15 +57,21 @@ class Home extends Component<Props, State> {
 
   render() {
     return (
-      <section className="Home animated fadeIn">
-        <video playsInline autoPlay muted loop id="bgvideo" ref={elem => (this.videoElem = elem)}>
-          <source src="./vid/background.mp4" type="video/mp4" />
-        </video>
-        <img src="./img/sound-mute.gif" alt="mute" id="bgvideo-mute"
-          className={this.state.muted ? 'muted' : ''} onClick={this.toggleMute.bind(this)}
-          title={this.state.muted ? this.props.intl.formatMessage({id:'home:unmute'}) :
-                  this.props.intl.formatMessage({id:'home:mute'})}
-        />
+      <section className="Home animated fadeIn clearfix">
+        <Col xs={10} xsOffset={1} sm={5} smOffset={1} className="half-screen">
+          <article>
+            <h1>Collaborate</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.</p>
+            <LinkContainer to="/collaborate"><span className="btn">Create</span></LinkContainer>
+          </article>
+        </Col>
+        <Col xs={10} xsOffset={1} sm={5} smOffset={0} className="half-screen">
+          <article>
+            <h1>Listen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.</p>
+            <LinkContainer to="/listen"><span className="btn">Play</span></LinkContainer>
+          </article>
+        </Col>
       </section>
     );
   }

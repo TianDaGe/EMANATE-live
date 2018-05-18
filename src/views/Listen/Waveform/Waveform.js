@@ -71,6 +71,8 @@ class Waveform extends Component {
       container: this.waveformdrawerEl
     });
 
+    console.log('waveform mount', options);
+
     this._waveformdrawer = new WaveformDrawer(options);
     this._waveformdrawer.init();
 

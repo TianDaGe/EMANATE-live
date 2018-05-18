@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.min.css';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import './TopBar.css';
-import Auth from '../../common/Auth';
+import Auth from '../../../common/Auth';
 
 
 type Props = {
@@ -101,23 +101,21 @@ class TopBar extends Component<Props, State> {
       </Nav>
     );
 
+    // <Navbar.Collapse>
+    //   {menu}
+    //   <Nav pullRight>
+    //     {mn8}
+    //     {user}
+    //   </Nav>
+    // </Navbar.Collapse>
+
     return (
-      <Navbar fluid inverse fixedTop collapseOnSelect onToggle={this.setNavExpanded} expanded={this.state.navExpanded}>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <LinkContainer to="/">
-              <img src="./img/logo.png" alt="text here" id="topbar-logo" />
-            </LinkContainer>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          {menu}
-          <Nav pullRight>
-            {mn8}
-            {user}
-          </Nav>
-        </Navbar.Collapse>
+      <Navbar fluid collapseOnSelect onToggle={this.setNavExpanded} expanded={this.state.navExpanded}>
+        <div id="navbar-logo">
+          <LinkContainer to="/">
+          <img src="./img/logo-temp.png" alt="Emanate" id="topbar-logo" />
+          </LinkContainer>
+        </div>
         <ToastContainer
           position="top-right"
           type="default"

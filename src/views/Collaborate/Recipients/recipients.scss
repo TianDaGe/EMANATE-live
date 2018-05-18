@@ -1,0 +1,15 @@
+.collaborate_recipients {
+  flex: 0 1 auto;
+
+  .recipient-additional {
+    &:first-child {
+      margin: 0;
+    }
+    &:last-child {
+      border: none;
+    }
+    .close-button {
+      float: right;
+    }
+  }
+}

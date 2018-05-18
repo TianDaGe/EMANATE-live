@@ -1,0 +1,25 @@
+.Collaborate {
+  margin: 60px 0 0; }
+  .Collaborate .collaborate_container {
+    /* UTILS */ }
+    .Collaborate .collaborate_container .nopad {
+      padding: 0 !important; }
+    .Collaborate .collaborate_container .bordered_component {
+      border-radius: 4px;
+      border: 3px solid #e2e2e2;
+      margin: 25px 0;
+      padding: 0 13px; }
+  .Collaborate .collaborate_wrapper .collaborate_heading {
+    display: block;
+    color: #000;
+    margin: 0 0 20px; }
+  .Collaborate .collaborate_wrapper .collaborate_page .collaborate_content {
+    background: #fff;
+    border-radius: 4px;
+    padding: 40px; }
+  .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation {
+    padding: 20px 0 0; }
+    .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.left {
+      text-align: left; }
+    .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.right {
+      text-align: right; }

@@ -1,18 +1,27 @@
+@import '../../_vars';
+
 .Home {
-  color: #ffffff; }
-  .Home .half-screen {
+  color: #ffffff;
+
+  .half-screen {
     text-align: center;
     height: calc(100vh - 80px);
     display: flex;
     align-items: center;
-    transition: all 0.2s; }
-    .Home .half-screen:hover {
-      background: rgba(255, 255, 255, 0.1); }
-    .Home .half-screen h1 {
+    transition: $common-transition;
+
+    &:hover {
+      background: rgba(255, 255, 255, .1);
+    }
+
+    h1 {
       font-size: 35px;
       letter-spacing: 1px;
       line-height: 37px;
-      margin: 8px 0 0; }
+      margin: 8px 0 0;
+    }
+  }
+}
 
 video#bgvideo {
   position: fixed;
@@ -28,12 +37,15 @@ video#bgvideo {
   -webkit-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
   background-color: #000;
-  background-size: cover; }
+  background-size: cover;
+}
 
 img#bgvideo-mute {
   position: absolute;
   right: 20px;
-  top: 60px; }
+  top: 60px;
+}
 
 img#bgvideo-mute.muted {
-  opacity: 0.4; }
+  opacity: 0.4;
+}

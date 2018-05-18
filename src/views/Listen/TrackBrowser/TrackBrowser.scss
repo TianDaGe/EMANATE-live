@@ -1,4 +1,9 @@
+@import '../../../_vars';
+
 .TrackBrowser {
+  background: $dark-blue-transparent;
+  border-radius: $border-radius;
+  margin: $gutter*3 0 0;
 }
 
 .category-top {

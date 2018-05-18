@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge } from 'react-bootstrap';
+import { Badge, Col } from 'react-bootstrap';
 import { formatter, download } from 'tools';
 
 import './TrackPlayer.css';
@@ -310,50 +310,52 @@ class TrackPlayer extends Component {
       peaks = this.playlist.getIpfsUrl(this.props.sound.metadata.audio.files.peaks);
     }
 
+    // TODO - Reimplement author & posted time
+    // <div className="track-player-author">
+    //   <Link to={authorUrl}>{'@' + this.props.sound.author}</Link>
+    //   <span className="from-now">{formatter.dateFromNow(this.props.sound.created || new Date())}</span>
+    // </div>
+
     return (
       <div className="row-fluid">
-        <div className="col-sm-12">
+        <Col xs={12}>
           <article className="track-player">
-            <div className="player-area">
-              <div className="top-player-area">
-                <div className="track-player-sound">
-                  <div className="track-player-author">
-                    <Link to={authorUrl}>{'@' + this.props.sound.author}</Link>
-                    <span className="from-now">{formatter.dateFromNow(this.props.sound.created || new Date())}</span>
-                  </div>
-                  <div className="track-player-title">
-                    <Link to={soundUrl}>
-                      {title}
-                    </Link>
-                    {duration}
-                  </div>
-                </div>
-                <div className="track-player-info">
-                  {(this.props.sound.bpm ? formatter.number(this.props.sound.bpm) : '--') + ' BPM'}
-                  <i className="fa fa-music" /> {this.props.sound.key || '--'}
-                </div>
+            <div className="track-player-top">
+              <div className="track-player-title">
+                <Link to={soundUrl}>
+                  {title}
+                </Link>
+                {duration}
               </div>
-              <div className="track-player-wave">
-                <Waveform
-                  peaks={peaks}
-                  pos={this.state.pos} onPosChange={this.clickWaveform}
-                  options={{barWidth: 0, progressColor: '#333', cursorColor: 'rgba(0,0,0,0.0)'}}
-                />
+              <div className="track-player-info">
+                {(this.props.sound.bpm ? formatter.number(this.props.sound.bpm) : '--') + ' BPM'}
+                <i className="fa fa-music" /> {this.props.sound.key || '--'}
               </div>
-              <div className="bottom-player-area">
-                {btnPlay}
-                {btnLike}
-                {btnDownloadBuy}
-                <div className="bottom-player-tags">
-                  {tags}
+            </div>
+            <div className="cover-and-wave">
+              <Link to={soundUrl}>
+                {cover}
+              </Link>
+              <div className="player-area">
+                <div className="track-player-wave">
+                  <Waveform
+                    peaks={peaks}
+                    pos={this.state.pos} onPosChange={this.clickWaveform}
+                    options={{barWidth: 0, progressColor: '#65f9f6', cursorColor: 'rgba(0,0,0,0.0)'}}
+                  />
+                </div>
+                <div className="bottom-player-area">
+                  {btnPlay}
+                  {btnLike}
+                  {btnDownloadBuy}
+                  <div className="bottom-player-tags">
+                    {tags}
+                  </div>
                 </div>
               </div>
             </div>
-            <Link to={soundUrl}>
-              {cover}
-            </Link>
           </article>
-        </div>
+        </Col>
       </div>
     )
   }

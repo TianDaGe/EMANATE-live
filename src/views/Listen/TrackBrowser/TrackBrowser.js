@@ -1,13 +1,13 @@
 // @flow
 import React, { Component } from 'react';
-import { Badge } from 'react-bootstrap';
+import { Badge, Col } from 'react-bootstrap';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import SoundEngine from 'sound-engine';
 
 import './TrackBrowser.css';
 import Auth from '../../../common/Auth';
 import Playlist from '../../../common/Playlist/';
-import TrackPlayer from '../../../components/TrackPlayer';
+import TrackPlayer from '../TrackPlayer';
 
 
 type Props = {
@@ -179,10 +179,10 @@ class TrackBrowser extends Component<Props, State> {
       return (
         <section className="animated fadeIn">
           <div className="container-fluid">
-            <div className="main-page col-sm-12 fill">
+            <Col xs={12} sm={10} smOffset={1} className="TrackBrowser">
               {category}
               {players}
-            </div>
+            </Col>
           </div>
           {loadMore}
         </section>
@@ -196,8 +196,8 @@ class TrackBrowser extends Component<Props, State> {
     } else {
       return (
         <section className="animated fadeIn">
-          <div className="container-fluid">
-            <div className="main-page col-sm-12 fill empty-feed">
+          <div className="TrackBrowser container-fluid">
+            <Col xs={12} className="empty-feed">
               <p className="spread">Oops! Looks like {this.props.match.params.user === user.name ? 'you' : '@' + this.props.match.params.user} didn{'\''}t spread <i className="heart fa fa-heart" /> for a while...</p>
               <p className="ask">{this.props.match.params.user === user.name ? 'Just click on upload above and share your sounds...' : 'Ask your friend to share his sounds with us...'}</p>
               <i className="fa fa-ellipsis-h fa-lg" />
@@ -205,7 +205,7 @@ class TrackBrowser extends Component<Props, State> {
                 <br />
                 Emanate <i className="heart fa fa-heart-o" /> music
               </p>
-            </div>
+            </Col>
           </div>
         </section>
       );

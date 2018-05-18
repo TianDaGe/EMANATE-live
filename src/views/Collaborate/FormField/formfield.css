@@ -1,0 +1,24 @@
+.collaborate__form_field_container {
+  margin: 0 0 10px; }
+  .collaborate__form_field_container span.error {
+    color: #b30000;
+    font-size: 12px;
+    line-height: 10px;
+    display: block;
+    text-align: right; }
+
+.collaborate__form_field {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2px solid #000;
+  font-size: 13px;
+  width: 100%;
+  display: block;
+  padding: 0;
+  line-height: 25px;
+  margin: 13px 0 0; }
+  .collaborate__form_field:focus {
+    outline: none; }
+  .collaborate__form_field.error {
+    color: #b30000; }

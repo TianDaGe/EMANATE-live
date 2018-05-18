@@ -1,0 +1,8 @@
+.collaborate_recipients {
+  flex: 0 1 auto; }
+  .collaborate_recipients .recipient-additional:first-child {
+    margin: 0; }
+  .collaborate_recipients .recipient-additional:last-child {
+    border: none; }
+  .collaborate_recipients .recipient-additional .close-button {
+    float: right; }

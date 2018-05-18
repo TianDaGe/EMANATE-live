@@ -1,5 +1,28 @@
+@import '../../_vars';
+
 .navbar {
   z-index: 100;
+  height: $navbar-height;
+  margin: 0 !important;
+
+  &.navbar-default {
+    background-color: #fff;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+  }
+  #navbar-logo {
+    height: 80px;
+    display: block;
+    margin: 0 auto;
+    float: none;
+    text-align: center;
+
+    img {
+      height: 50px;
+      margin: 15px 0 0;
+    }
+  }
 }
 
 #topbar-logo {

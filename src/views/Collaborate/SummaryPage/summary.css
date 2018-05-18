@@ -1,0 +1,10 @@
+.collaborate_agreement {
+  width: 50%; }
+
+.summary_recipient {
+  border-radius: 4px;
+  border: 3px solid #e2e2e2;
+  margin: 25px 0;
+  padding: 0 13px; }
+  .summary_recipient.owner {
+    border-color: red; }
