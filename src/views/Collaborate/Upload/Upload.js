@@ -590,7 +590,7 @@ export default class Upload extends Component {
       case 'init':
         return (
           <div className="sound-uploader">
-            <p className="sound-uploader-title drag-drop"><span>Drag files here or <a onClick={this.onSelectSoundFile}>browse</a></span></p>
+            <p className="sound-uploader-title drag-drop"><span className="pre-icon">Drag files here or <a onClick={this.onSelectSoundFile}>browse</a></span></p>
             <input type="file" ref="uploadSoundFile" accept="audio/*" onChange={this.handleSoundFiles} className="hidden"/>
           </div>
         );

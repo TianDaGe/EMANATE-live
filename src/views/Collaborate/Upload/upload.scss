@@ -1,8 +1,5 @@
 @import '../../../_vars';
 
-.sound-uploader {
-
-}
 /* DRAG/DROP */
 .sound-uploader-title {
   /* flex: 1 0 50%; */
@@ -15,19 +12,10 @@
   font-weight: bold;
 
   span {
-    display: block;
-    text-align: center;
     width: 100%;
+
+    a {
+      margin: 0 0 0 5px;
+    }
   }
-}
-/* OR */
-.sound-uploader-text {
-  /* flex: 0 1 auto; */
-}
-/* SELECT FILE */
-.sound-uploader-file {
-  /* flex: 0 1 auto; */
-}
-.height100 {
-  height: 100%;
 }

@@ -30,11 +30,11 @@ class Agreement extends React.Component<Props> {
     const agreementDom = staticVersion ?
       <Col xs={12} className={classes}>
          <FormattedMessage
-           id={`agreement_title_${id}`}>
+           id={`agreement:title-${id}`}>
              {(message) => <h3>{message}</h3>}
          </FormattedMessage>
          <FormattedMessage
-           id={`agreement_content_${id}`}>
+           id={`agreement:content-${id}`}>
              {(message) => <p>{message}</p>}
          </FormattedMessage>
       </Col> :
@@ -45,11 +45,11 @@ class Agreement extends React.Component<Props> {
          tabIndex={this.props.tabIndex}
          ref={(anchor) => { if (this.props.autoFocus) { this.autoFocusEl = anchor }}}>
            <FormattedMessage
-             id={`agreement_title_${id}`}>
+             id={`agreement:title-${id}`}>
                {(message) => <h3>{message}</h3>}
            </FormattedMessage>
            <FormattedMessage
-             id={`agreement_content_${id}`}>
+             id={`agreement:content-${id}`}>
                {(message) => <p>{message}</p>}
            </FormattedMessage>
         </a>

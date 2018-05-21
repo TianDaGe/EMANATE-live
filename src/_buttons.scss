@@ -39,5 +39,24 @@ a {
 
   &:active, &:hover {
     color: $mn8-blue-darker-again;
+    cursor: pointer;
+  }
+}
+
+$pre-icon-height: 50px;
+.pre-icon {
+  line-height: $pre-icon-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:before {
+    content: "";
+    width: $pre-icon-height;
+    height: $pre-icon-height;
+    border: 3px solid $mn8-blue;
+    display: inline-block;
+    margin: 0 10px 0 0;
+    border-radius: $pre-icon-height/2;
   }
 }

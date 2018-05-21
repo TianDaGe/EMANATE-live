@@ -79,7 +79,7 @@ class Recipients extends Component<Props> {
         </div>
         <FormattedMessage
           id="recipients:add-recipient">
-          {(message) => <a className="btn-naked clickable" tabIndex="10" onClick={addRecipient.bind(this)}>{message}</a>}
+          {(message) => <a className="btn-naked clickable pre-icon" tabIndex="10" onClick={addRecipient.bind(this)}>{message}</a>}
         </FormattedMessage>
       </Col>
     );

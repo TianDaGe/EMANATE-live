@@ -9,17 +9,6 @@
   align-items: center;
   font-weight: bold; }
   .sound-uploader-title span {
-    display: block;
-    text-align: center;
     width: 100%; }
-
-/* OR */
-.sound-uploader-text {
-  /* flex: 0 1 auto; */ }
-
-/* SELECT FILE */
-.sound-uploader-file {
-  /* flex: 0 1 auto; */ }
-
-.height100 {
-  height: 100%; }
+    .sound-uploader-title span a {
+      margin: 0 0 0 5px; }
