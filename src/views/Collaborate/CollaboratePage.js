@@ -46,7 +46,7 @@ class CollaboratePage extends React.Component<Props, State> {
         ENTER = 13;
 
 
-    // Currently only listening for ENTER/RETURN key, which will attempt to go to the next page
+    // Currently only listening for ENTER, which will click available anchor elements
     switch(keyCode) {
       case ENTER:
         this.testAnchor(event);
@@ -63,7 +63,7 @@ class CollaboratePage extends React.Component<Props, State> {
     const srcEl = event.srcElement,
           isNavAnchor = srcEl !== undefined && srcEl.classList.contains('navigation') || srcEl.classList.contains('clickable');
 
-    return isNavAnchor && srcEl.click !== undefined && srcEl.click();
+    return isNavAnchor && srcEl.click();
   }
 
   /**
@@ -97,7 +97,7 @@ class CollaboratePage extends React.Component<Props, State> {
     // Test for previous page defined, render button if so
     const prevDom = prev ?
       <FormattedMessage
-        id={`navigation_${prev}`}>
+        id={`menu:${prev}`}>
         {(message) => <Link to={prev} tabIndex="1" className="btn btn-radius navigation">{message}</Link>}
       </FormattedMessage> :
       null;
@@ -105,7 +105,7 @@ class CollaboratePage extends React.Component<Props, State> {
     // Test for next page defined & if a validate function exists for the current page
     const nextNav = next ?
       <FormattedMessage
-        id={`navigation_${next}`}>
+        id={`menu:${next}`}>
           {(message) => validate !== undefined ?
             <a onClick={validate} tabIndex="11" className="btn btn-radius navigation">{message}</a> :
             <Link to={next} tabIndex="11" className="btn btn-radius navigation">{message}</Link> }
@@ -114,7 +114,7 @@ class CollaboratePage extends React.Component<Props, State> {
 
     const submitDom = submit ?
       <FormattedMessage
-        id={`navigation_submit`}>
+        id={`menu:submit`}>
           {(message) => <a onClick={submit} tabIndex="11" className="btn btn-radius navigation">{message}</a> }
       </FormattedMessage> :
       null;

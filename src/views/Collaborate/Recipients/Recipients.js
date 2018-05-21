@@ -31,8 +31,8 @@ class Recipients extends Component<Props> {
           emailError = errors[0] !== undefined ? errors[0].email : false;
 
         return <div className="recipient-container recipient-owner" key={`container-${recipient.id}`}>
-          <FormField tabIndex="3" fieldkey={`recipient-name-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients_owner_name_placeholder' })} id={recipient.id} name="name" error={nameError.toString()} onChange={inputChange} value={name} owner="true"/>
-          <FormField tabIndex="4" fieldkey={`recipient-email-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients_owner_email_placeholder' })} id={recipient.id} name="email" error={emailError.toString()} onChange={inputChange} value={email} owner="true"/>
+          <FormField tabIndex="3" fieldkey={`recipient-name-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients:owner-name-placeholder' })} id={recipient.id} name="name" error={nameError.toString()} onChange={inputChange} value={name} owner="true"/>
+          <FormField tabIndex="4" fieldkey={`recipient-email-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients:owner-email-placeholder' })} id={recipient.id} name="email" error={emailError.toString()} onChange={inputChange} value={email} owner="true"/>
         </div>
       }
 
@@ -55,8 +55,8 @@ class Recipients extends Component<Props> {
 
       return <div className="recipient-container recipient-additional" key={`container-${recipient.id}`}>
         {closeButton}
-        <FormField tabIndex={tabindex} fieldkey={`recipient-name-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients_recipient_name_placeholder' })} id={recipient.id} name="name" key={`name-${recipient.id}`} error={nameError.toString()} onChange={inputChange} value={name} owner="false"/>
-        <FormField tabIndex={tabindex} fieldkey={`recipient-email-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients_recipient_email_placeholder' })} id={recipient.id} name="email" key={`email-${recipient.id}`} error={emailError.toString()} onChange={inputChange} value={email} owner="false"/>
+        <FormField tabIndex={tabindex} fieldkey={`recipient-name-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients:recipient-name-placeholder' })} id={recipient.id} name="name" key={`name-${recipient.id}`} error={nameError.toString()} onChange={inputChange} value={name} owner="false"/>
+        <FormField tabIndex={tabindex} fieldkey={`recipient-email-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients:recipient-email-placeholder' })} id={recipient.id} name="email" key={`email-${recipient.id}`} error={emailError.toString()} onChange={inputChange} value={email} owner="false"/>
       </div>
     });
 
@@ -64,21 +64,21 @@ class Recipients extends Component<Props> {
     return (
       <Col xs={12} sm={6} className="collaborate_content__block collaborate_recipients">
         <FormattedMessage
-          id="recipients_instruction_owner_details">
+          id="recipients:instruction-owner">
             {(message) => <h3>{message}</h3>}
         </FormattedMessage>
         <div id="collaborate_owner">
           {ownerDom}
         </div>
         <FormattedMessage
-          id="recipients_instruction_recipients_details">
+          id="recipients:instruction-recipients">
           {(message) => <h3>{message}</h3>}
         </FormattedMessage>
         <div id="collaborate_recipients">
           {recipientsDom}
         </div>
         <FormattedMessage
-          id="recipients_add_recipient">
+          id="recipients:add-recipient">
           {(message) => <a className="btn-naked clickable" tabIndex="10" onClick={addRecipient.bind(this)}>{message}</a>}
         </FormattedMessage>
       </Col>

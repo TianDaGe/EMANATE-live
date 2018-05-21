@@ -21,7 +21,7 @@ class FormField extends Component<Props> {
     const { error, name, intl, owner, fieldkey } = this.props,
           erronous = error !== undefined && error === 'true',
           classes = erronous ? "collaborate__form_field error" : "collaborate__form_field",
-          errorKey = owner === 'true' ? `errors.owner-${name}` : `errors.recipient-${name}`,
+          errorKey = owner === 'true' ? `errors:owner-${name}` : `errors:recipient-${name}`,
           errorDom = erronous ? intl.formatMessage({ id: errorKey }) : null;
 
     return (

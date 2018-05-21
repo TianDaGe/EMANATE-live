@@ -18,7 +18,7 @@ class ChooseAgreement extends React.Component<AgreementProps> {
     const { chooseAgreement, current } = this.props;
 
     return (
-      <CollaboratePage prev="upload" next="summary" title="page_title_agreement">
+      <CollaboratePage prev="upload" next="summary" title="title:agreement">
         <Row>
           <Col xs={12} sm={6}>
             <Agreement id="0" tabIndex="1" chooseAgreement={chooseAgreement} current={current} autoFocus />

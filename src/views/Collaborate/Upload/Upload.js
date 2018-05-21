@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Alert, Button, FormGroup, FormControl, Label, ProgressBar, Row, Col } from 'react-bootstrap';
+import { FormattedMessage } from 'react-intl';
 import { toast } from 'react-toastify';
 import './upload.css';
 
@@ -654,7 +655,10 @@ export default class Upload extends Component {
   render() {
     return (
       <Col xs={12} sm={6}>
-        <h3>1. Upload project files</h3>
+        <FormattedMessage
+          id="upload:instruction">
+            {(message) => <h3>{message}</h3>}
+        </FormattedMessage>
         <div className="sound-uploader-panel"
           onDragOver={this.onDragOverSound}
           onDragLeave={this.onDragLeaveSound}

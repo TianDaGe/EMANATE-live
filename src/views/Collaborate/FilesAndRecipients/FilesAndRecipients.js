@@ -62,7 +62,7 @@ class FilesAndRecipients extends React.Component<FilesAndRecipientsProps, State>
 
   render() {
     return (
-      <CollaboratePage next="agreement" title="page_title_start" validate={this.validate.bind(this)}>
+      <CollaboratePage next="agreement" title="title:start" validate={this.validate.bind(this)}>
         <Upload />
         <Recipients {...this.props} errors={this.state.errors} />
       </CollaboratePage>

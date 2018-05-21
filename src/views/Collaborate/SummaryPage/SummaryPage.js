@@ -37,7 +37,7 @@ class SummaryPage extends React.Component<Props> {
     // </Col>
 
     return (
-      <CollaboratePage prev="agreement" title="page_title_summary" submit={this.props.submit} centeredTitle>
+      <CollaboratePage prev="agreement" title="title:summary" submit={this.props.submit} centeredTitle>
         <Col xs={12} sm={6} smOffset={3}>
           <FormattedMessage
             id="lipsum">
