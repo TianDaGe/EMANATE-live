@@ -10,6 +10,11 @@
     align-items: center;
     transition: $common-transition;
 
+    // Half height on XS
+    @media (max-width: $screen-xs-max) {
+      height: calc(50vh - 40px);
+    }
+
     &:hover {
       background: rgba(255, 255, 255, .1);
     }

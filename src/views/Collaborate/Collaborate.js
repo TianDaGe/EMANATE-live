@@ -17,7 +17,7 @@ import SummaryPage from './SummaryPage/SummaryPage';
 import FormField from './FormField/FormField';
 
 type Props = {
-  recipientIdGen: {}
+  auth: {}
 };
 
 // User type declaration
@@ -152,6 +152,7 @@ export default class Listen extends Component<Props, State> {
     }
   }
 
+  // TODO: Write submission function
   submitCollaboration(): void {
     console.log("SUBMIT", this.state.form);
   }

@@ -6,6 +6,9 @@
     display: flex;
     align-items: center;
     transition: all 0.2s; }
+    @media (max-width: 767px) {
+      .Home .half-screen {
+        height: calc(50vh - 40px); } }
     .Home .half-screen:hover {
       background: rgba(255, 255, 255, 0.1); }
     .Home .half-screen article {
