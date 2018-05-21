@@ -3,7 +3,11 @@
 .TrackBrowser {
   background: $dark-blue-transparent;
   border-radius: $border-radius;
-  margin: $gutter*3 0 0;
+  margin: $gutter 0 0;
+
+  @media (min-width: $screen-sm-min) {
+    margin: $gutter*3 0 0;
+  }
 }
 
 .category-top {

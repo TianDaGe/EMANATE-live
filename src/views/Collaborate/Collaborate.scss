@@ -1,7 +1,11 @@
 @import '../../_vars';
 
 .Collaborate {
-  margin: $gutter*3 0 0;
+  margin: $gutter 0 0;
+
+  @media (min-width: $screen-sm-min) {
+    margin: $gutter*3 0 0;
+  }
 
   .collaborate_container {
 
@@ -30,7 +34,11 @@
       .collaborate_content {
         background: #fff;
         border-radius: 4px;
-        padding: $gutter*2;
+        padding: $gutter;
+
+        @media (min-width: $screen-sm-min) {
+          padding: $gutter*2;
+        }
       }
       .collaborate_navigation {
         padding: $gutter 0 0;

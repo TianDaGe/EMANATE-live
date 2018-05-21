@@ -1,7 +1,10 @@
 .TrackBrowser {
   background: rgba(8, 24, 31, 0.7);
   border-radius: 4px;
-  margin: 60px 0 0; }
+  margin: 20px 0 0; }
+  @media (min-width: 768px) {
+    .TrackBrowser {
+      margin: 60px 0 0; } }
 
 .category-top {
   text-align: center;
