@@ -6,8 +6,8 @@ import SoundEngine from 'sound-engine';
 import { formatter } from 'tools';
 
 import './FooterPlayer.css';
-import Auth from '../../common/Auth';
-import Playlist from '../../common/Playlist';
+import Auth from '../../../common/Auth';
+import Playlist from '../../../common/Playlist';
 
 
 type Props = {

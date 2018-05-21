@@ -7,11 +7,11 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import './App.css';
 import TopBar from '../../views/common/TopBar';
 import Auth from '../../common/Auth';
-import Home from '../Home';
+import Home from '../../views/Home';
 import Signin from '../../views/Auth/Signin';
 import Register from '../../views/Auth/Register';
-import Listen from '../Listen';
-import Collaborate from '../Collaborate';
+import Listen from '../../views/Listen';
+import Collaborate from '../../views/Collaborate';
 
 
 type Props = {};

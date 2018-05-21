@@ -8,9 +8,9 @@ import Auth from '../../common/Auth';
 import Blockchain from '../../common/Blockchain';
 import Ipfs from '../../common/Ipfs';
 import Playlist from '../../common/Playlist/';
-import FooterPlayer from '../FooterPlayer';
-import TrackBrowser from 'TrackBrowser';
-import CoverBrowser from 'CoverBrowser';
+import FooterPlayer from './FooterPlayer';
+import TrackBrowser from './TrackBrowser';
+import CoverBrowser from './CoverBrowser';
 
 
 type Props = {

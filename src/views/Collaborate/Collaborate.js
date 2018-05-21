@@ -8,9 +8,6 @@ import Auth from '../../common/Auth';
 import Blockchain from '../../common/Blockchain';
 import Ipfs from '../../common/Ipfs';
 import Playlist from '../../common/Playlist/';
-import FooterPlayer from '../../components/FooterPlayer';
-import TrackBrowser from '../../views/browsers/TrackBrowser';
-import CoverBrowser from '../../views/browsers/CoverBrowser';
 
 import _ from 'lodash';
 import { uniqueIdGenerator, tabindexGenerator } from './utils';
