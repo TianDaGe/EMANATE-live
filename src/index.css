@@ -1715,7 +1715,7 @@ input[type="button"].btn-block {
 
 .navbar {
   position: relative;
-  min-height: 50px;
+  min-height: 80px;
   margin-bottom: 20px;
   border: 1px solid transparent; }
   .navbar:before, .navbar:after {
@@ -1824,7 +1824,7 @@ input[type="button"].btn-block {
   padding: 15px 15px;
   font-size: 18px;
   line-height: 20px;
-  height: 50px; }
+  height: 80px; }
   .navbar-brand:hover, .navbar-brand:focus {
     text-decoration: none; }
   .navbar-brand > img {
@@ -1839,8 +1839,8 @@ input[type="button"].btn-block {
   float: right;
   margin-right: 15px;
   padding: 9px 10px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 23px;
+  margin-bottom: 23px;
   background-color: transparent;
   background-image: none;
   border: 1px solid transparent;
@@ -1898,8 +1898,8 @@ input[type="button"].btn-block {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 8px;
-  margin-bottom: 8px; }
+  margin-top: 23px;
+  margin-bottom: 23px; }
   @media (min-width: 768px) {
     .navbar-form .form-group {
       display: inline-block;
@@ -1967,18 +1967,18 @@ input[type="button"].btn-block {
   border-bottom-left-radius: 0; }
 
 .navbar-btn {
-  margin-top: 8px;
-  margin-bottom: 8px; }
+  margin-top: 23px;
+  margin-bottom: 23px; }
   .navbar-btn.btn-sm {
-    margin-top: 10px;
-    margin-bottom: 10px; }
+    margin-top: 25px;
+    margin-bottom: 25px; }
   .navbar-btn.btn-xs {
-    margin-top: 14px;
-    margin-bottom: 14px; }
+    margin-top: 29px;
+    margin-bottom: 29px; }
 
 .navbar-text {
-  margin-top: 15px;
-  margin-bottom: 15px; }
+  margin-top: 30px;
+  margin-bottom: 30px; }
   @media (min-width: 768px) {
     .navbar-text {
       float: left;
