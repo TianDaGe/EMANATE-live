@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Col, Row } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
@@ -101,31 +101,46 @@ class TopBar extends Component<Props, State> {
       </Nav>
     );
 
-    // <Navbar.Collapse>
-    //   {menu}
-    //   <Nav pullRight>
-    //     {mn8}
-    //     {user}
-    //   </Nav>
-    // </Navbar.Collapse>
+    // Decide on TopBar Column layout depending on section
+    const ColComp = (props) => {
+      let ColDom = this.props.area === 'collaborate' ?
+        <Navbar collapseOnSelect onToggle={this.setNavExpanded} expanded={this.state.navExpanded}>
+          <Col xs={12} md={10} mdOffset={1} {...props}>
+            {props.children}
+          </Col>
+        </Navbar> :
+        <Navbar fluid collapseOnSelect onToggle={this.setNavExpanded} expanded={this.state.navExpanded}>
+          <Col xs={12} {...props}>
+            {props.children}
+          </Col>
+        </Navbar> ;
+
+      return (
+        <React.Fragment>
+          {ColDom}
+        </React.Fragment>
+      )
+    };
 
     return (
-      <Navbar fluid collapseOnSelect onToggle={this.setNavExpanded} expanded={this.state.navExpanded}>
-        <div id="navbar-logo">
-          <LinkContainer to="/">
-          <img src="./img/logo-temp.png" alt="Emanate" id="topbar-logo" />
-          </LinkContainer>
-        </div>
-        <ToastContainer
-          position="top-right"
-          type="default"
-          autoClose={3000}
-          hideProgressBar={true}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnHover
-        />
-      </Navbar>
+      <ColComp className={this.state.activeKey}>
+        <Row>
+          <div id="navbar-logo">
+            <LinkContainer to="/">
+            <img src="./img/emanate-logo.svg" alt="Emanate" id="topbar-logo" />
+            </LinkContainer>
+          </div>
+          <ToastContainer
+            position="top-right"
+            type="default"
+            autoClose={3000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            pauseOnHover
+          />
+        </Row>
+      </ColComp>
     );
   }
 }

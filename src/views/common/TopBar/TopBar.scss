@@ -1,4 +1,5 @@
 @import '../../../_vars';
+@import '../../../_utils';
 
 .navbar {
   z-index: 100;
@@ -6,21 +7,22 @@
   margin: 0 !important;
 
   &.navbar-default {
-    background-color: #fff;
+    background-color: transparent;
     border-radius: 0;
     box-shadow: none;
     border: none;
   }
   #navbar-logo {
-    height: 80px;
+    height: $navbar-height;
     display: block;
-    margin: 0 auto;
-    float: none;
-    text-align: center;
+    margin: $gutter 0;
 
     img {
-      height: 50px;
-      margin: 15px 0 0;
+      height: $navbar-height;
+    }
+
+    @include small {
+      margin: $gutter*2 0;
     }
   }
 }
