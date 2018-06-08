@@ -1,36 +1,50 @@
 @import '_vars';
 
-$btn-spacing: 2px;
-$btn-line: 30px;
-$btn-transition: all .2s;
-$btn-radius: $btn-line;
-
 .btn {
-  background: $mn8-blue;
-  border-radius: 0;
-  color: #000;
+  @extend .btn-gradient;
+  border-radius: $btn-line;
+  color: #fff;
   text-transform: uppercase;
   letter-spacing: $btn-spacing;
   padding: 5px $btn-line 0;
   line-height: $btn-line;
   transition: $btn-transition;
+  display: inline-flex;
+  text-align: center;
+  display: block;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translate3D(0, 0, 0);
 
   &:hover {
-    background: $mn8-pink;
+    transform: scale(.95);
+    color: #fff;
+  }
+  &:focus {
+    background: $mn8-blue-lighter;
+    color: $mn8-blue-darker-again;
   }
 
   &.btn-radius {
     border-radius: $btn-radius;
   }
+  &.btn-centered {
+    left: 50%;
+    margin-left: -25%;
+  }
 }
 .btn-naked {
-  color: #000;
+  color: $mn8-blue;
   font-weight: bold;
   display: block;
   line-height: $btn-line;
   transition: $btn-transition;
   margin: $gutter 0 0;
   text-align: center;
+
+  &:focus {
+    color: #fff;
+  }
 }
 
 a {
@@ -38,12 +52,11 @@ a {
   font-weight: bold;
 
   &:active, &:hover {
-    color: $mn8-blue-darker-again;
+    color: #fff;
     cursor: pointer;
   }
 }
 
-$pre-icon-height: 50px;
 .pre-icon {
   line-height: $pre-icon-height;
   display: flex;
@@ -58,5 +71,18 @@ $pre-icon-height: 50px;
     display: inline-block;
     margin: 0 10px 0 0;
     border-radius: $pre-icon-height/2;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
+  &.plus {
+    &:before {
+      background-image: url('/img/plus-ico.svg');
+    }
+  }
+  &.up {
+    &:before {
+      background-image: url('/img/up-ico.svg');
+    }
+  }
+
 }

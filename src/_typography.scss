@@ -1,5 +1,7 @@
 body {
-  font-family: "BrownLight", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "AvantGardeStd", Helvetica, Arial, "Lucida Grande", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 h1, h2 , h3, h4, h5, h6 {
   &.center {
@@ -8,11 +10,21 @@ h1, h2 , h3, h4, h5, h6 {
 }
 h1, h2 {
   font-family: "AvantGardeStd", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+h1 {
   font-weight: bold;
 }
+h2 {
+  font-weight: normal;
+}
 h3, h4, h5, h6 {
-  font-family: "BrownBold", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "BrownRegular", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: bold;
+}
+h6 {
+  font-family: "BrownBold", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 15px;
+  margin: 0 0 $gutter;
 }
 .btn {
   font-family: "AvantGardeStd";

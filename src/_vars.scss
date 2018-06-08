@@ -1,8 +1,11 @@
+@import "bootstrap-sass/assets/stylesheets/bootstrap/_mixins.scss";
+@import "bootstrap-sass/assets/stylesheets/bootstrap/_utilities.scss";
 @import "bootstrap-sass/assets/stylesheets/bootstrap/_variables.scss";
 
 // Z-Indexing
 $z-index-bg: 1;
 $z-index-sections: 2;
+$z-index-console: 9;
 
 // Colors
 $mn8-blue: #65f9f6;
@@ -11,12 +14,33 @@ $mn8-blue-lighter-again: lighten($mn8-blue, 25);
 $mn8-blue-darker: darken($mn8-blue, 20);
 $mn8-blue-darker-again: #173449;
 $mn8-pink: #fbceff;
+$mn8-purple: #5810ae;
 $error-red: darken(#ff0000, 15);
 $grey: #f4f7fd;
 $grey-darker: darken($grey, 50);
 $dark-blue-transparent: rgba(8,24,31, .7);
+$black-transparent: rgba(0, 0, 0, .7);
 
 $gutter: 20px;
-$border-radius: 4px;
-$navbar-height: 80px;
+$border-radius: 20px;
 $common-transition: all .2s;
+
+// btns
+$btn-spacing: 2px;
+$btn-line: 35px;
+$btn-radius: $btn-line;
+$pre-icon-height: 40px;
+$btn-transition: all .1s;
+
+// TopBar
+$navbar-height: 40px;
+$navbar-logo-height: 35px;
+
+// TrackBrowser
+$trackbrowser-height: calc(100vh - 100px);
+$trackbrowser-height-sm: calc(100vh - 140px);
+
+// home
+$home-section-height: calc(50vh - 20px);
+$home-section-height-xs: calc(50vh - 60px);
+$home-article-height-xs: calc(50vh - 40px);
