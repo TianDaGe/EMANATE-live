@@ -127,7 +127,9 @@ class CollaboratePage extends React.Component<Props, State> {
           <Row>
             <Col className="collaborate_content" xs={12}>
               {titleDom}
-              {this.props.children}
+              <Row>
+                {this.props.children}
+              </Row>
             </Col>
           </Row>
           <Row>

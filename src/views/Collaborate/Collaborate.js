@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import { Redirect, Switch, Route } from 'react-router-dom';
+import { Redirect, Switch, Route, withRouter } from 'react-router-dom';
 import SoundEngine from 'sound-engine';
 
 import './Collaborate.css';
@@ -8,16 +8,20 @@ import Auth from '../../common/Auth';
 import Blockchain from '../../common/Blockchain';
 import Ipfs from '../../common/Ipfs';
 import Playlist from '../../common/Playlist/';
+import mn8Api from '../../common/mn8Api';
 
 import _ from 'lodash';
-import { uniqueIdGenerator, tabindexGenerator } from './utils';
+import { uniqueIdGenerator, tabindexGenerator } from '../../common/utils';
 import FilesAndRecipients from './FilesAndRecipients/FilesAndRecipients';
 import ChooseAgreement from './ChooseAgreement/ChooseAgreement';
 import SummaryPage from './SummaryPage/SummaryPage';
 import FormField from './FormField/FormField';
+import { BlockConsoleControl } from '../common/BlockConsole/BlockConsole';
+import TopBar from '../common/TopBar';
 
 type Props = {
-  auth: {}
+  auth: {},
+  blockconsole: BlockConsoleControl
 };
 
 // User type declaration
@@ -39,7 +43,7 @@ export type State = {
   }
 };
 
-export default class Listen extends Component<Props, State> {
+class Collaborate extends Component<Props, State> {
   recipientIdGen = new uniqueIdGenerator('recipient');
   tabindexing = new tabindexGenerator();
 
@@ -65,6 +69,8 @@ export default class Listen extends Component<Props, State> {
   ipfs: Ipfs;
   soundengine: SoundEngine;
   playlist: Playlist;
+  blockconsole: BlockConsoleControl;
+  mn8Api: mn8Api;
 
   constructor(props: Props) {
     super(props);
@@ -74,16 +80,25 @@ export default class Listen extends Component<Props, State> {
 
     // Create the Ipfs service
     this.ipfs = new Ipfs();
+
+    // Create the API services
+    this.mn8Api = new mn8Api();
+
+    this.blockconsole = props.blockconsole;
   }
 
   // Component lifecycle hooks
 
   componentDidMount() {
+    console.log('did mount', this.blockconsole);
+    this.blockconsole.update("Blockchain connection established.", "green");
   }
 
   // Add recipient
   addRecipient(e: Event) {
     e.preventDefault();
+
+    this.mn8Api.propose();
 
     let newRecipient = {
       id: this.recipientIdGen.next(),
@@ -155,6 +170,7 @@ export default class Listen extends Component<Props, State> {
   // TODO: Write submission function
   submitCollaboration(): void {
     console.log("SUBMIT", this.state.form);
+    this.props.history.push("summary");
   }
 
   // Render
@@ -185,30 +201,35 @@ export default class Listen extends Component<Props, State> {
 
   render() {
     return (
-      <section className="Collaborate animated fadeIn">
-        <Switch>
-          <Route path="/collaborate/upload" name="Upload" render={() => (
-            <FilesAndRecipients recipients={this.state.form.recipients}
-                                addRecipient={this.addRecipient.bind(this)}
-                                removeRecipient={this.removeRecipient.bind(this)}
-                                inputChange={this.handleInputChange.bind(this)}
-                                tabindexing={this.tabindexing}/>
-          )}/>
-          <Route path="/collaborate/agreement" name="Agreement" render={() => (
-            <ChooseAgreement
-              chooseAgreement={this.handleChooseAgreement.bind(this)}
-              current={this.state.form.agreement.toString()}
-            />
-          )}/>
-          <Route path="/collaborate/summary" name="Summary" render={() => (
-            <SummaryPage
-              state={this.state}
-              submit={this.submitCollaboration.bind(this)}
-            />
-          )}/>
-          <Redirect from="/collaborate" to="/collaborate/upload"/>
-        </Switch>
-      </section>
+      <React.Fragment>
+        <TopBar {...this.props} auth={this.props.auth} area="collaborate" />
+        <section className="Collaborate animated fadeIn">
+          <Switch>
+            <Route path="/collaborate/upload" name="Upload" render={() => (
+              <FilesAndRecipients recipients={this.state.form.recipients}
+                                  addRecipient={this.addRecipient.bind(this)}
+                                  removeRecipient={this.removeRecipient.bind(this)}
+                                  inputChange={this.handleInputChange.bind(this)}
+                                  tabindexing={this.tabindexing}/>
+            )}/>
+            <Route path="/collaborate/agreement" name="Agreement" render={() => (
+              <ChooseAgreement
+                chooseAgreement={this.handleChooseAgreement.bind(this)}
+                current={this.state.form.agreement.toString()}
+                submit={this.submitCollaboration.bind(this)}
+              />
+            )}/>
+            <Route path="/collaborate/summary" name="Summary" render={() => (
+              <SummaryPage
+                state={this.state}
+              />
+            )}/>
+            <Redirect from="/collaborate" to="/collaborate/upload"/>
+          </Switch>
+        </section>
+      </React.Fragment>
     );
   }
 }
+
+export default withRouter(Collaborate);

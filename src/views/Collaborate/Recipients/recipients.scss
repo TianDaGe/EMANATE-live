@@ -1,3 +1,5 @@
+@import '../../../_vars';
+
 .collaborate_recipients {
   flex: 0 1 auto;
 
@@ -10,6 +12,19 @@
     }
     .close-button {
       float: right;
+      width: 15px;
+      height: 15px;
+      background: $mn8-blue;
+      border-radius: 10px;
+      color: $mn8-blue-darker-again;
+      text-align: center;
+      line-height: 11px;
+      position: relative;
+      right: -10px;
+
+      &:hover {
+        background: $mn8-blue-darker;  
+      }
     }
   }
 }

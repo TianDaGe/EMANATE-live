@@ -1,3 +1,43 @@
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.pull-right {
+  float: right !important; }
+
+.pull-left {
+  float: left !important; }
+
+.hide {
+  display: none !important; }
+
+.show {
+  display: block !important; }
+
+.invisible {
+  visibility: hidden; }
+
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0; }
+
+.hidden {
+  display: none !important; }
+
+.affix {
+  position: fixed; }
+
 .collaborate_recipients {
   flex: 0 1 auto; }
   .collaborate_recipients .recipient-additional:first-child {
@@ -5,4 +45,15 @@
   .collaborate_recipients .recipient-additional:last-child {
     border: none; }
   .collaborate_recipients .recipient-additional .close-button {
-    float: right; }
+    float: right;
+    width: 15px;
+    height: 15px;
+    background: #65f9f6;
+    border-radius: 10px;
+    color: #173449;
+    text-align: center;
+    line-height: 11px;
+    position: relative;
+    right: -10px; }
+    .collaborate_recipients .recipient-additional .close-button:hover {
+      background: #09efea; }

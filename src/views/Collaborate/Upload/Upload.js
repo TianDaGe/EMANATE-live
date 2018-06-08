@@ -590,7 +590,7 @@ export default class Upload extends Component {
       case 'init':
         return (
           <div className="sound-uploader">
-            <p className="sound-uploader-title drag-drop"><span className="pre-icon">Drag files here or <a onClick={this.onSelectSoundFile}>browse</a></span></p>
+              <p className="sound-uploader-title drag-drop"><span className="pre-icon up">Drag files here or <a onClick={this.onSelectSoundFile}>browse</a></span></p>
             <input type="file" ref="uploadSoundFile" accept="audio/*" onChange={this.handleSoundFiles} className="hidden"/>
           </div>
         );
@@ -657,7 +657,7 @@ export default class Upload extends Component {
       <Col xs={12} sm={6}>
         <FormattedMessage
           id="upload:instruction">
-            {(message) => <h3>{message}</h3>}
+            {(message) => <h6>{message}</h6>}
         </FormattedMessage>
         <div className="sound-uploader-panel"
           onDragOver={this.onDragOverSound}

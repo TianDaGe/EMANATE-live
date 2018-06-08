@@ -65,21 +65,21 @@ class Recipients extends Component<Props> {
       <Col xs={12} sm={6} className="collaborate_content__block collaborate_recipients">
         <FormattedMessage
           id="recipients:instruction-owner">
-            {(message) => <h3>{message}</h3>}
+            {(message) => <h6>{message}</h6>}
         </FormattedMessage>
         <div id="collaborate_owner">
           {ownerDom}
         </div>
         <FormattedMessage
           id="recipients:instruction-recipients">
-          {(message) => <h3>{message}</h3>}
+          {(message) => <h6>{message}</h6>}
         </FormattedMessage>
         <div id="collaborate_recipients">
           {recipientsDom}
         </div>
         <FormattedMessage
           id="recipients:add-recipient">
-          {(message) => <a className="btn-naked clickable pre-icon" tabIndex="10" onClick={addRecipient.bind(this)}>{message}</a>}
+          {(message) => <a className="btn-naked plus clickable pre-icon" tabIndex="10" onClick={addRecipient.bind(this)}>{message}</a>}
         </FormattedMessage>
       </Col>
     );

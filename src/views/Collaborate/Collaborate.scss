@@ -1,11 +1,12 @@
 @import '../../_vars';
+@import '../../_utils';
 
 .Collaborate {
-  margin: $gutter 0 0;
-
-  @media (min-width: $screen-sm-min) {
-    margin: $gutter*3 0 0;
-  }
+  // margin: $gutter 0 0;
+  //
+  // @media (min-width: $screen-sm-min) {
+  //   margin: $gutter*3 0 0;
+  // }
 
   .collaborate_container {
 
@@ -15,7 +16,7 @@
     }
 
     .bordered_component {
-      border-radius: 4px;
+      border-radius: $border-radius;
       border: 3px solid #e2e2e2;
       margin: 25px 0;
       padding: 0 13px;
@@ -26,14 +27,15 @@
 
     .collaborate_heading {
       display: block;
-      color: #000;
+      color: #fff;
       margin: 0 0 $gutter;
+      font-weight: 400;
     }
 
     .collaborate_page {
       .collaborate_content {
-        background: #fff;
-        border-radius: 4px;
+        background: $black-transparent;
+        border-radius: $border-radius;
         padding: $gutter;
 
         @media (min-width: $screen-sm-min) {
@@ -41,13 +43,30 @@
         }
       }
       .collaborate_navigation {
-        padding: $gutter 0 0;
+        position: relative;
+        top: -$btn-line/2;
+        padding: 0;
+        width: calc(50% - #{$gutter}/2);
+
+        @include small {
+          padding: 0 10%;
+          width: calc(50% - #{$gutter});
+        }
 
         &.left {
-          text-align: left;
+          left: $gutter/2;
+
+          @include small {
+            left: $gutter;
+          }
         }
         &.right {
-          text-align: right;
+          float: right;
+          right: $gutter/2;
+
+          @include small {
+            right: $gutter;
+          }
         }
       }
     }
