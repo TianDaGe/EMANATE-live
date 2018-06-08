@@ -29,6 +29,7 @@ export default class Playlist extends Observer {
 
   current = null;
 
+  soundsCount = 8;
 
   constructor(blockchain, ipfs) {
     super();
@@ -155,7 +156,7 @@ export default class Playlist extends Observer {
 
   getSoundsList(query, params = null) {
     setTimeout(() => {
-      this.sounds = this.stock.slice(0, 6)
+      this.sounds = this.stock.slice(0, this.soundsCount)
       this.fireEvent('sounds', this.sounds);
     }, 3000);
 
@@ -203,10 +204,11 @@ export default class Playlist extends Observer {
   }
 
   getNextSoundsList() {
+    console.log('get next sounds');
     setTimeout(() => {
       if(this.sounds.length < 12) {
-        this.sounds = this.sounds.concat(this.stock.slice(6))
-        this.fireEvent('next-sounds', this.stock.slice(6));
+        this.sounds = this.sounds.concat(this.stock.slice(this.soundsCount))
+        this.fireEvent('next-sounds', this.stock.slice(this.soundsCount));
       } else {
         this.fireEvent('next-sounds', []);
       }
