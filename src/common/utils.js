@@ -24,3 +24,10 @@ export class tabindexGenerator {
     return `${++this.currentIndex}`;
   }
 }
+
+// Color map
+export const colorMap = (hex) => ({
+  "white": "#fff",
+  "blue": "#65f9f6",
+  "green": "#5aff75"
+})[hex]
