@@ -1,34 +1,62 @@
 @import '../../_vars';
+@import '../../_utils';
 
 .Home {
   color: #ffffff;
 
   .half-screen {
     text-align: center;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 120px);
     display: flex;
-    align-items: center;
     transition: $common-transition;
 
     // Half height on XS
     @media (max-width: $screen-xs-max) {
-      height: calc(50vh - 40px);
+      height: $home-article-height-xs;
     }
 
-    &:hover {
-      background: rgba(255, 255, 255, .1);
+    @include small {
+      align-items: center;
+      &:first-child {
+        justify-content: flex-end;
+      }
+      &:last-child {
+        justify-content: flex-start;
+      }
     }
 
     article {
-      max-width: 500px;
-      margin: 0 auto;
+      background: $black-transparent;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      border-radius: $border-radius;
+      padding: $gutter*2;
+      height: $home-section-height-xs;
+      position: relative;
+
+      .btn {
+        position: absolute;
+        bottom: -$btn-line/2;
+        min-width: 50%;
+      }
+
+      @include small {
+        height: $home-section-height;
+        max-width: 400px;
+        margin-top: -$navbar-height;
+      }
     }
+
 
     h1 {
       font-size: 35px;
       letter-spacing: 1px;
       line-height: 37px;
-      margin: 8px 0 0;
+      margin: $gutter 0;
+    }
+    p {
+      margin: 0;
     }
   }
 }
