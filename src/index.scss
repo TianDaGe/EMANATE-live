@@ -19,12 +19,14 @@ body {
   margin: 0;
   padding: 0;
   background-color: #000;
+  color: #fff;
 
   #fixed-bg {
-    background-image: url('/img/bg_gradient.jpg');
-    background-size: auto 100vh;
-    background-repeat: repeat-x;
-    background-position: top left;
+    @extend .purple-green-gradient;
+    // background-image: url('/img/bg_gradient.jpg');
+    // background-size: auto 100vh;
+    // background-repeat: repeat-x;
+    // background-position: top left;
     position: fixed;
     top: 0;
     left: 0;
@@ -36,42 +38,58 @@ body {
     z-index: $z-index-sections;
     position: relative;
   }
+
+  ::-webkit-scrollbar {
+    width: 12px;  /* for vertical scrollbars */
+    height: 12px; /* for horizontal scrollbars */
+    position: absolute;
+    top: $gutter/2;
+    right: $gutter/2;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.5);
+  }
 }
 
-button.btn.btn-primary {
-  background-image: linear-gradient(to bottom, #555 0%, #222 100%);
-  background-color: #222;
-}
-button.btn.btn-primary:hover {
-  background-image: none;
-  background-color: #222;
-}
+// button.btn.btn-primary {
+//   background-image: linear-gradient(to bottom, #555 0%, #222 100%);
+//   background-color: #222;
+// }
+// button.btn.btn-primary:hover {
+//   background-image: none;
+//   background-color: #222;
+// }
+//
+// input.form-control:focus, button.btn:focus, .uneditable-input:focus {
+//   outline: 0 none !important;
+//   box-shadow: none;
+//   border: 1px solid #888;
+// }
+//
+// div.alert.alert-info {
+//   /*background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);*/
+//   background-image: linear-gradient(to bottom, #fafafa 0%, #efefef 100%);
+//   background-repeat: repeat-x;
+//   border: 1px solid #ccc;
+//   color: #555;
+// }
 
-input.form-control:focus, button.btn:focus, .uneditable-input:focus {
-  outline: 0 none !important;
-  box-shadow: none;
-  border: 1px solid #888;
-}
-
-div.alert.alert-info {
-  /*background-image: linear-gradient(to bottom, #ededed 0%, #dedede 100%);*/
-  background-image: linear-gradient(to bottom, #fafafa 0%, #efefef 100%);
-  background-repeat: repeat-x;
-  border: 1px solid #ccc;
-  color: #555;
-}
-
-span.panel-header {
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-a.panel-header-link span, a.panel-header-link:hover span {
-  color: #88c;
-}
-
-span.help-block {
-  font-size: 0.7em;
-  color: #888;
-  text-align: center;
-}
+// span.panel-header {
+//   font-size: 1.1em;
+//   font-weight: bold;
+// }
+//
+// a.panel-header-link span, a.panel-header-link:hover span {
+//   color: #88c;
+// }
+//
+// span.help-block {
+//   font-size: 0.7em;
+//   color: #888;
+//   text-align: center;
+// }
