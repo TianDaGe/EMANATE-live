@@ -27,9 +27,9 @@
   "menu:publish": "Publish",
   "menu:agreement": "Agreement",
   "menu:upload": "Upload",
-  "menu:summary": "Summary",
+  "menu:summary": "Finish",
   "menu:collaborate": "Collaborate",
-  "menu:submit": "Submit",
+  "menu:submit": "Finish & Send",
   "signin:username": "Username",
   "signin:password": "Password or WIF",
   "signin:username-help": "Between 3 and 20 letters, numbers, '.' or '_'",
@@ -58,9 +58,7 @@
   "errors:owner-email": "*not a valid email address",
   "errors:recipient-name": "*name is missing",
   "errors:recipient-email": "*not a valid email address",
-  "agreement:title-0": "Agreement #1",
-  "agreement:content-0": "Agreement #1 content",
-  "agreement:title-1": "Agreement #2",
-  "agreement:content-1": "Agreement #2 content",
+  "agreement:content-0": "All final tracks must give name rights to 'artist name here' as a remix.",
+  "agreement:content-1": "Parts must not be used in another production.",
   "lipsum": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s."
 }

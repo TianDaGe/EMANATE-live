@@ -11,7 +11,7 @@ import Playlist from '../../common/Playlist/';
 import FooterPlayer from './FooterPlayer';
 import TrackBrowser from './TrackBrowser';
 import CoverBrowser from './CoverBrowser';
-
+import TopBar from '../common/TopBar';
 
 type Props = {
   auth: Auth
@@ -41,6 +41,8 @@ export default class Listen extends Component<Props, State> {
       mediaContainer: '#audio-player',
       normalize: true
     });
+
+    console.log('listen props', this.props);
 
     this.playlist = new Playlist(this.bc, this.ipfs);
   }
@@ -76,18 +78,28 @@ export default class Listen extends Component<Props, State> {
 
   render() {
     return (
-      <div className="Listen">
-        <Switch>
-          <Route path="/listen/tracks" name="Tracks" component={this.getTrackBrowser('tracks')}/>
-          <Route path="/listen/albums" name="Albums" component={this.getCoverBrowser('albums')}/>
-          <Route path="/listen/shows" name="Shows" component={this.getCoverBrowser('shows')}/>
-          <Route path="/listen/playlists" name="Playlists" component={this.getCoverBrowser('playlists')}/>
-          <Route path="/listen/charts" name="Charts" component={this.getCoverBrowser('chats')}/>
-          <Redirect from="/listen" to="/listen/tracks"/>
-        </Switch>
-        <div id="audio-player" style={{display: 'none'}} />
-        <FooterPlayer auth={this.props.auth} soundengine={this.soundengine} playlist={this.playlist} />
-      </div>
+      <React.Fragment>
+        <TopBar {...this.props} auth={this.props.auth} area="listen" />
+        <div className="Listen">
+          <Switch>
+            <Route path="/listen/tracks" name="Tracks" render={() => (
+              <TrackBrowser {...this.props}
+                auth={this.props.auth}
+                soundengine={this.soundengine}
+                playlist={this.playlist}
+                query='tracks'
+              />
+            )}/>
+            <Route path="/listen/albums" name="Albums" component={this.getCoverBrowser('albums')}/>
+            <Route path="/listen/shows" name="Shows" component={this.getCoverBrowser('shows')}/>
+            <Route path="/listen/playlists" name="Playlists" component={this.getCoverBrowser('playlists')}/>
+            <Route path="/listen/charts" name="Charts" component={this.getCoverBrowser('chats')}/>
+            <Redirect from="/listen" to="/listen/tracks"/>
+          </Switch>
+          <div id="audio-player" style={{display: 'none'}} />
+          <FooterPlayer auth={this.props.auth} soundengine={this.soundengine} playlist={this.playlist} />
+        </div>
+      </React.Fragment>
     );
   }
 }
