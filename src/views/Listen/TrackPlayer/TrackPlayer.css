@@ -1,52 +1,102 @@
+.clearfix:before, .clearfix:after {
+  content: " ";
+  display: table; }
+
+.clearfix:after {
+  clear: both; }
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
+
+.pull-right {
+  float: right !important; }
+
+.pull-left {
+  float: left !important; }
+
+.hide {
+  display: none !important; }
+
+.show {
+  display: block !important; }
+
+.invisible {
+  visibility: hidden; }
+
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0; }
+
+.hidden {
+  display: none !important; }
+
+.affix {
+  position: fixed; }
+
 article.track-player {
-  padding: 40px 0; }
-  article.track-player .track-player-top {
-    display: flex; }
-    article.track-player .track-player-top .track-player-title {
-      font-weight: bold;
-      font-size: 1.2em;
-      flex: 1;
-      margin: 0 0 10px; }
-      article.track-player .track-player-top .track-player-title a {
-        color: #fff; }
-    article.track-player .track-player-top .track-player-info {
-      flex: 1;
-      color: #fff;
-      text-align: right; }
-      article.track-player .track-player-top .track-player-info > i {
-        position: relative;
-        top: 4px;
-        margin: 0 5px 0 15px;
-        color: #65f9f6;
-        font-size: 25px; }
+  padding: 10px 0; }
+  article.track-player .track-player-title {
+    font-family: 'BrownRegular';
+    font-size: 1.2em;
+    flex: 1;
+    margin: 0 0 10px; }
+    article.track-player .track-player-title a {
+      color: #fff; }
+  article.track-player .track-player-info {
+    flex: 1;
+    color: #fff;
+    text-align: right; }
+    article.track-player .track-player-info > i {
+      position: relative;
+      top: 4px;
+      margin: 0 5px 0 15px;
+      color: #65f9f6;
+      font-size: 25px; }
   article.track-player .cover-and-wave {
-    display: flex; }
+    display: flex;
+    margin: 0; }
     article.track-player .cover-and-wave .cover-image {
       display: block;
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
       background-size: cover;
       background-repeat: no-repeat;
       background-image: linear-gradient(135deg, #f49b0b, #70929c);
       box-shadow: rgba(0, 0, 0, 0.1) 0 0 0 1px inset; }
     article.track-player .cover-and-wave .player-area {
-      margin: 0 15px;
       flex: 1; }
       article.track-player .cover-and-wave .player-area .track-player-wave {
-        height: 100px; }
+        height: 80px; }
         article.track-player .cover-and-wave .player-area .track-player-wave wave {
-          height: 100px !important; }
+          height: 80px !important; }
       article.track-player .cover-and-wave .player-area .bottom-player-area {
         display: flex; }
-      article.track-player .cover-and-wave .player-area .bottom-player-tags {
-        text-align: right;
-        flex: 1; }
-        article.track-player .cover-and-wave .player-area .bottom-player-tags .track-player-tag {
-          color: #fff;
-          background-color: #173449;
-          border-radius: 5px;
-          padding: 2px 6px;
-          margin-left: 10px; }
+  article.track-player.playing {
+    background: rgba(0, 0, 0, 0.1);
+    padding: 0; }
+    article.track-player.playing .cover-and-wave .cover-image {
+      width: 100px;
+      height: 100px; }
+    article.track-player.playing .track-player-wave {
+      height: 100px; }
+      article.track-player.playing .track-player-wave wave {
+        height: 100px !important;
+        overflow: hidden !important; }
+
+.bottom-player-tags .track-player-tag {
+  color: #fff;
+  background-color: #173449;
+  border-radius: 5px;
+  line-height: 20px;
+  margin: 0 0 5px;
+  display: block;
+  text-align: center;
+  padding: 3px 0 0; }
 
 .player-duration {
   font-size: 0.7rem;
@@ -60,14 +110,15 @@ article.track-player {
 
 button.bottom-player-btn {
   outline: 0;
-  background-color: #fff;
-  border: 1px solid lightgrey;
-  border-radius: 5px;
-  margin-right: 10px; }
-
-button.bottom-player-btn:hover {
-  background-color: #eee;
-  border-color: #000; }
+  background-color: transparent;
+  border: none;
+  color: #65f9f6;
+  text-align: center;
+  margin: 0 20px; }
+  button.bottom-player-btn i {
+    font-size: 28px;
+    display: block;
+    margin: 0 0 10px 0; }
 
 button.bottom-player-btn.disabled, button.bottom-player-btn.disabled:hover {
   color: darkgrey;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Badge, Col } from 'react-bootstrap';
+import { Badge, Col, Row } from 'react-bootstrap';
 import { formatter, download } from 'tools';
 
 import './TrackPlayer.css';
@@ -115,6 +115,7 @@ class TrackPlayer extends Component {
 
   playToggle() {
     var cur = this.playlist.getCurrentSound();
+    console.log('cur', cur);
     if(cur && this.props.sound.id === cur.id) {
       if(!this.state.playing) {
         this.soundengine.play();
@@ -276,11 +277,12 @@ class TrackPlayer extends Component {
       duration = <span className="player-duration">{formatter.time(this.props.sound.metadata.audio.duration)}</span>
     }
 
-    var button = this.state.playing ? <i className="fa fa-pause" /> : <i className="fa fa-play" />;
+    var button = this.state.playing ? <i className="fa fa-pause" /> : <i className="fa fa-play" />,
+        classList = this.state.playing ? 'track-player playing' : 'track-player';
 
     var btnPlay, btnLike;
     if(!user) {
-      btnPlay = (<button className="bottom-player-btn disabled">{button} {formatter.number(this.state.plays)}</button>);
+      btnPlay = (<button className="bottom-player-btn" onClick={this.playToggle}>{button} {formatter.number(this.state.plays)}</button>);
       btnLike = (<button className="bottom-player-btn disabled"><i className="fa fa-heart" /> {formatter.number(this.state.likes)}</button>);
     } else {
       btnPlay = (<button className="bottom-player-btn" onClick={this.playToggle}>{button} {formatter.number(this.state.plays)}</button>);
@@ -319,41 +321,39 @@ class TrackPlayer extends Component {
     return (
       <div className="row-fluid">
         <Col xs={12}>
-          <article className="track-player">
-            <div className="track-player-top">
-              <div className="track-player-title">
+          <article className={classList}>
+            <Row>
+              <Col xs={5} className="cover-and-wave">
+                <Link to={soundUrl}>
+                  {cover}
+                </Link>
+                {btnPlay}
+                <div className="player-area">
+                  <div className="track-player-wave">
+                    <Waveform
+                      peaks={peaks}
+                      pos={this.state.pos} onPosChange={this.clickWaveform}
+                      options={{barWidth: 0, progressColor: '#65f9f6', cursorColor: 'rgba(0,0,0,0.0)'}}
+                    />
+                  </div>
+                </div>
+              </Col>
+              <Col xs={4} className="track-player-title">
                 <Link to={soundUrl}>
                   {title}
                 </Link>
                 {duration}
-              </div>
-              <div className="track-player-info">
+              </Col>
+              <Col xs={1} className="bottom-player-tags">
+                {tags}
+              </Col>
+              <Col xs={1}>
                 {(this.props.sound.bpm ? formatter.number(this.props.sound.bpm) : '--') + ' BPM'}
+              </Col>
+              <Col xs={1}>
                 <i className="fa fa-music" /> {this.props.sound.key || '--'}
-              </div>
-            </div>
-            <div className="cover-and-wave">
-              <Link to={soundUrl}>
-                {cover}
-              </Link>
-              <div className="player-area">
-                <div className="track-player-wave">
-                  <Waveform
-                    peaks={peaks}
-                    pos={this.state.pos} onPosChange={this.clickWaveform}
-                    options={{barWidth: 0, progressColor: '#65f9f6', cursorColor: 'rgba(0,0,0,0.0)'}}
-                  />
-                </div>
-                <div className="bottom-player-area">
-                  {btnPlay}
-                  {btnLike}
-                  {btnDownloadBuy}
-                  <div className="bottom-player-tags">
-                    {tags}
-                  </div>
-                </div>
-              </div>
-            </div>
+              </Col>
+            </Row>
           </article>
         </Col>
       </div>

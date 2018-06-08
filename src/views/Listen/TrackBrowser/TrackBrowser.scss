@@ -1,12 +1,37 @@
 @import '../../../_vars';
+@import '../../../_utils';
 
 .TrackBrowser {
   background: $dark-blue-transparent;
   border-radius: $border-radius;
-  margin: $gutter 0 0;
+  margin: 0;
+  height: $trackbrowser-height;
+  overflow-y: scroll;
 
-  @media (min-width: $screen-sm-min) {
-    margin: $gutter*3 0 0;
+  @include small {
+    height: $trackbrowser-height-sm;
+  }
+
+  h1 {
+    width: 100%;
+    border-bottom: 1px solid #fff;
+  }
+}
+
+.listen-head {
+  padding: $gutter 30px 0 30px;
+
+  > div {
+    padding: 0;
+    border-bottom: 1px solid #fff;
+    padding: 0 0 $gutter/2;
+    margin: $gutter 0;
+
+    // overwrite default so the row is uniform
+    h2 {
+      margin: 0;
+      line-height: 18px;
+    }
   }
 }
 
@@ -63,9 +88,7 @@
 
 .feed-footer {
   width: 100%;
-  margin-bottom: 100px;
   text-align: center;
-  color: grey;
 }
 
 .feed-footer i.heart {
