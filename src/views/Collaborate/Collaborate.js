@@ -98,8 +98,6 @@ class Collaborate extends Component<Props, State> {
   addRecipient(e: Event) {
     e.preventDefault();
 
-    this.mn8Api.propose();
-
     let newRecipient = {
       id: this.recipientIdGen.next(),
       name: '',
@@ -169,7 +167,7 @@ class Collaborate extends Component<Props, State> {
 
   // TODO: Write submission function
   submitCollaboration(): void {
-    console.log("SUBMIT", this.state.form);
+    this.mn8Api.propose();
     this.props.history.push("summary");
   }
 
