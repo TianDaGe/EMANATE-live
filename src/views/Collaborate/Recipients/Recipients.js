@@ -1,7 +1,7 @@
 // @flow
 
 import React, { Component } from 'react';
-import FormField from '../FormField/FormField';
+import FormField from '../../common/FormField/FormField';
 import './recipients.css';
 import type { Recipient } from '../Collaborate';
 import { FormattedMessage, injectIntl } from 'react-intl';

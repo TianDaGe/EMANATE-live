@@ -1,0 +1,10 @@
+@import '../../_vars';
+@import '../../_utils';
+
+.Test {
+
+  .main-container-bg {
+    @extend .clearfix;
+    padding: $gutter;
+  }
+}

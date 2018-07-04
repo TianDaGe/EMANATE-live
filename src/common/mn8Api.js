@@ -1,147 +1,262 @@
+import _ from 'lodash';
+
 export default class mn8Api {
   constructor() {
-    this.rootUrl = 'http://emanate.dev.decentrawise.com:85';
+    this.rootUrl = 'http://emanate.dev.decentrawise.com:85/v1';
+    this.user = null;
   }
 
   /**
    * Create Request
    */
-  createRequest(apiFunction, data) {
-    return fetch(`${this.rootUrl}/${apiFunction}`, {
-      method: 'POST',
+  createRequest(apiFunction, method, data) {
+    // Does the request URL require authtoken?
+    let requestUrl = apiFunction === 'authenticate' ? `${this.rootUrl}/${apiFunction}` :
+        `${this.rootUrl}/${apiFunction}?auth-token=${this.user.token}`;
+
+    // Pass empty object if data is not passed
+    data = data ? data : {};
+
+    let requestObj = {
+      method: method ? method : 'POST',
       mode: 'cors',
       headers: {
         'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
+      }
+    };
+
+    // Extend request object to include body (if applicable)
+    if (method !== 'GET') {
+      requestObj = _.assignIn(requestObj, {body: JSON.stringify(data)});
+    }
+
+    console.log("Request Obj", requestObj);
+
+    // Fetch
+    return fetch(requestUrl, requestObj);
+  }
+
+  // TODO :: Extract user in to its own service
+  setUser(id, token) {
+    this.user = {
+      id: id,
+      token: token
+    };
+
+    console.info(`User set: ${this.user.id} :: ${this.user.token}`);
+  }
+
+  authenticate(data) {
+      var authData = {
+        user: data.username,
+        password: data.password
+      };
+
+      return this.createRequest('authenticate', 'POST', authData)
+        .then((res) => res.json())
+        .then((res) => {
+          this.setUser(data.username, res.data.token);
+          return res;
+        });
   }
 
   /**
    * Propose
    */
-  propose() {
-    var testData = {
-      "proposer": "blaketest1",
-      "proposal_name": "testcontract1",
-      "price": 10000,
-      "filename": "test_file_name_1",
-      "requested": [
-          {
-              "name": "blakecollaborator1",
-              "percentage": 30,
-              "filename": "test_file_name_1",
-              "accepted": 0
+  propose(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
+
+    let apiFunction = `user/${this.user.id}/collab`,
+        proposeData = {
+          parameters: {
+            "proposal_name": data["proposal_name"],
+            "price": data["price"],
+            "filename": data["final_filename"],
+            "requested": [
+              {
+                "name": data["partner_name"],
+                "percentage": data["partner_percentage"],
+                "filename": data["collab_filename"],
+                "accepted": 0
+              }
+            ]
           }
-      ]
-    };
+        };
 
-    return this.createRequest('propose', testData);
+    return this.createRequest(apiFunction, 'POST', proposeData);
   }
 
   /**
-   * Accept Proposal
+   * Cancel contract
    */
-  accept() {
-    var testData = {
-      "proposer": "colabuser1",     //  Creator of the proposal
-      "proposal_name": "contract1", //  Name of the proposal
-      "approver": "colabuser2"      //  User that needs to accept or reject the proposal
-    };
+  cancel(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('accept', testData);
+    let apiFunction = `user/${this.user.id}/collab`,
+        cancelData = {
+          parameters: {
+              "proposer": data["proposer"],
+              "proposal_name": data["proposal_name"]
+          }
+        };
+
+    return this.createRequest(apiFunction, 'DELETE', cancelData);
   }
 
   /**
-   * Reject Proposal
+   * Get contracts
    */
-  reject() {
-    var testData = {
-      "proposer": "colabuser1",       //  Creator of the proposal
-      "proposal_name": "contract1",   //  Name of the proposal
-      "unapprover": "colabuser2"      //  User that needs to accept or reject the proposal
-    };
+  getContracts() {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('reject', testData);
+    let apiFunction = `user/${this.user.id}/collab`;
+
+    return this.createRequest(apiFunction, 'GET');
   }
 
   /**
-   * Execute Contract
-   */
-  execute() {
-    var testData = {
-      "proposer": "colabuser1", //  Creator of the proposal
-      "proposal_name": "user1", //  Name of the proposal
-      "executor": "colabuser2", //  User that listens to the track
-      "seconds": 10             //  Number of seconds to charge the executor
-    };
+  * Accept collab
+  */
+  accept(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('execute', testData);
+    let apiFunction = `user/${this.user.id}/collab/accept`,
+        acceptData = {
+          parameters: {
+            "proposer": data["proposer"],
+            "proposal_name": data["proposal_name"]
+          }
+        };
+
+    return this.createRequest(apiFunction, 'PUT', acceptData);
   }
 
   /**
-   * Add Track
-   */
-  addTrack() {
-    var testData = {
-      "owner": "collabuser1",                     //  The owner of the track
-      "title": "This is a song 2",
-      "metadata":                                 //  All relevant data for the track
-      {
-          "trackName": "This is track 3",         //  The name of the track
-          "artistName": "Look, I'm an artist...",  //  The artist that made this track
-          "meta 21": "some metadata here",        //  Add the metadata necessary for this track
-          "meta 2": "some more metadata"
-      }
-    };
+  * Reject collab
+  */
+  reject(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('addTrack', testData);
+    let apiFunction = `user/${this.user.id}/collab/reject`,
+        rejectData = {
+          parameters: {
+            "proposer": data["proposer"],
+            "proposal_name": data["proposal_name"]
+          }
+        };
+
+    return this.createRequest(apiFunction, 'PUT', rejectData);
   }
 
   /**
-   * Get Contract
-   */
-  getContract() {
-    var testData = {
-      "proposer": "colabuser2",
-      "contract": "contract1"
-    };
+  * Pay
+  */
+  pay(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('getContract', testData);
+    let apiFunction = `user/${this.user.id}/collab/pay`,
+        payData = {
+          parameters: {
+            "proposer": data["proposer"],
+            "proposal_name": data["proposal_name"],
+            "seconds": data["seconds"]
+          }
+        };
+
+    return this.createRequest(apiFunction, 'PUT', payData);
   }
 
   /**
-   * Get Statistics
-   */
-  getStatistics() {
-    var testData = {
-      "owner": "user1", //   The user that you want to get the tracks from
-    };
+  * addAsset
+  */
+  addAsset(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('getStatistics', testData);
+    let apiFunction = `user/${this.user.id}/asset`,
+        addAssetData = {
+          parameters: {
+            "title": data["title"],
+            "metadata": {
+                "trackName": data["title"],
+                "artistName": data["artist_name"]
+            }
+          }
+        };
+
+    return this.createRequest(apiFunction, 'POST', addAssetData);
   }
 
   /**
-   * Start Playing
-   */
-  startPlaying() {
-    var testData = {
-      "owner": "user1",           //  The owner of the track
-      "title": "This is a song 2" //  The title of the track
-    };
+  * getAssets
+  */
+  getAssets() {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('startPlaying', testData);
+    let apiFunction = `user/${this.user.id}/asset`;
+
+    return this.createRequest(apiFunction, 'GET');
   }
 
   /**
-   * Remove Track
-   */
-  removeTrack() {
-    var testData = {
-      "owner": "user1",           //  The owner of the track
-      "title": "This is a song 2" //  The title of the track
-    };
+  * removeAsset
+  */
+  removeAsset(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
 
-    return this.createRequest('removeTrack', testData);
+    let apiFunction = `user/${this.user.id}/asset`,
+        removeAssetData = {
+          parameters: {
+            "title": data["title"],
+          }
+        };
+
+    return this.createRequest(apiFunction, 'DELETE', removeAssetData);
   }
+
+  /**
+  * getStats
+  */
+  getStats(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
+
+    let apiFunction = `user/${this.user.id}/asset/statistics`;
+
+    return this.createRequest(apiFunction, 'GET');
+  }
+
+  /**
+  * listen
+  */
+  listen(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
+
+    let listenTitle = data["title"],
+        apiFunction = `user/${this.user.id}/asset/play/${listenTitle}`;
+
+    return this.createRequest(apiFunction, 'PUT');
+  }
+
+
 }

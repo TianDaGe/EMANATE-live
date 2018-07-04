@@ -15,7 +15,7 @@ import { uniqueIdGenerator, tabindexGenerator } from '../../common/utils';
 import FilesAndRecipients from './FilesAndRecipients/FilesAndRecipients';
 import ChooseAgreement from './ChooseAgreement/ChooseAgreement';
 import SummaryPage from './SummaryPage/SummaryPage';
-import FormField from './FormField/FormField';
+import FormField from '../common/FormField/FormField';
 import { BlockConsoleControl } from '../common/BlockConsole/BlockConsole';
 import TopBar from '../common/TopBar';
 
