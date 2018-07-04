@@ -209,22 +209,22 @@ class TrackBrowser extends Component<Props, State> {
 
       return (
         <section className="animated fadeIn">
-          <div className="container-fluid">
+          <div className="container-fluid main-container-bg">
             <Col xs={12} id="TrackBrowser"  className="TrackBrowser" ref={this.setTrackBrowserEl}>
               <Row className="listen-head">
-                <Col xs={5}>
+                <Col xs={12} sm={5}>
                   <h2>Latest Releases</h2>
                 </Col>
-                <Col xs={4}>
+                <Col xs={4} xsHidden>
                   Name
                 </Col>
-                <Col xs={1}>
+                <Col xs={1} xsHidden>
                   Style
                 </Col>
-                <Col xs={1}>
+                <Col xs={1} xsHidden>
                   BPM
                 </Col>
-                <Col xs={1}>
+                <Col xs={1} xsHidden>
                   Key
                 </Col>
               </Row>

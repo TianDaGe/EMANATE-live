@@ -51,6 +51,11 @@
       animation: pulse 1s infinite;
   }
 }
+.main-container-bg {
+    background: $dark-blue-transparent;
+    border-radius: $border-radius;
+    margin: 0 $gutter;
+}
 
 // GRADIENTS
 .purple-green-gradient {

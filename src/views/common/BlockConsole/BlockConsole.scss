@@ -1,20 +1,41 @@
 @import '../../../_vars.scss';
 
+$blockconsole-background: rgba(0,0,0,.8);
+$blockconsole-height: 20vh;
 .BlockConsole {
   font-family: Courier;
-  background-color: rgba(0,0,0,.8);
+  background-color: $blockconsole-background;
   color: #fff;
   position: fixed;
   float: left;
   bottom: 0;
   width: 100%;
-  height: 20vh;
+  height: $blockconsole-height;
   z-index: $z-index-console;
   padding: $gutter;
+  transition: bottom .3s;
+
+  &.minimised {
+    bottom: - $blockconsole-height;
+  }
 
   span {
     display: block;
 
+    $blockconsole-toggle-size: 20px;
+    &.blockconsole-toggle {
+      position: absolute;
+      background: $blockconsole-background;
+      width: $blockconsole-toggle-size;
+      height: $blockconsole-toggle-size;
+      top: - $blockconsole-toggle-size;
+      right: $blockconsole-toggle-size/2;
+      text-align: center;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
     &.blue {
       color: $mn8-blue;
     }

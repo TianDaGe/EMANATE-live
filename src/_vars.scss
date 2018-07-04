@@ -37,8 +37,7 @@ $navbar-height: 40px;
 $navbar-logo-height: 35px;
 
 // TrackBrowser
-$trackbrowser-height: calc(100vh - 100px);
-$trackbrowser-height-sm: calc(100vh - 140px);
+$trackbrowser-height: calc(100vh - #{$navbar-height} - #{$gutter*3});
 
 // home
 $home-section-height: calc(50vh - 20px);

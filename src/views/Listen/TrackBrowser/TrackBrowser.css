@@ -119,6 +119,11 @@
     height: 5vh;
     animation: pulse 1s infinite; }
 
+.main-container-bg {
+  background: rgba(8, 24, 31, 0.7);
+  border-radius: 20px;
+  margin: 0 20px; }
+
 .purple-green-gradient {
   background: #5810ae;
   /* Old browsers */
@@ -156,14 +161,9 @@
   /* IE6-9 fallback on horizontal gradient */ }
 
 .TrackBrowser {
-  background: rgba(8, 24, 31, 0.7);
-  border-radius: 20px;
   margin: 0;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 40px - 60px);
   overflow-y: scroll; }
-  @media (min-width: 768px) {
-    .TrackBrowser {
-      height: calc(100vh - 140px); } }
   .TrackBrowser h1 {
     width: 100%;
     border-bottom: 1px solid #fff; }

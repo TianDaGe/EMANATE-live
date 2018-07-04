@@ -328,7 +328,7 @@ class TrackPlayer extends Component {
                   {cover}
                 </Link>
                 {btnPlay}
-                <div className="player-area">
+                <Col xs={12} className="player-area" xsHidden>
                   <div className="track-player-wave">
                     <Waveform
                       peaks={peaks}
@@ -336,7 +336,7 @@ class TrackPlayer extends Component {
                       options={{barWidth: 0, progressColor: '#65f9f6', cursorColor: 'rgba(0,0,0,0.0)'}}
                     />
                   </div>
-                </div>
+                </Col>
               </Col>
               <Col xs={4} className="track-player-title">
                 <Link to={soundUrl}>
@@ -344,13 +344,13 @@ class TrackPlayer extends Component {
                 </Link>
                 {duration}
               </Col>
-              <Col xs={1} className="bottom-player-tags">
+              <Col xs={1} className="bottom-player-tags" xsHidden>
                 {tags}
               </Col>
-              <Col xs={1}>
+              <Col xs={1} xsHidden>
                 {(this.props.sound.bpm ? formatter.number(this.props.sound.bpm) : '--') + ' BPM'}
               </Col>
-              <Col xs={1}>
+              <Col xs={1} xsHidden>
                 <i className="fa fa-music" /> {this.props.sound.key || '--'}
               </Col>
             </Row>

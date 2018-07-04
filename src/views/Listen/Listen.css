@@ -119,6 +119,11 @@
     height: 5vh;
     animation: pulse 1s infinite; }
 
+.main-container-bg {
+  background: rgba(8, 24, 31, 0.7);
+  border-radius: 20px;
+  margin: 0 20px; }
+
 .purple-green-gradient {
   background: #5810ae;
   /* Old browsers */
@@ -154,3 +159,8 @@
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3871d0', endColorstr='#541db3',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */ }
+
+.Listen .main-container-bg {
+  background: rgba(8, 24, 31, 0.7);
+  border-radius: 20px;
+  margin: 0 20px; }

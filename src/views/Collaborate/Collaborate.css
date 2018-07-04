@@ -119,6 +119,11 @@
     height: 5vh;
     animation: pulse 1s infinite; }
 
+.main-container-bg {
+  background: rgba(8, 24, 31, 0.7);
+  border-radius: 20px;
+  margin: 0 20px; }
+
 .purple-green-gradient {
   background: #5810ae;
   /* Old browsers */

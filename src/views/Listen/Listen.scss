@@ -1,4 +1,11 @@
 @import '../../_vars';
 @import '../../_utils';
 
-.Listen {}
+.Listen {
+
+    .main-container-bg {
+        background: $dark-blue-transparent;
+        border-radius: $border-radius;
+        margin: 0 $gutter;
+    }
+}

@@ -11,6 +11,7 @@ import Signin from '../../views/Auth/Signin';
 import Register from '../../views/Auth/Register';
 import Listen from '../../views/Listen';
 import Collaborate from '../../views/Collaborate';
+import Test from '../../views/Test';
 
 
 type Props = {};
@@ -83,9 +84,13 @@ export default class App extends Component<Props, State> {
           <Route path="/collaborate" name="Collaborate" render={() => (
             <Collaborate {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
           )}/>
+          <Route path="/test" name="Collaborate" render={() => (
+            <Test {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
+          )}/>
           <Route path="/" name="Home" component={this.getHome()}/>
           <Redirect from="/" to={root}/>
         </Switch>
+        <BlockConsole control={this.blockconsole}/>
         <div id="fixed-bg"></div>
       </div>
     );
