@@ -12,9 +12,12 @@ import FooterPlayer from './FooterPlayer';
 import TrackBrowser from './TrackBrowser';
 import CoverBrowser from './CoverBrowser';
 import TopBar from '../common/TopBar';
+import { BlockConsoleControl } from '../common/BlockConsole/BlockConsole';
+
 
 type Props = {
-  auth: Auth
+  auth: Auth,
+  blockconsole: BlockConsoleControl
 };
 
 type State = {};
@@ -26,6 +29,7 @@ export default class Listen extends Component<Props, State> {
   ipfs: Ipfs;
   soundengine: SoundEngine;
   playlist: Playlist;
+  blockconsole: BlockConsoleControl;
 
   constructor(props: Props) {
     super(props);
@@ -45,6 +49,13 @@ export default class Listen extends Component<Props, State> {
     console.log('listen props', this.props);
 
     this.playlist = new Playlist(this.bc, this.ipfs);
+
+    this.blockconsole = props.blockconsole;
+    this.blockconsole.update("Listen.");
+
+    this.blockconsole.on('showHide', (hidden) => {
+      console.log("block console showhide inside Listen");
+    })
   }
 
 
@@ -77,6 +88,10 @@ export default class Listen extends Component<Props, State> {
   }
 
   render() {
+    const BlockConsoleOpen = this.blockconsole.hidden;
+
+    console.log(this.blockconsole, BlockConsoleOpen);
+
     return (
       <React.Fragment>
         <TopBar {...this.props} auth={this.props.auth} area="listen" />

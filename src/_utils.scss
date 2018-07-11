@@ -82,7 +82,12 @@
 
 // MEDIA MIXINS
 @mixin xs-only {
-  @media (max-width: $screen-sm-max) {
+  @media (max-width: ($screen-xs-max - 1)) {
+    @content;
+  }
+}
+@mixin xsmall {
+  @media (min-width: $screen-xs-min) {
     @content;
   }
 }
@@ -114,5 +119,22 @@
 @mixin large-only {
   @media (min-width: $screen-lg-min) and  (max-width: $screen-lg-max) {
     @content;
+  }
+}
+
+// tags
+.tag {
+  color: #fff;
+  background-color: $mn8-blue-darker-again;
+  font-family: 'BrownLight', sans-serif;
+  border-radius: 5px;
+  line-height: 20px;
+  margin: 0 $gutter/4;
+  padding: 0 $gutter/4 3px $gutter/4;
+  text-align: center;
+
+  &.pending {
+    background-color: #fbff91;
+    color: #000;
   }
 }

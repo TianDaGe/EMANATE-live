@@ -2276,6 +2276,19 @@ input[type="button"].btn-block {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3871d0', endColorstr='#541db3',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */ }
 
+.tag {
+  color: #fff;
+  background-color: #173449;
+  font-family: 'BrownLight', sans-serif;
+  border-radius: 5px;
+  line-height: 20px;
+  margin: 0 5px;
+  padding: 0 5px 3px 5px;
+  text-align: center; }
+  .tag.pending {
+    background-color: #fbff91;
+    color: #000; }
+
 @font-face {
   font-family: 'BrownBold';
   src: url("/fonts/brown-bold-webfont.woff2") format("woff2"), url("/fonts/brown-bold-webfont.woff") format("woff");
@@ -2315,7 +2328,11 @@ input[type="button"].btn-block {
 body {
   font-family: "AvantGardeStd", Helvetica, Arial, "Lucida Grande", sans-serif;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; }
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 12px; }
+  @media (min-width: 768px) {
+    body {
+      font-size: 14px; } }
 
 h1.center, h2.center, h3.center, h4.center, h5.center, h6.center {
   text-align: center; }

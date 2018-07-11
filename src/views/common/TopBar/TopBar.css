@@ -160,6 +160,19 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3871d0', endColorstr='#541db3',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */ }
 
+.tag {
+  color: #fff;
+  background-color: #173449;
+  font-family: 'BrownLight', sans-serif;
+  border-radius: 5px;
+  line-height: 20px;
+  margin: 0 5px;
+  padding: 0 5px 3px 5px;
+  text-align: center; }
+  .tag.pending {
+    background-color: #fbff91;
+    color: #000; }
+
 .navbar {
   z-index: 100;
   margin: 0 !important; }
@@ -171,7 +184,12 @@
   .navbar #navbar-logo {
     height: 40px;
     display: block;
-    margin: 20px 0; }
+    margin: 10px 0;
+    text-align: center; }
+    @media (min-width: 768px) {
+      .navbar #navbar-logo {
+        text-align: left;
+        margin: 20px 0; } }
     .navbar #navbar-logo img {
       height: 40px; }
 

@@ -16,7 +16,13 @@
   #navbar-logo {
     height: $navbar-height;
     display: block;
-    margin: $gutter 0;
+    margin: $gutter/2 0;
+    text-align: center;
+
+    @include small {
+      text-align: left;
+      margin: $gutter 0;
+    }
 
     img {
       height: $navbar-height;

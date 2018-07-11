@@ -258,11 +258,13 @@ class TrackPlayer extends Component {
       );
     });
 
-    var cover;
+    var cover, coverUrl;
     if(this.props.sound.cover) {
       cover = <div className="cover-image" style={{backgroundImage: 'url(./media/' + this.props.sound.cover + ')'}} />;
+      coverUrl = `./media/${this.props.sound.cover}`;
     } else if(this.props.sound.metadata && this.props.sound.metadata.audio.files.cover) {
       cover = <div className="cover-image" style={{backgroundImage: 'url(' + this.playlist.getIpfsUrl(this.props.sound.metadata.audio.files.cover) + ')'}} />;
+      coverUrl = this.playlist.getIpfsUrl(this.props.sound.metadata.audio.files.cover);
     // if(this.props.sound.metadata.audio.files.cover) {
     //   cover = <div className="cover-image" style={{backgroundImage: 'url(' + this.playlist.getIpfsUrl(this.props.sound.metadata.audio.files.cover) + ')'}} />
     } else {
@@ -319,16 +321,19 @@ class TrackPlayer extends Component {
     // </div>
 
     return (
-      <div className="row-fluid">
+      <Row>
         <Col xs={12}>
           <article className={classList}>
             <Row>
-              <Col xs={5} className="cover-and-wave">
-                <Link to={soundUrl}>
+              <Col xs={5}>
+                <Col xs={12} sm={6} className="artwork xs" style={{backgroundImage: `url(${coverUrl})`}}>
+                  {btnPlay}
+                </Col>
+                <Col sm={6} className="cover-and-wave" xsHidden>
                   {cover}
-                </Link>
-                {btnPlay}
-                <Col xs={12} className="player-area" xsHidden>
+                  {btnPlay}
+                </Col>
+                <Col xs={6} className="player-area" xsHidden>
                   <div className="track-player-wave">
                     <Waveform
                       peaks={peaks}
@@ -356,7 +361,7 @@ class TrackPlayer extends Component {
             </Row>
           </article>
         </Col>
-      </div>
+      </Row>
     )
   }
 }

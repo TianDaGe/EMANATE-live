@@ -15,6 +15,7 @@ import { uniqueIdGenerator, tabindexGenerator } from '../../common/utils';
 import FilesAndRecipients from './FilesAndRecipients/FilesAndRecipients';
 import ChooseAgreement from './ChooseAgreement/ChooseAgreement';
 import SummaryPage from './SummaryPage/SummaryPage';
+import CollabDetails from './CollabDetails/CollabDetails';
 import FormField from '../common/FormField/FormField';
 import { BlockConsoleControl } from '../common/BlockConsole/BlockConsole';
 import TopBar from '../common/TopBar';
@@ -85,12 +86,6 @@ class Collaborate extends Component<Props, State> {
     this.mn8Api = new mn8Api();
 
     this.blockconsole = props.blockconsole;
-  }
-
-  // Component lifecycle hooks
-
-  componentDidMount() {
-    console.log('did mount', this.blockconsole);
     this.blockconsole.update("Blockchain connection established.", "green");
   }
 
@@ -221,6 +216,9 @@ class Collaborate extends Component<Props, State> {
               <SummaryPage
                 state={this.state}
               />
+            )}/>
+            <Route path="/collaborate/:id/:token" name="Collab" render={({ match }) => (
+              <CollabDetails state={this.state} match={match} />
             )}/>
             <Redirect from="/collaborate" to="/collaborate/upload"/>
           </Switch>

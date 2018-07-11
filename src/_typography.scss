@@ -2,6 +2,11 @@ body {
   font-family: "AvantGardeStd", Helvetica, Arial, "Lucida Grande", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 12px;
+
+  @include small {
+    font-size: 14px;
+  }
 }
 h1, h2 , h3, h4, h5, h6 {
   &.center {

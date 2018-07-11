@@ -1,4 +1,29 @@
 @import '../../../_vars';
+@import '../../../_utils';
+
+.artwork {
+  background-size: cover;
+  position: relative;
+  display: none;
+
+  @include xs-only {
+    width: 100%;
+    padding: 100% 0 0;
+    overflow: hidden;
+    display: block;
+
+    button.bottom-player-btn {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+  }
+}
 
 article.track-player {
   padding: $gutter/2 0;
@@ -27,6 +52,8 @@ article.track-player {
       font-size: 25px;
     }
   }
+
+
 
   .cover-and-wave {
     display: flex;

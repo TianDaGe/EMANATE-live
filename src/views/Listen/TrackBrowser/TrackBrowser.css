@@ -160,6 +160,19 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3871d0', endColorstr='#541db3',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */ }
 
+.tag {
+  color: #fff;
+  background-color: #173449;
+  font-family: 'BrownLight', sans-serif;
+  border-radius: 5px;
+  line-height: 20px;
+  margin: 0 5px;
+  padding: 0 5px 3px 5px;
+  text-align: center; }
+  .tag.pending {
+    background-color: #fbff91;
+    color: #000; }
+
 .TrackBrowser {
   margin: 0;
   height: calc(100vh - 40px - 60px);
@@ -168,16 +181,18 @@
     width: 100%;
     border-bottom: 1px solid #fff; }
 
-.listen-head {
-  padding: 20px 30px 0 30px; }
-  .listen-head > div {
-    padding: 0;
-    border-bottom: 1px solid #fff;
-    padding: 0 0 10px;
-    margin: 20px 0; }
-    .listen-head > div h2 {
-      margin: 0;
-      line-height: 18px; }
+@media (min-width: 768px) {
+  .listen-head {
+    padding: 20px 30px 0 30px; } }
+
+.listen-head > div {
+  padding: 0;
+  border-bottom: 1px solid #fff;
+  padding: 0 0 10px;
+  margin: 20px 0; }
+  .listen-head > div h2 {
+    margin: 0;
+    line-height: 18px; }
 
 .category-top {
   text-align: center;

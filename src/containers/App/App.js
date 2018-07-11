@@ -79,7 +79,7 @@ export default class App extends Component<Props, State> {
       <div className="App">
         <Switch>
           <Route path="/listen" name="Listen" render={() => (
-            <Listen {...this.props} auth={this.auth} />
+            <Listen {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
           )}/>
           <Route path="/collaborate" name="Collaborate" render={() => (
             <Collaborate {...this.props} auth={this.auth} blockconsole={this.blockconsole} />

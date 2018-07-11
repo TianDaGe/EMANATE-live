@@ -14,7 +14,8 @@ type Props = {
   validate?: Function,
   history: PropTypes.object.isRequired,
   submit?: Function,
-  centeredTitle?: ?string
+  centeredTitle?: ?string,
+  id?: ?string
 };
 
 type State = {
@@ -84,7 +85,7 @@ class CollaboratePage extends React.Component<Props, State> {
   }
 
   render() {
-    const { prev, next, validate, title, centeredTitle, submit } = this.props;
+    const { prev, next, validate, title, centeredTitle, submit, id } = this.props;
 
     const titleClasses = centeredTitle ? "collaborate_heading center" : "collaborate_heading",
           titleDom = title ?
@@ -122,7 +123,7 @@ class CollaboratePage extends React.Component<Props, State> {
     const nextDom = nextNav || submitDom;
 
     return (
-      <Grid className="collaborate_wrapper">
+      <Grid id={id} className="collaborate_wrapper">
         <Col xs={12} md={10} mdOffset={1} className="collaborate_page">
           <Row>
             <Col className="collaborate_content" xs={12}>

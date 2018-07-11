@@ -1,8 +1,8 @@
-.clearfix:before, .clearfix:after {
+.clearfix:before, .Home:before, .clearfix:after, .Home:after {
   content: " ";
   display: table; }
 
-.clearfix:after {
+.clearfix:after, .Home:after {
   clear: both; }
 
 .center-block {
@@ -38,11 +38,11 @@
 .affix {
   position: fixed; }
 
-.clearfix:before, .clearfix:after {
+.clearfix:before, .Home:before, .clearfix:after, .Home:after {
   content: " ";
   display: table; }
 
-.clearfix:after {
+.clearfix:after, .Home:after {
   clear: both; }
 
 .center-block {
@@ -160,19 +160,32 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3871d0', endColorstr='#541db3',GradientType=1 );
   /* IE6-9 fallback on horizontal gradient */ }
 
+.tag {
+  color: #fff;
+  background-color: #173449;
+  font-family: 'BrownLight', sans-serif;
+  border-radius: 5px;
+  line-height: 20px;
+  margin: 0 5px;
+  padding: 0 5px 3px 5px;
+  text-align: center; }
+  .tag.pending {
+    background-color: #fbff91;
+    color: #000; }
+
 .Home {
   color: #ffffff; }
   .Home .half-screen {
     text-align: center;
-    height: calc(100vh - 120px);
+    height: calc(50vh - 40px);
     display: flex;
-    transition: all 0.2s; }
-    @media (max-width: 767px) {
-      .Home .half-screen {
-        height: calc(50vh - 40px); } }
+    transition: all 0.2s;
+    margin: 0 0 10px; }
     @media (min-width: 768px) {
       .Home .half-screen {
-        align-items: center; }
+        height: calc(100vh - 120px);
+        align-items: center;
+        margin: 0; }
         .Home .half-screen:first-child {
           justify-content: flex-end; }
         .Home .half-screen:last-child {
@@ -190,16 +203,26 @@
         position: absolute;
         bottom: -17.5px;
         min-width: 50%; }
+      .Home .half-screen article img {
+        height: 30px; }
+        @media (min-width: 768px) {
+          .Home .half-screen article img {
+            height: auto; } }
       @media (min-width: 768px) {
         .Home .half-screen article {
           height: calc(50vh - 20px);
           max-width: 400px;
           margin-top: -40px; } }
     .Home .half-screen h1 {
-      font-size: 35px;
+      font-size: 25px;
       letter-spacing: 1px;
-      line-height: 37px;
-      margin: 20px 0; }
+      line-height: 27px;
+      margin: 10px 0 4px; }
+      @media (min-width: 768px) {
+        .Home .half-screen h1 {
+          font-size: 35px;
+          line-height: 37px;
+          margin: 20px 0; } }
     .Home .half-screen p {
       margin: 0; }
 

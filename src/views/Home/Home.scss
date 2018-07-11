@@ -3,20 +3,20 @@
 
 .Home {
   color: #ffffff;
+  @extend .clearfix;
 
   .half-screen {
     text-align: center;
-    height: calc(100vh - 120px);
+    height: $home-article-height-xs;
     display: flex;
     transition: $common-transition;
-
-    // Half height on XS
-    @media (max-width: $screen-xs-max) {
-      height: $home-article-height-xs;
-    }
+    margin: 0 0 $gutter/2;
 
     @include small {
+      height: calc(100vh - 120px);
       align-items: center;
+      margin: 0;
+
       &:first-child {
         justify-content: flex-end;
       }
@@ -41,6 +41,14 @@
         min-width: 50%;
       }
 
+      img {
+        height: 30px;
+
+        @include small {
+          height: auto;
+        }
+      }
+
       @include small {
         height: $home-section-height;
         max-width: 400px;
@@ -48,12 +56,17 @@
       }
     }
 
-
     h1 {
-      font-size: 35px;
+      font-size: 25px;
       letter-spacing: 1px;
-      line-height: 37px;
-      margin: $gutter 0;
+      line-height: 27px;
+      margin: $gutter/2 0 4px;
+
+      @include small {
+        font-size: 35px;
+        line-height: 37px;
+        margin: $gutter 0;
+      }
     }
     p {
       margin: 0;

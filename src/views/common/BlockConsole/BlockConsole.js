@@ -12,6 +12,14 @@ export class BlockConsoleControl extends Observer {
 
     this.lines = [{ text: 'Intialising...', color: 'white'}];
     this.update = this.updateConsole.bind(this);
+
+    this.hidden = true;
+    this.showHide = this.showHide.bind(this);
+  }
+
+  showHide() {
+    this.hidden = !this.hidden;
+    this.fireEvent('showHide', this.hidden);
   }
 
   updateConsole(line, color) {
@@ -40,11 +48,15 @@ export class BlockConsole extends Component<Props, State> {
     this.control = props.control;
     this.state = {
       lines: this.control.lines,
-      hidden: true
+      hidden: this.control.hidden
     };
 
     this.control.on('update', (lines) => {
       this.setState({lines: lines});
+    })
+
+    this.control.on('showHide', (hidden) => {
+      this.setState({hidden: hidden});
     })
 
     this.toggleConsole = () => {
@@ -54,9 +66,9 @@ export class BlockConsole extends Component<Props, State> {
   }
 
   render() {
+    console.log("BLOCK RENDER");
     const { lines } = this.state,
       linesDom = lines.map((line, index) => {
-        console.log('index', index);
         return <span key={`line-${index}`} className="console-line" style={{color: line.color}}>&nbsp;>&nbsp;{line.text}</span>
       }),
       classList = this.state.hidden ? 'BlockConsole minimised' : 'BlockConsole',
@@ -64,7 +76,7 @@ export class BlockConsole extends Component<Props, State> {
 
     return (
       <div className={classList}>
-        <span className="blockconsole-toggle" onClick={this.toggleConsole}>{toggleDom}</span>
+        <span className="blockconsole-toggle" onClick={this.control.showHide}>{toggleDom}</span>
         <span className="blue">Emanate Prototype BlockConsole</span>
         <div className="lines-container">
           {linesDom}
