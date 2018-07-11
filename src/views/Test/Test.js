@@ -12,7 +12,7 @@ import Playlist from '../../common/Playlist/';
 import mn8Api from '../../common/mn8Api';
 
 import _ from 'lodash';
-import { uniqueIdGenerator, tabindexGenerator, generateId } from '../../common/utils';
+import { uniqueIdGenerator, tabindexGenerator, generateId, generateRandString } from '../../common/utils';
 // import FormField from './FormField/FormField';
 import { BlockConsoleControl } from '../common/BlockConsole/BlockConsole';
 import TopBar from '../common/TopBar';
@@ -82,8 +82,8 @@ class Test extends Component<Props, State> {
   recipientIdGen = new uniqueIdGenerator('recipient');
   tabindexing = new tabindexGenerator();
 
-  proposal_name = generateId('prop', 4);
-  track_title = generateId('title', 4);
+  proposal_name = generateRandString('prop', 4);
+  track_title = generateRandString('title', 4);
 
   state: State = {
       authenticate: {

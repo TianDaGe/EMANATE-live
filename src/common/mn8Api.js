@@ -11,8 +11,9 @@ export default class mn8Api {
    */
   createRequest(apiFunction, method, data) {
     // Does the request URL require authtoken?
-    let requestUrl = apiFunction === 'authenticate' ? `${this.rootUrl}/${apiFunction}` :
-        `${this.rootUrl}/${apiFunction}?auth-token=${this.user.token}`;
+    // let requestUrl = apiFunction === 'authenticate' ? `${this.rootUrl}/${apiFunction}` :
+    //     `${this.rootUrl}/${apiFunction}?auth-token=${this.user.token}`;
+    let requestUrl = `${this.rootUrl}/${apiFunction}`;
 
     // Pass empty object if data is not passed
     data = data ? data : {};
@@ -25,15 +26,19 @@ export default class mn8Api {
       }
     };
 
+    // Add token to te headers
+    if (this.user && this.user.token) {
+      requestObj.headers['auth-token'] = this.user.token;
+    }
+
     // Extend request object to include body (if applicable)
     if (method !== 'GET') {
       requestObj = _.assignIn(requestObj, {body: JSON.stringify(data)});
     }
 
-    console.log("Request Obj", requestObj);
-
     // Fetch
-    return fetch(requestUrl, requestObj);
+    return fetch(requestUrl, requestObj)
+      .then((res) => res.json());
   }
 
   // TODO :: Extract user in to its own service
@@ -42,8 +47,6 @@ export default class mn8Api {
       id: id,
       token: token
     };
-
-    console.info(`User set: ${this.user.id} :: ${this.user.token}`);
   }
 
   authenticate(data) {
@@ -53,7 +56,6 @@ export default class mn8Api {
       };
 
       return this.createRequest('authenticate', 'POST', authData)
-        .then((res) => res.json())
         .then((res) => {
           this.setUser(data.username, res.data.token);
           return res;

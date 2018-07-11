@@ -32,12 +32,24 @@ function dec2hex (dec) {
 
 // generateId :: Integer -> String
 export function generateId (pre, len) {
-  let arr = new Uint8Array((len || 40) / 2),
+  let arr = new Uint8Array((len || 40) / 2, 1),
       str;
+
+      console.log('genid', arr);
 
   window.crypto.getRandomValues(arr);
 
   return pre + Array.from(arr, dec2hex).join('')
+}
+
+export function generateRandString (pre, len) {
+  let possible = "abcdefghijklmnopqrstuvwxyz01234";
+
+  for (var i = 0; i < len; i++) {
+    pre += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+
+  return pre;
 }
 
 // Color map
