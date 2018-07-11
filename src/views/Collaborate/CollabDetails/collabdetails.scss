@@ -1,0 +1,24 @@
+@import '../../../_utils';
+
+#CollabDetails {
+
+  h4 {
+
+    .collab-status {
+        @extend .tag;
+    }
+  }
+
+  .choice {
+    background: $black-transparent;
+    color: #fff;
+    border: none;
+    line-height: 80px;
+    width: 100%;
+    border-radius: $border-radius;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
