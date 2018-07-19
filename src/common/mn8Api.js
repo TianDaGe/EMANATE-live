@@ -1,18 +1,21 @@
 import _ from 'lodash';
+import { generateRandString } from './utils';
 
 export default class mn8Api {
   constructor() {
     this.rootUrl = 'http://emanate.dev.decentrawise.com:85/v1';
-    this.user = null;
+    this.user = {
+      id: 'user11',
+      token: null
+    };
+    this.activeCollab = {};
   }
 
   /**
    * Create Request
    */
-  createRequest(apiFunction, method, data) {
+  createRequest(apiFunction, method, authToken, data) {
     // Does the request URL require authtoken?
-    // let requestUrl = apiFunction === 'authenticate' ? `${this.rootUrl}/${apiFunction}` :
-    //     `${this.rootUrl}/${apiFunction}?auth-token=${this.user.token}`;
     let requestUrl = `${this.rootUrl}/${apiFunction}`;
 
     // Pass empty object if data is not passed
@@ -26,9 +29,9 @@ export default class mn8Api {
       }
     };
 
-    // Add token to te headers
-    if (this.user && this.user.token) {
-      requestObj.headers['auth-token'] = this.user.token;
+    // Add token to the headers
+    if (authToken) {
+      requestObj.headers['auth-token'] = authToken;
     }
 
     // Extend request object to include body (if applicable)
@@ -41,7 +44,9 @@ export default class mn8Api {
       .then((res) => res.json());
   }
 
-  // TODO :: Extract user in to its own service
+  /**
+   * Set user - TODO: Temporary
+   */
   setUser(id, token) {
     this.user = {
       id: id,
@@ -49,25 +54,30 @@ export default class mn8Api {
     };
   }
 
-  authenticate(data) {
-      var authData = {
-        user: data.username,
-        password: data.password
-      };
 
-      return this.createRequest('authenticate', 'POST', authData)
+  /**
+   * Authenticate - Must run before ALL other API calls
+   */
+  authenticate() {
+      return this.createRequest('authenticate', 'POST')
         .then((res) => {
-          this.setUser(data.username, res.data.token);
-          return res;
+          this.setUser('user11', res.data.token);
+          return res.data.token;
         });
   }
 
   /**
    * Propose
    */
-  propose(data) {
-    if (this.user === null) {
-      console.warn("User is not set, you can not call authorised functions.");
+  propose(data, spoof) {
+    // Spoof all data besides proposal_name
+    if (spoof) {
+      data["proposal_name"] = data["proposal_name"] ? data["proposal_name"] : generateRandString("propname", 2);
+      data["price"] = 10000;
+      data["partner_name"] = 'user12';
+      data["partner_percentage"] = 50;
+      data["final_filename"] = generateRandString("finalfname", 2);
+      data["collab_filename"] = generateRandString("collabfname", 2);
     }
 
     let apiFunction = `user/${this.user.id}/collab`,
@@ -87,7 +97,17 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'POST', proposeData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'POST', authToken, proposeData)
+        .then((res) => {
+          if (res && res.success) {
+            proposeData.parameters["token"] = 'token1234';
+            return { proposal: proposeData.parameters, res: res};
+          }
+
+          return res;
+        });
+    });
   }
 
   /**
@@ -106,7 +126,9 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'DELETE', cancelData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'DELETE', authToken, cancelData);
+    });
   }
 
   /**
@@ -119,18 +141,20 @@ export default class mn8Api {
 
     let apiFunction = `user/${this.user.id}/collab`;
 
-    return this.createRequest(apiFunction, 'GET');
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'GET', authToken);
+    });
   }
 
   /**
   * Accept collab
   */
   accept(data) {
-    if (this.user === null) {
-      console.warn("User is not set, you can not call authorised functions.");
+    if (data.partner_user === null) {
+      console.warn("Partner user is not set.");
     }
 
-    let apiFunction = `user/${this.user.id}/collab/accept`,
+    let apiFunction = `user/${data.partner_user}/collab/accept`,
         acceptData = {
           parameters: {
             "proposer": data["proposer"],
@@ -138,18 +162,20 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'PUT', acceptData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'PUT', authToken, acceptData);
+    });
   }
 
   /**
   * Reject collab
   */
   reject(data) {
-    if (this.user === null) {
-      console.warn("User is not set, you can not call authorised functions.");
+    if (data.partner_user === null) {
+      console.warn("Partner user is not set.");
     }
 
-    let apiFunction = `user/${this.user.id}/collab/reject`,
+    let apiFunction = `user/${data.partner_user}/collab/reject`,
         rejectData = {
           parameters: {
             "proposer": data["proposer"],
@@ -157,7 +183,9 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'PUT', rejectData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'PUT', authToken, rejectData);
+    });
   }
 
   /**
@@ -177,7 +205,9 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'PUT', payData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'PUT', authToken, payData);
+    });
   }
 
   /**
@@ -199,7 +229,9 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'POST', addAssetData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'POST', authToken, addAssetData);
+    });
   }
 
   /**
@@ -212,7 +244,9 @@ export default class mn8Api {
 
     let apiFunction = `user/${this.user.id}/asset`;
 
-    return this.createRequest(apiFunction, 'GET');
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'GET', authToken);
+    });
   }
 
   /**
@@ -230,7 +264,9 @@ export default class mn8Api {
           }
         };
 
-    return this.createRequest(apiFunction, 'DELETE', removeAssetData);
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'DELETE', authToken, removeAssetData);
+    });
   }
 
   /**
@@ -243,7 +279,9 @@ export default class mn8Api {
 
     let apiFunction = `user/${this.user.id}/asset/statistics`;
 
-    return this.createRequest(apiFunction, 'GET');
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'GET', authToken);
+    });
   }
 
   /**
@@ -257,8 +295,8 @@ export default class mn8Api {
     let listenTitle = data["title"],
         apiFunction = `user/${this.user.id}/asset/play/${listenTitle}`;
 
-    return this.createRequest(apiFunction, 'PUT');
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'PUT', authToken);
+    });
   }
-
-
 }
