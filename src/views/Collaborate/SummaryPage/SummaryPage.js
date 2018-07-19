@@ -17,6 +17,7 @@ class SummaryPage extends React.Component<Props> {
 
   render() {
     const { recipients, agreement } = this.props.state.form,
+          { proposal } = this.props.state,
           recipientsDom = recipients.map((recip, index) => {
             return recip.owner ? <div className="summary_recipient owner" key={index}>
               <h4>{recip.name}</h4>
@@ -27,17 +28,10 @@ class SummaryPage extends React.Component<Props> {
             </div>
           });
 
-    // <Col xs={12} sm={6}>
-    //   <h3>Recipients</h3>
-    //   {recipientsDom}
-    // </Col>
-    // <Col xs={12} sm={6}>
-    //   <h3>Agreement</h3>
-    //   <Agreement id={agreement} tabIndex="2" />
-    // </Col>
+    const url = proposal.proposal_name ? `${proposal.proposal_name}/${proposal.token}` : 'collabid/tokenid';
 
     return (
-      <CollaboratePage prev="agreement" title="title:summary" centeredTitle>
+      <CollaboratePage center="collaboration_dashboard" url={url} title="title:summary" centeredTitle>
         <Col xs={12} sm={6} smOffset={3}>
           <FormattedMessage
             id="lipsum">

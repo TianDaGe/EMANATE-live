@@ -9,6 +9,7 @@ import { Grid, Row, Col } from 'react-bootstrap';
 type Props = {
   prev?: string,
   next?: string,
+  center?: string,
   children?: React.Node,
   title: string,
   validate?: Function,
@@ -85,7 +86,7 @@ class CollaboratePage extends React.Component<Props, State> {
   }
 
   render() {
-    const { prev, next, validate, title, centeredTitle, submit, id } = this.props;
+    const { prev, next, center, validate, title, centeredTitle, submit, id, url } = this.props;
 
     const titleClasses = centeredTitle ? "collaborate_heading center" : "collaborate_heading",
           titleDom = title ?
@@ -97,28 +98,41 @@ class CollaboratePage extends React.Component<Props, State> {
 
     // Test for previous page defined, render button if so
     const prevDom = prev ?
-      <FormattedMessage
-        id={`menu:${prev}`}>
-        {(message) => <Link to={prev} tabIndex="1" className="btn btn-radius navigation">{message}</Link>}
-      </FormattedMessage> :
-      null;
+      <Col className="collaborate_navigation left" xs={6}>
+        <FormattedMessage
+          id={`menu:${prev}`}>
+          {(message) => <Link to={prev} tabIndex="1" className="btn btn-radius btn-inline navigation">{message}</Link>}
+        </FormattedMessage>
+      </Col> : null;
 
     // Test for next page defined & if a validate function exists for the current page
     const nextNav = next ?
-      <FormattedMessage
-        id={`menu:${next}`}>
-          {(message) => validate !== undefined ?
-            <a onClick={validate} tabIndex="11" className="btn btn-radius navigation">{message}</a> :
-            <Link to={next} tabIndex="11" className="btn btn-radius navigation">{message}</Link> }
-      </FormattedMessage> :
-      null;
+      <Col className="collaborate_navigation right" xs={6}>
+        <FormattedMessage
+          id={`menu:${next}`}>
+            {(message) => validate !== undefined ?
+              <a onClick={validate} tabIndex="11" className="btn btn-radius btn-inline navigation">{message}</a> :
+              <Link to={next} tabIndex="11" className="btn btn-radius btn-inline navigation">{message}</Link> }
+        </FormattedMessage>
+      </Col> : null;
 
     const submitDom = submit ?
-      <FormattedMessage
-        id={`menu:submit`}>
-          {(message) => <a onClick={submit} tabIndex="11" className="btn btn-radius navigation">{message}</a> }
-      </FormattedMessage> :
-      null;
+      <Col className="collaborate_navigation right" xs={6}>
+        <FormattedMessage
+          id={`menu:submit`}>
+            {(message) => <a onClick={submit} tabIndex="11" className="btn btn-radius btn-inline navigation">{message}</a> }
+        </FormattedMessage>
+      </Col> : null;
+
+    const centeredDom = center ?
+      <Col className="collaborate_navigation" xs={6} xsOffset={3}>
+        <FormattedMessage
+          id={`menu:${center}`}>
+            {(message) => validate !== undefined ?
+              <a onClick={validate} tabIndex="11" className="btn btn-radius btn-inline navigation">{message}</a> :
+              <Link to={url} tabIndex="11" className="btn btn-radius btn-inline navigation">{message}</Link> }
+        </FormattedMessage>
+      </Col> : null;
 
     const nextDom = nextNav || submitDom;
 
@@ -134,12 +148,9 @@ class CollaboratePage extends React.Component<Props, State> {
             </Col>
           </Row>
           <Row>
-            <Col className="collaborate_navigation left" xs={6}>
-              {prevDom}
-            </Col>
-            <Col className="collaborate_navigation right" xs={6}>
-              {nextDom}
-            </Col>
+            {centeredDom}
+            {prevDom}
+            {nextDom}
           </Row>
         </Col>
       </Grid>
