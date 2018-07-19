@@ -2,6 +2,8 @@
 import React, { Component } from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 
+import mn8Api from '../../common/mn8Api';
+
 import './App.css';
 import TopBar from '../../views/common/TopBar';
 import { BlockConsoleControl, BlockConsole } from '../../views/common/BlockConsole/BlockConsole';
@@ -27,10 +29,11 @@ export default class App extends Component<Props, State> {
     super();
 
     // Create the Auth service
-    this.auth = new Auth();
+    this.mn8Api = new mn8Api();
+    this.auth = new Auth(this.mn8Api);
+
     this.blockconsole = new BlockConsoleControl();
 
-    console.log('app', this.auth);
   }
 
   getHome() {
@@ -79,13 +82,13 @@ export default class App extends Component<Props, State> {
       <div className="App">
         <Switch>
           <Route path="/listen" name="Listen" render={() => (
-            <Listen {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
+            <Listen {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
           )}/>
           <Route path="/collaborate" name="Collaborate" render={() => (
-            <Collaborate {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
+            <Collaborate {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
           )}/>
           <Route path="/test" name="Collaborate" render={() => (
-            <Test {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
+            <Test {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
           )}/>
           <Route path="/" name="Home" component={this.getHome()}/>
           <Redirect from="/" to={root}/>
