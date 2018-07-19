@@ -1,53 +1,43 @@
 import muse from 'museblockchain-js';
 import { Crypt } from 'tools';
-
-// TODO: Remove! Export temporarilly for testing...
-window.muse = muse;
-muse.configure({
-    "backend-address": "wss://wallet.museblockchain.com/blockchain",
-    "chain-prefix": "MUSE",
-    "chain-id": "1459ad9469d36835dbfda0d84ea7700fb6a3ee767c86c4f75de22fa0c40f6c61"
-});
+import mn8Api from '../mn8Api';
 
 
 export default class Auth {
+  constructor(mn8Api) {
+    this.mn8Api = mn8Api;
+    console.log('mn8Api', this.mn8Api);
+
+    this.authenticate = this.authenticate.bind(this);
+  }
 
   authenticate(user, pass) {
     return new Promise((resolve, reject) => {
-      muse.login(user, pass, (result) => {
-        if(result === 1) {
-          muse.api.getAccounts([user])
-            .then((accounts) => {
-              if(accounts && accounts[0]) {
-                // User validated
-                const userData = this.saveAuthUser(accounts[0], pass);
-                resolve(userData);
-              } else {
-                reject(new Error('Invalid user'));
-              }
-            })
-            .catch((err) => {
-              reject(err);
-            });
+      this.mn8Api.authenticate({
+        user: user,
+        password: pass
+      }).then((res) => {
+        if (res.success) {
+          let authUser = this.saveAuthUser(user, res.data.token);
+          console.log('user', authUser);
+          resolve(res);
         } else {
-          reject(new Error('Invalid credentials'));
+          reject(res);
         }
+      }).catch((res) => {
+        reject(res);
       });
     });
   }
 
-  saveAuthUser(user, pass) {
+  saveAuthUser(user, accessToken) {
     // Generate keys
-    const keys = muse.auth.getPrivateKeys(user, pass);
+    // const keys = muse.auth.getPrivateKeys(user, pass);
 
     // Save user data we care about
     const userData = {
-      id: user.id,
-      name: user.name,
-      keys: {
-        public: keys.activePubkey,
-        private: keys.active
-      }
+      user: user,
+      token: accessToken
     };
     // Create token
     const s =  this.getSecret();
@@ -61,7 +51,7 @@ export default class Auth {
     // Set the active user to this one
     window.localStorage.setItem('a', token);
     // Return user data except the keys
-    delete userData.keys;
+    // delete userData.keys;
     return userData;
   }
 
@@ -116,7 +106,7 @@ export default class Auth {
       if(json) {
         data = JSON.parse(json);
         // Remove the keys
-        delete data.keys;
+        // delete data.keys;
       } else {
         // Token not valid, logout all
         this.logoutAll();
@@ -175,7 +165,7 @@ export default class Auth {
     // Save it
     window.localStorage.setItem('u', JSON.stringify(tokens));
     // And select another logged in user, if any
-    this.selectUser();
+    // this.selectUser();
   }
 
   logoutAll() {
