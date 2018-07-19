@@ -22,7 +22,8 @@ import TopBar from '../common/TopBar';
 
 type Props = {
   auth: {},
-  blockconsole: BlockConsoleControl
+  blockconsole: BlockConsoleControl,
+  mn8Api: mn8Api
 };
 
 // User type declaration
@@ -36,12 +37,14 @@ export type Recipient = {
 // State type declaration
 export type State = {
   form: {
+    proposal_name: string,
     recipients: [
       Recipient,
       Recipient
     ],
     agreement: number
-  }
+  },
+  proposal: {}
 };
 
 class Collaborate extends Component<Props, State> {
@@ -49,8 +52,8 @@ class Collaborate extends Component<Props, State> {
   tabindexing = new tabindexGenerator();
 
   state: State = {
-    test: 'test',
     form: {
+      proposal_name: '', // proposal_name
       recipients: [{
         id: this.recipientIdGen.next(),
         name: '',
@@ -63,7 +66,8 @@ class Collaborate extends Component<Props, State> {
         owner: false
       }],
       agreement: 0
-    }
+    },
+    proposal: {}
   };
 
   bc: Blockchain;
@@ -83,7 +87,7 @@ class Collaborate extends Component<Props, State> {
     this.ipfs = new Ipfs();
 
     // Create the API services
-    this.mn8Api = new mn8Api();
+    this.mn8Api = props.mn8Api;
 
     this.blockconsole = props.blockconsole;
     this.blockconsole.update("Blockchain connection established.", "green");
@@ -137,11 +141,16 @@ class Collaborate extends Component<Props, State> {
 
     this.setState((prev, props) => {
       const newState = _.cloneDeep(prev);
-      _.merge(newState.form.recipients[recipIndex], {
-        [attr]: value
-      });
+
+      if (id === 'proposal_name') {
+        newState.form.proposal_name = value;
+      } else {
+        _.merge(newState.form.recipients[recipIndex], {
+          [attr]: value
+        });
+      }
+
       return newState;
-    }, () => {
     });
   }
 
@@ -162,8 +171,17 @@ class Collaborate extends Component<Props, State> {
 
   // TODO: Write submission function
   submitCollaboration(): void {
-    this.mn8Api.propose();
-    this.props.history.push("summary");
+    this.blockconsole.update("Submit collaboration proposal.");
+    this.mn8Api.propose(this.state.form, true)
+      .then( (response) => {
+        console.log('res', response);
+        if (response.res && response.res.success) {
+          this.setState({ proposal: response.proposal });
+          this.props.history.push("summary");
+        } else {
+          console.warn('Proposal Failed, try again.');
+        }
+      });
   }
 
   // Render
@@ -195,11 +213,12 @@ class Collaborate extends Component<Props, State> {
   render() {
     return (
       <React.Fragment>
-        <TopBar {...this.props} auth={this.props.auth} area="collaborate" />
+        <TopBar {...this.props} auth={this.props.auth} mn8Api={this.props.mn8Api} area="collaborate" />
         <section className="Collaborate animated fadeIn">
           <Switch>
             <Route path="/collaborate/upload" name="Upload" render={() => (
-              <FilesAndRecipients recipients={this.state.form.recipients}
+              <FilesAndRecipients proposal_name={this.state.form.proposal_name}
+                                  recipients={this.state.form.recipients}
                                   addRecipient={this.addRecipient.bind(this)}
                                   removeRecipient={this.removeRecipient.bind(this)}
                                   inputChange={this.handleInputChange.bind(this)}
@@ -218,7 +237,7 @@ class Collaborate extends Component<Props, State> {
               />
             )}/>
             <Route path="/collaborate/:id/:token" name="Collab" render={({ match }) => (
-              <CollabDetails state={this.state} match={match} />
+              <CollabDetails state={this.state} match={match} mn8Api={this.props.mn8Api} />
             )}/>
             <Redirect from="/collaborate" to="/collaborate/upload"/>
           </Switch>
