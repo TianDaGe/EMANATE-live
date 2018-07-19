@@ -1,16 +1,28 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Alert, Button, FormGroup, FormControl, Label, ProgressBar, Row, Col } from 'react-bootstrap';
-import { FormattedMessage } from 'react-intl';
+import FormField from '../../common/FormField/FormField';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import type { IntlShape } from 'react-intl';
 import { toast } from 'react-toastify';
 import './upload.css';
 
 // import xss from '../../common/util/xss';
 
+type UploadProps = {
+  proposal_name: String,
+  recipients: [Recipient, Recipient],
+  addRecipient: Function,
+  removeRecipient: Function,
+  inputChange: Function,
+  intl: IntlShape,
+  errors: {}
+};
 
-export default class Upload extends Component {
 
-  constructor(props) {
+class Upload extends Component<UploadProps> {
+
+  constructor(props: UploadProps) {
     super(props);
 
     // Get services
@@ -653,10 +665,20 @@ export default class Upload extends Component {
   }
 
   render() {
+    const { intl, proposal_name, errors, inputChange } = this.props,
+          proposal_nameError = errors.proposal_name !== undefined ? errors.proposal_name : false;
+
     return (
       <Col xs={12} sm={6}>
         <FormattedMessage
-          id="upload:instruction">
+          id="upload:collabname">
+            {(message) => <h6>{message}</h6>}
+        </FormattedMessage>
+        <div className="proposal_name-container" key={`container-proposal_name`}>
+          <FormField tabIndex="3" fieldkey={`proposal_name`} placeholder={intl.formatMessage({ id: 'upload:collabname-placeholder' })} id="proposal_name" error={proposal_nameError.toString()} onChange={inputChange} value={proposal_name}/>
+        </div>
+        <FormattedMessage
+          id="upload:uploadfiles">
             {(message) => <h6>{message}</h6>}
         </FormattedMessage>
         <div className="sound-uploader-panel"
@@ -669,3 +691,5 @@ export default class Upload extends Component {
     );
   }
 }
+
+export default injectIntl(Upload);
