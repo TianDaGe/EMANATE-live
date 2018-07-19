@@ -2409,12 +2409,12 @@ h6 {
   padding: 5px 35px 0;
   line-height: 35px;
   transition: all 0.1s;
-  display: inline-flex;
   text-align: center;
   display: block;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  transform: translate3D(0, 0, 0); }
+  transform: translate3D(0, 0, 0);
+  max-height: 45px; }
   .btn:hover {
     transform: scale(0.95);
     color: #fff; }
@@ -2426,6 +2426,8 @@ h6 {
   .btn.btn-centered {
     left: 50%;
     margin-left: -25%; }
+  .btn.btn-inline {
+    display: inline-flex; }
 
 .btn-naked {
   color: #65f9f6;

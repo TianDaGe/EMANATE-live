@@ -31,6 +31,7 @@ $btn-line: 35px;
 $btn-radius: $btn-line;
 $pre-icon-height: 40px;
 $btn-transition: all .1s;
+$btn-pad: 5px;
 
 // TopBar
 $navbar-height: 40px;
@@ -38,8 +39,12 @@ $navbar-logo-height: 35px;
 
 // TrackBrowser
 $trackbrowser-height: calc(100vh - #{$navbar-height} - #{$gutter*3});
+$trackbrowser-height-blockconsole-open: calc(100vh - #{$navbar-height} - #{$gutter*3} - 20vh);
 
 // home
 $home-section-height: calc(50vh - 20px);
 $home-section-height-xs: calc(50vh - 60px);
 $home-article-height-xs: calc(50vh - 40px);
+
+$blockconsole-background: rgba(0,0,0,.8);
+$blockconsole-height: 20vh;
