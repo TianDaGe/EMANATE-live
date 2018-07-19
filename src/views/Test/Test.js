@@ -33,9 +33,8 @@ export type Recipient = {
 
 // State type declaration
 export type State = {
-    authenticate: {
-        username: string,
-        password: string
+    testUser: {
+      username: string
     },
     user: {
       id: string,
@@ -55,10 +54,12 @@ export type State = {
     },
     accept: {
       proposer: string,
+      partner_user: string,
       proposal_name: string
     },
     reject: {
       proposer: string,
+      partner_user: string,
       proposal_name: string
     },
     pay: {
@@ -84,11 +85,12 @@ class Test extends Component<Props, State> {
 
   proposal_name = generateRandString('prop', 4);
   track_title = generateRandString('title', 4);
+  test_user = 'user11';
+  partner_user = 'user12';
 
   state: State = {
-      authenticate: {
-          username: 'user11',
-          password: 'user11'
+      testUser: {
+        username: this.test_user
       },
       user: {
         id: '',
@@ -98,24 +100,26 @@ class Test extends Component<Props, State> {
         proposal_name: this.proposal_name,
         price: 10000,
         final_filename: generateId('finalfile', 4),
-        partner_name: 'user12',
+        partner_name: this.partner_user,
         partner_percentage: 50,
         collab_filename: generateId('collabname', 4)
       },
       cancel: {
-        proposer: 'user11',
+        proposer: this.test_user,
         proposal_name: this.proposal_name
       },
       accept: {
-        proposer: 'user11',
+        proposer: this.test_user,
+        partner_user: this.partner_user,
         proposal_name: this.proposal_name
       },
       reject: {
-        proposer: 'user11',
+        proposer: this.test_user,
+        partner_user: this.partner_user,
         proposal_name: this.proposal_name
       },
       pay: {
-        proposer: 'user11',
+        proposer: this.test_user,
         proposal_name: this.proposal_name,
         seconds: 10
       },
@@ -184,6 +188,8 @@ class Test extends Component<Props, State> {
     if (this.mn8Api[id] !== undefined) {
       let args = this.state[id] ? this.state[id] : null;
 
+      console.log('args', args);
+
       return this.mn8Api[id](args)
         .then((data) => {
           this.populateResponse(id, data);
@@ -208,18 +214,10 @@ class Test extends Component<Props, State> {
         <section className="Test animated fadeIn">
           <div className="main-container-bg row-fluid">
 
-            <h1>Authenticate</h1>
+            <h1>Test User</h1>
             <Row>
               <Col xs={4}>
-                <FormField fieldkey="test-username" placeholder="username" id="authenticate" name="username" onChange={this.handleInputChange.bind(this)} value={this.state.authenticate.username}/>
-                <FormField fieldkey="test-password" placeholder="password" id="authenticate" name="password" onChange={this.handleInputChange.bind(this)} value={this.state.authenticate.password}/>
-              </Col>
-              <Col xs={2}>
-                <button id="authenticate" onClick={this.runApi.bind(this)}>Authenticate</button>
-              </Col>
-              <Col xs={6}>
-                <h6>Response:</h6>
-                <code id="authenticate-response"></code>
+                <FormField fieldkey="test-username" placeholder="username" id="testUser" name="username" onChange={this.handleInputChange.bind(this)} value={this.state.testUser.username}/>
               </Col>
             </Row>
 
@@ -246,6 +244,7 @@ class Test extends Component<Props, State> {
             <Row>
               <Col xs={4}>
                 <FormField fieldkey="test-price" placeholder="proposer" id="accept" name="proposer" onChange={this.handleInputChange.bind(this)} value={this.state.accept.proposer}/>
+                <FormField fieldkey="test-price" placeholder="partner_user" id="accept" name="partner_user" onChange={this.handleInputChange.bind(this)} value={this.state.accept.partner_user}/>
                 <FormField fieldkey="test-proposal_name" placeholder="proposal_name" id="accept" name="proposal_name" onChange={this.handleInputChange.bind(this)} value={this.state.accept.proposal_name}/>
               </Col>
               <Col xs={2}>
@@ -261,6 +260,7 @@ class Test extends Component<Props, State> {
             <Row>
               <Col xs={4}>
                 <FormField fieldkey="test-price" placeholder="proposer" id="reject" name="proposer" onChange={this.handleInputChange.bind(this)} value={this.state.reject.proposer}/>
+                <FormField fieldkey="test-price" placeholder="partner_user" id="reject" name="partner_user" onChange={this.handleInputChange.bind(this)} value={this.state.reject.partner_user}/>
                 <FormField fieldkey="test-proposal_name" placeholder="proposal_name" id="reject" name="proposal_name" onChange={this.handleInputChange.bind(this)} value={this.state.reject.proposal_name}/>
               </Col>
               <Col xs={2}>
