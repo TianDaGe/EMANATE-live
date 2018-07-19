@@ -194,7 +194,8 @@
         width: 100%; } }
 
 article.track-player {
-  padding: 10px 0; }
+  padding: 10px 0;
+  min-height: 100px; }
   article.track-player .track-player-title {
     font-family: 'BrownRegular';
     font-size: 1.2em;
@@ -217,6 +218,7 @@ article.track-player {
     margin: 0; }
     article.track-player .cover-and-wave .cover-image {
       display: block;
+      min-width: 80px;
       width: 80px;
       height: 80px;
       background-size: cover;
@@ -232,16 +234,13 @@ article.track-player {
       article.track-player .cover-and-wave .player-area .bottom-player-area {
         display: flex; }
   article.track-player.playing {
-    background: rgba(0, 0, 0, 0.1);
-    padding: 0; }
+    background: rgba(0, 0, 0, 0.1); }
     article.track-player.playing .cover-and-wave .cover-image {
       width: 100px;
       height: 100px; }
-    article.track-player.playing .track-player-wave {
-      height: 100px; }
-      article.track-player.playing .track-player-wave wave {
-        height: 100px !important;
-        overflow: hidden !important; }
+  article.track-player .track-player-wave wave {
+    height: 80px !important;
+    overflow: hidden !important; }
 
 .bottom-player-tags .track-player-tag {
   color: #fff;

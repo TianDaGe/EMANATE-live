@@ -9,12 +9,15 @@ import Auth from '../../../common/Auth';
 import Playlist from '../../../common/Playlist/';
 import TrackPlayer from '../TrackPlayer';
 
+import { BlockConsoleControl } from '../../common/BlockConsole/BlockConsole';
+
 
 type Props = {
   auth: Auth,
   soundengine: SoundEngine,
   playlist: Playlist,
   query: string,
+  blockconsole: BlockConsoleControl,
 
   location: any,
   history: any,
@@ -27,7 +30,8 @@ type State = {
   atTheEnd: boolean,
   query: string,
   sounds: [],
-  current: any
+  current: any,
+  blockconsoleHidden: boolean
 };
 
 class TrackBrowser extends Component<Props, State> {
@@ -36,6 +40,7 @@ class TrackBrowser extends Component<Props, State> {
   soundengine: SoundEngine;
   playlist: Playlist;
   trackBrowserEl: {};
+  blockconsole: BlockConsoleControl;
 
   constructor(props) {
     super(props);
@@ -48,6 +53,13 @@ class TrackBrowser extends Component<Props, State> {
     this.playlist = this.props.playlist;
 
     this.trackBrowserEl = React.createRef();
+
+    this.blockconsole = props.blockconsole;
+    this.blockconsole.update("TrackBrowser.");
+
+    this.blockconsole.on('showHide', (hidden) => {
+      this.setState({ blockconsoleHidden: hidden });
+    });
 
     // Hook to get ref to element
     this.setTrackBrowserEl = element => {
@@ -67,8 +79,11 @@ class TrackBrowser extends Component<Props, State> {
       atTheEnd: false,
       query,
       sounds: [],
-      current: null
+      current: null,
+      blockconsoleHidden: this.blockconsole.hidden
     };
+
+    console.log('console open', this.state.blockconsoleOpen);
 
     // Bind methods
     this.handleScroll = this.handleScroll.bind(this);
@@ -139,6 +154,8 @@ class TrackBrowser extends Component<Props, State> {
   // Component lifecycle hooks
 
   componentDidMount() {
+    this._isMounted = true;
+
     // Bind window events
     // window.addEventListener('scroll', this.handleScroll);
 
@@ -151,12 +168,16 @@ class TrackBrowser extends Component<Props, State> {
   }
 
   componentWillUnmount() {
+    this._isMounted = false;
+
     // Unbind window events
-    this.trackBrowserEl.removeEventListener('scroll', this.handleScroll);
+    // this.trackBrowserEl.removeEventListener('scroll', this.handleScroll);
 
     // Unbind Playlist events
     this.playlist.un('sounds', this.handlePlaylistSounds);
     this.playlist.un('next-sounds', this.handlePlaylistNextSounds);
+
+    console.log('will unmount');
   }
 
 
@@ -172,7 +193,9 @@ class TrackBrowser extends Component<Props, State> {
   }
 
   render() {
-    var user = this.auth.getAuthUser();
+    var user = this.auth.getAuthUser(),
+        classNames = this.state.blockconsoleHidden ? 'TrackBrowser' : 'TrackBrowser blockconsole-open';
+
 
     var category;
     if(this.props.match.params.category) {
@@ -210,7 +233,7 @@ class TrackBrowser extends Component<Props, State> {
       return (
         <section className="animated fadeIn">
           <div className="container-fluid main-container-bg">
-            <Col xs={12} id="TrackBrowser"  className="TrackBrowser" ref={this.setTrackBrowserEl}>
+            <Col xs={12} id="TrackBrowser" className={classNames} ref={this.setTrackBrowserEl}>
               <Row className="listen-head">
                 <Col xs={12} sm={5}>
                   <h2>Latest Releases</h2>
@@ -244,7 +267,7 @@ class TrackBrowser extends Component<Props, State> {
     } else {
       return (
         <section className="animated fadeIn">
-          <div id="TrackBrowser" className="TrackBrowser container-fluid">
+          <div id="TrackBrowser" className={classNames}>
             <Col xs={12} className="empty-feed">
               <p className="spread">Oops! Looks like {this.props.match.params.user === user.name ? 'you' : '@' + this.props.match.params.user} didn{'\''}t spread <i className="heart fa fa-heart" /> for a while...</p>
               <p className="ask">{this.props.match.params.user === user.name ? 'Just click on upload above and share your sounds...' : 'Ask your friend to share his sounds with us...'}</p>

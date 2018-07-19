@@ -27,6 +27,7 @@
 
 article.track-player {
   padding: $gutter/2 0;
+  min-height: 100px;
 
   .track-player-title {
     font-family: 'BrownRegular';
@@ -61,6 +62,7 @@ article.track-player {
 
     .cover-image {
       display: block;
+      min-width: 80px;
       width: 80px;
       height: 80px;
       background-size: cover;
@@ -89,7 +91,6 @@ article.track-player {
 
   &.playing {
     background: rgba(0,0,0,.1);
-    padding: 0;
 
     .cover-and-wave {
       .cover-image {
@@ -97,13 +98,11 @@ article.track-player {
         height: 100px;
       }
     }
-    .track-player-wave {
-      height: 100px;
-
-      wave {
-        height: 100px !important;
-        overflow: hidden !important;
-      }
+  }
+  .track-player-wave {
+    wave {
+      height: 80px !important;
+      overflow: hidden !important;
     }
   }
 }

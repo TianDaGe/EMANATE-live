@@ -180,6 +180,8 @@
   .TrackBrowser h1 {
     width: 100%;
     border-bottom: 1px solid #fff; }
+  .TrackBrowser.blockconsole-open {
+    height: calc(100vh - 40px - 60px - 20vh) !important; }
 
 @media (min-width: 768px) {
   .listen-head {

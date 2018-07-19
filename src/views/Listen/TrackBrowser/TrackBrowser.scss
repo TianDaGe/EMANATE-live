@@ -16,6 +16,10 @@
     width: 100%;
     border-bottom: 1px solid #fff;
   }
+
+  &.blockconsole-open {
+    height: $trackbrowser-height-blockconsole-open !important;
+  }
 }
 
 .listen-head {
