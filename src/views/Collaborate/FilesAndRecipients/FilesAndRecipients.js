@@ -12,6 +12,7 @@ import { required, email } from '../Validation/validations';
 import { Col } from 'react-bootstrap';
 
 type FilesAndRecipientsProps = {
+  proposal_name: String,
   recipients: [Recipient, Recipient],
   addRecipient: Function,
   removeRecipient: Function,
@@ -20,7 +21,7 @@ type FilesAndRecipientsProps = {
 };
 
 type State = {
-  errors: Array<any>
+  errors: {}
 }
 
 class FilesAndRecipients extends React.Component<FilesAndRecipientsProps, State> {
@@ -28,21 +29,27 @@ class FilesAndRecipients extends React.Component<FilesAndRecipientsProps, State>
       super();
 
       this.state = {
-        errors: []
+        errors: {
+          proposal_name: '',
+          recipients: []
+        }
       };
   }
 
   validate = () => {
-    const { recipients } = this.props;
+    const { proposal_name, recipients } = this.props;
     let isValid = true,
-        errors = [];
+        errors = {
+          proposal_name: required(proposal_name),
+          recipients: []
+        };
 
     // Loop recipients, test name & email
     _.forEach(recipients, (recip, index) => {
       const nameError = required(recip.name),
             emailError = email(recip.email);
 
-      errors[index] = {
+      errors.recipients[index] = {
         name: nameError,
         email: emailError
       }
@@ -59,11 +66,12 @@ class FilesAndRecipients extends React.Component<FilesAndRecipientsProps, State>
       this.props.history.push("agreement");
     }
   };
+  // <FormField fieldkey={`recipient-name-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients:owner-name-placeholder' })} id={recipient.id} name="name" error={nameError.toString()} onChange={inputChange} value={name} owner="true"/>
 
   render() {
     return (
       <CollaboratePage next="agreement" title="title:start" validate={this.validate.bind(this)}>
-        <Upload />
+        <Upload {...this.props} errors={this.state.errors} />
         <Recipients {...this.props} errors={this.state.errors} />
       </CollaboratePage>
     );

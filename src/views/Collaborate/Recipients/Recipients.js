@@ -14,7 +14,7 @@ type Props = {
   removeRecipient: Function,
   inputChange: Function,
   intl: IntlShape,
-  errors: Array<any>
+  errors: {}
 };
 
 class Recipients extends Component<Props> {
@@ -27,8 +27,8 @@ class Recipients extends Component<Props> {
     const ownerDom = recipients.map( (recipient) => {
       if (recipient.owner) {
         const { name, email } = recipient,
-          nameError = errors[0] !== undefined ? errors[0].name : false,
-          emailError = errors[0] !== undefined ? errors[0].email : false;
+          nameError = errors.recipients[0] !== undefined ? errors.recipients[0].name : false,
+          emailError = errors.recipients[0] !== undefined ? errors.recipients[0].email : false;
 
         return <div className="recipient-container recipient-owner" key={`container-${recipient.id}`}>
           <FormField tabIndex="3" fieldkey={`recipient-name-${recipient.id}`} placeholder={intl.formatMessage({ id: 'recipients:owner-name-placeholder' })} id={recipient.id} name="name" error={nameError.toString()} onChange={inputChange} value={name} owner="true"/>
@@ -49,8 +49,8 @@ class Recipients extends Component<Props> {
 
       const { name, email } = recipient,
             closeButton = index > 1 ? <a className="close-button" onClick={removeRecipient} id={recipient.id}>x</a> : null,
-            nameError = errors[index] !== undefined ? errors[index].name : false,
-            emailError = errors[index] !== undefined ? errors[index].email : false,
+            nameError = errors.recipients[index] !== undefined ? errors.recipients[index].name : false,
+            emailError = errors.recipients[index] !== undefined ? errors.recipients[index].email : false,
             tabindex = 4 + index;
 
       return <div className="recipient-container recipient-additional" key={`container-${recipient.id}`}>

@@ -10,50 +10,99 @@ import mn8Api from '../../../common/mn8Api';
 
 type Props = {
   state: State,
-  submit: Function
+  submit: Function,
+  mn8Api: mn8Api
 };
 
 type State = {
-  collab: {
-    success: Boolean,
-    data: {}
-  }
+  proposal: {}
 };
+
+type Proposal = {
+
+}
 
 class CollabDetails extends React.Component<Props, State> {
   mn8Api: mn8Api;
 
   constructor(props: Props, state: State) {
-    super(props);
+    super(props, state);
 
-    this.mn8Api = new mn8Api();
+    this.mn8Api = this.props.mn8Api;
 
     this.state = {
-      collab: {
-        success: false,
-        data: {}
-      }
+      proposal: {}
     };
+
+    console.log('const', this.state);
   }
 
   componentDidMount() {
+    const { proposal } = this.props.state;
+
+    console.log('did mount', proposal);
+
+    if (proposal !== undefined && proposal.proposal_name !== undefined) {
+      console.log("SET STATE");
+      this.setState({ proposal : proposal});
+    }
 
     // Replace this with get collab
-    this.mn8Api.authenticate({
-      username: 'user11',
-      password: 'user11'
-    }).then((res) => {
-      this.setState({ collab: res });
-    }).catch(() => {
-      console.warn("CollabDetails fetch failed");
+    // this.mn8Api.getContracts().then((res) => {
+    //   console.log(res);
+    //   // this.setState({ collab: res });
+    // }).catch(() => {
+    //   console.warn("CollabDetails fetch failed");
+    // });
+  }
+
+  actionProposal(proposal: {}, action: string) {
+    console.log(`Action proposal: ${action}`);
+    var actionData = {
+      partner_user: proposal["requested"] ? proposal["requested"][0].name : "",
+      proposer: this.mn8Api.user.id ? this.mn8Api.user.id : "",
+      proposal_name: proposal["proposal_name"] ? proposal["proposal_name"] : ""
+    };
+
+    return this.mn8Api[action](actionData).then((res) => {
+      if (res.success) {
+        console.log(`Proposal actioned: ${action}`);
+        // TODO : This API function should return the new proposal state, we should not be setting this manually
+        this.setState({ proposal : {
+          ...this.state.proposal,
+          requested: [
+            {
+              ...this.state.proposal.requested[0],
+              accepted: action === 'accept' ? 1 : -1
+            }
+          ]
+        }});
+      }
     });
   }
 
-
   render() {
-    console.log('match', this.props);
+    const { proposal } = this.state;
 
-    const CollabDeetsDom = this.state.collab.success ?
+    const status = (() => {
+      if (proposal.requested !== undefined) {
+        const statusVal = proposal.requested[0].accepted;
+        switch (statusVal) {
+          case 0:
+            return 'pending';
+          case 1:
+            return 'accepted';
+          case -1:
+            return 'rejected';
+          default:
+            return 'pending';
+        }
+      }
+    })();
+
+    const statusClasses = `collab-status ${status}`;
+
+    const CollabDeetsDom = proposal !== undefined && proposal.proposal_name !== undefined ?
       <React.Fragment>
         <Col xs={12} sm={6}>
           <h4>Collab Details</h4>
@@ -65,14 +114,14 @@ class CollabDetails extends React.Component<Props, State> {
           <FormField type="text" disabled value="collab_filename"/>
         </Col>
         <Col xs={12} sm={6}>
-          <h4>Collab Status : <span className="collab-status pending">Pending</span></h4>
+          <h4>Collab Status : <span className={statusClasses}>{status}</span></h4>
           <Col xs={12} sm={6}>
-            <button className="choice">
+            <button onClick={() => { this.actionProposal(proposal, 'accept') }} className="choice">
               Accept
             </button>
           </Col>
           <Col xs={12} sm={6}>
-            <button className="choice">
+            <button onClick={() => { this.actionProposal(proposal, 'reject') }} className="choice">
               Reject
             </button>
           </Col>

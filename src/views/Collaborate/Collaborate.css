@@ -201,10 +201,11 @@
   position: relative;
   top: -17.5px;
   padding: 0;
-  width: calc(50% - 20px/2); }
+  width: calc(50% - 20px/2);
+  display: flex;
+  justify-content: center; }
   @media (min-width: 768px) {
     .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation {
-      padding: 0 10%;
       width: calc(50% - 20px); } }
   .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.left {
     left: 10px; }

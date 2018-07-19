@@ -51,11 +51,6 @@ export default class Listen extends Component<Props, State> {
     this.playlist = new Playlist(this.bc, this.ipfs);
 
     this.blockconsole = props.blockconsole;
-    this.blockconsole.update("Listen.");
-
-    this.blockconsole.on('showHide', (hidden) => {
-      console.log("block console showhide inside Listen");
-    })
   }
 
 
@@ -88,10 +83,6 @@ export default class Listen extends Component<Props, State> {
   }
 
   render() {
-    const BlockConsoleOpen = this.blockconsole.hidden;
-
-    console.log(this.blockconsole, BlockConsoleOpen);
-
     return (
       <React.Fragment>
         <TopBar {...this.props} auth={this.props.auth} area="listen" />
@@ -103,6 +94,7 @@ export default class Listen extends Component<Props, State> {
                 soundengine={this.soundengine}
                 playlist={this.playlist}
                 query='tracks'
+                blockconsole={this.blockconsole}
               />
             )}/>
             <Route path="/listen/albums" name="Albums" component={this.getCoverBrowser('albums')}/>
