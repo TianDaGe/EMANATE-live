@@ -20,13 +20,15 @@ type Props = {
 
 type State = {
   navExpanded: boolean,
-  activeKey: string
+  activeKey: string,
+  authenticated: boolean
 };
 
 class TopBar extends Component<Props, State> {
   state = {
     navExpanded: false,
-    activeKey: this.props.location.pathname
+    activeKey: this.props.location.pathname,
+    authenticated: this.props.auth.isAuth()
   };
 
   constructor(props: Props) {
@@ -35,6 +37,11 @@ class TopBar extends Component<Props, State> {
     this.setNavExpanded = this.setNavExpanded.bind(this);
     this.closeNav = this.closeNav.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
+
+    this.auth = this.props.auth;
+    this.mn8Api = this.props.mn8Api;
+
+    console.log('auth', this.state.authenticated);
   }
 
   setNavExpanded = function(expanded: boolean) {
@@ -49,56 +56,28 @@ class TopBar extends Component<Props, State> {
     this.props.history.push(selectedKey);
   }
 
+  handleLogin = () => {
+    this.auth.authenticate('user11', 'user11')
+      .then(() => {
+        this.setState({ authenticated: true });
+      });
+  }
+
+  handleLogout = () => {
+    this.auth.logout();
+    this.setState({ authenticated: false });
+  }
+
   render() {
-    const loggedin = this.props.auth.isAuth();
-
-    const menu = loggedin ? (
-      <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect}>
-        <NavDropdown title={this.props.intl.formatMessage({id:'menu:listen'})} id="nav-listen">
-          <MenuItem eventKey='/listen/tracks'><FormattedMessage id="menu:listen-tracks" /></MenuItem>
-          <MenuItem eventKey='/listen/albums'><FormattedMessage id="menu:listen-albums" /></MenuItem>
-          <MenuItem eventKey='/listen/shows'><FormattedMessage id="menu:listen-shows" /></MenuItem>
-          <MenuItem eventKey='/listen/playlists'><FormattedMessage id="menu:listen-playlists" /></MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey='/listen/charts'><FormattedMessage id="menu:listen-charts" /></MenuItem>
-        </NavDropdown>
-        <NavDropdown title={this.props.intl.formatMessage({id:'menu:discover'})} id="nav-discover">
-          <MenuItem eventKey='/discover/beats'><FormattedMessage id="menu:discover-beats" /></MenuItem>
-          <MenuItem eventKey='/discover/samples'><FormattedMessage id="menu:discover-samples" /></MenuItem>
-          <MenuItem eventKey='/discover/stems'><FormattedMessage id="menu:discover-stems" /></MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey='/discover/packs'><FormattedMessage id="menu:discover-packs" /></MenuItem>
-        </NavDropdown>
-        <NavDropdown title={this.props.intl.formatMessage({id:'menu:collab'})} id="nav-collab">
-          <MenuItem eventKey='/collab/my'><FormattedMessage id="menu:collab-my" /></MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey='/collab/new'><FormattedMessage id="menu:collab-new" /></MenuItem>
-          <MenuItem eventKey='/collab/browse'><FormattedMessage id="menu:collab-browse" /></MenuItem>
-          <MenuItem divider />
-          <MenuItem eventKey='/collab/contests'><FormattedMessage id="menu:collab-contests" /></MenuItem>
-        </NavDropdown>
-        <NavItem eventKey='/publish'><FormattedMessage id="menu:publish" /></NavItem>
-      </Nav>
-    ) : undefined;
-
-    const mn8 = loggedin ? (
-      <Nav>
-      </Nav>
-    ) : undefined;
+    const loggedin = true;
 
     const user = loggedin ? (
-      <Nav />
+      <React.Fragment>
+        <span className="user-avatar"></span>
+        <a>Logout</a>
+      </React.Fragment>
     ) : (
-      <Nav>
-        <LinkContainer to="/auth/signin">
-          <NavItem>
-            <FormattedMessage id="menu:signin" />
-          </NavItem>
-        </LinkContainer>
-        <NavItem href="http://emanate.live">
-          <FormattedMessage id="menu:about" />
-        </NavItem>
-      </Nav>
+      <a onClick={this.handleLogin.bind(this)} className="btn btn-radius btn-inline navigation">Authorise</a>
     );
 
     // Decide on TopBar Column layout depending on section
@@ -122,23 +101,28 @@ class TopBar extends Component<Props, State> {
       )
     };
 
+    // Toast container
+    // <ToastContainer
+    //   position="top-right"
+    //   type="default"
+    //   autoClose={3000}
+    //   hideProgressBar={true}
+    //   newestOnTop={false}
+    //   closeOnClick
+    //   pauseOnHover
+    // />
+
     return (
       <ColComp className={this.state.activeKey}>
         <Row>
           <div id="navbar-logo">
             <LinkContainer to="/">
-            <img src="./img/emanate-logo.svg" alt="Emanate" id="topbar-logo" />
+              <img src="./img/emanate-logo.svg" alt="Emanate" id="topbar-logo" />
             </LinkContainer>
           </div>
-          <ToastContainer
-            position="top-right"
-            type="default"
-            autoClose={3000}
-            hideProgressBar={true}
-            newestOnTop={false}
-            closeOnClick
-            pauseOnHover
-          />
+          <Col id="navbar-user" xsHidden>
+            {user}
+          </Col>
         </Row>
       </ColComp>
     );
