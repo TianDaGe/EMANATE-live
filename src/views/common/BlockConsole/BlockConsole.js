@@ -66,7 +66,6 @@ export class BlockConsole extends Component<Props, State> {
   }
 
   render() {
-    console.log("BLOCK RENDER");
     const { lines } = this.state,
       linesDom = lines.map((line, index) => {
         return <span key={`line-${index}`} className="console-line" style={{color: line.color}}>&nbsp;>&nbsp;{line.text}</span>

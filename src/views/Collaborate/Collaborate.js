@@ -175,8 +175,8 @@ class Collaborate extends Component<Props, State> {
     this.mn8Api.propose(this.state.form, true)
       .then( (response) => {
         console.log('res', response);
-        if (response.res && response.res.success) {
-          this.setState({ proposal: response.proposal });
+        if (response && response.success) {
+          this.setState({ proposal: response.data });
           this.props.history.push("summary");
         } else {
           console.warn('Proposal Failed, try again.');
@@ -236,7 +236,7 @@ class Collaborate extends Component<Props, State> {
                 state={this.state}
               />
             )}/>
-            <Route path="/collaborate/:id/:token" name="Collab" render={({ match }) => (
+            <Route path="/collaborate/details/:hash" name="Collab" render={({ match }) => (
               <CollabDetails state={this.state} match={match} mn8Api={this.props.mn8Api} />
             )}/>
             <Redirect from="/collaborate" to="/collaborate/upload"/>

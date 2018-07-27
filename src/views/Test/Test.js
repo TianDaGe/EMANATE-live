@@ -192,6 +192,7 @@ class Test extends Component<Props, State> {
 
       return this.mn8Api[id](args)
         .then((data) => {
+          console.log('RES', data);
           this.populateResponse(id, data);
       });
     }

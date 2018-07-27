@@ -7,6 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import './collabdetails.css';
 import FormField from '../../common/FormField/FormField';
 import mn8Api from '../../../common/mn8Api';
+import _ from 'lodash';
 
 type Props = {
   state: State,
@@ -19,11 +20,15 @@ type State = {
 };
 
 type Proposal = {
-
+  proposal_name: string,
+  price: number,
+  filename: string,
+  requested: Array
 }
 
 class CollabDetails extends React.Component<Props, State> {
   mn8Api: mn8Api;
+  proposal: Proposal;
 
   constructor(props: Props, state: State) {
     super(props, state);
@@ -33,50 +38,67 @@ class CollabDetails extends React.Component<Props, State> {
     this.state = {
       proposal: {}
     };
-
-    console.log('const', this.state);
   }
 
   componentDidMount() {
     const { proposal } = this.props.state;
 
-    console.log('did mount', proposal);
+    // Proposal exists
+    if (proposal !== undefined && proposal.name !== undefined) {
+      this.setProposal(proposal);
+    } else {
+      const { hash } = this.props.match.params,
+            decodedHash = atob(hash),
+            parsedObj = typeof decodedHash === 'string' ? JSON.parse(decodedHash) : decodedHash;
 
-    if (proposal !== undefined && proposal.proposal_name !== undefined) {
-      console.log("SET STATE");
-      this.setState({ proposal : proposal});
+      // Proposal doesn't exist (deep link/page refresh), fetch contract
+      if (parsedObj && parsedObj.user !== undefined) {
+          this.mn8Api.getContract({ user: parsedObj.user, contract: parsedObj.contract })
+            .then((res) => {
+              if (res.data) {
+                this.setProposal(res.data);
+                return res.data;
+              }
+            });
+      }
     }
+  }
 
-    // Replace this with get collab
-    // this.mn8Api.getContracts().then((res) => {
-    //   console.log(res);
-    //   // this.setState({ collab: res });
-    // }).catch(() => {
-    //   console.warn("CollabDetails fetch failed");
-    // });
+  setProposal(proposal: {}) {
+    this.setState({ proposal : proposal});
+  }
+
+  cancelProposal(proposal: {}) {
+    var cancelData = {
+      partner_user: proposal["approvals"] ? proposal["approvals"][0].name : "",
+      proposer: this.mn8Api.user.id ? this.mn8Api.user.id : "",
+      proposal_name: proposal["proposal"] ? proposal["name"] : ""
+    };
+
+    return this.mn8Api.cancel(cancelData).then((res) => {
+      if (res.success) {
+        console.log(`Proposal cacelled.`);
+        // TODO : This API function should return the new proposal state, we should not be setting this manually
+        this.setState({ proposal : res.data });
+      }
+    });
   }
 
   actionProposal(proposal: {}, action: string) {
     console.log(`Action proposal: ${action}`);
     var actionData = {
-      partner_user: proposal["requested"] ? proposal["requested"][0].name : "",
+      partner_user: proposal["approvals"] ? proposal["approvals"][0].name : "",
       proposer: this.mn8Api.user.id ? this.mn8Api.user.id : "",
-      proposal_name: proposal["proposal_name"] ? proposal["proposal_name"] : ""
+      proposal_name: proposal["name"] ? proposal["name"] : ""
     };
 
+    console.log('action data', actionData);
+
     return this.mn8Api[action](actionData).then((res) => {
+      console.log("ACTION PROP", res);
       if (res.success) {
         console.log(`Proposal actioned: ${action}`);
-        // TODO : This API function should return the new proposal state, we should not be setting this manually
-        this.setState({ proposal : {
-          ...this.state.proposal,
-          requested: [
-            {
-              ...this.state.proposal.requested[0],
-              accepted: action === 'accept' ? 1 : -1
-            }
-          ]
-        }});
+        this.setState({ proposal : res.data });
       }
     });
   }
@@ -84,9 +106,18 @@ class CollabDetails extends React.Component<Props, State> {
   render() {
     const { proposal } = this.state;
 
+    // const proposal = {
+    //   proposal_name: 'propName',
+    //   requested: [
+    //     {
+    //       accepted: 0
+    //     }
+    //   ]
+    // };
+
     const status = (() => {
-      if (proposal.requested !== undefined) {
-        const statusVal = proposal.requested[0].accepted;
+      if (proposal.approvals !== undefined) {
+        const statusVal = proposal.approvals[0].accepted;
         switch (statusVal) {
           case 0:
             return 'pending';
@@ -94,35 +125,52 @@ class CollabDetails extends React.Component<Props, State> {
             return 'accepted';
           case -1:
             return 'rejected';
+          case -2:
+            return 'cancelled';
           default:
             return 'pending';
         }
       }
     })();
 
-    const statusClasses = `collab-status ${status}`;
+    const statusClasses = `collab-status ${status}`,
+          actionClasses = status !== 'pending' ? 'disabled choice' : 'choice';
 
-    const CollabDeetsDom = proposal !== undefined && proposal.proposal_name !== undefined ?
+    // Accept/Reject button
+    const ActionDom = ({action}) => (
+     status !== 'pending' ?
+       <button className={actionClasses}>
+         {action}
+       </button>
+     : <button onClick={() => { this.actionProposal(proposal, action) }} className={actionClasses}>
+         {action}
+       </button>
+    );
+
+    const CollabDeetsDom = proposal !== undefined && proposal.name !== undefined ?
       <React.Fragment>
         <Col xs={12} sm={6}>
           <h4>Collab Details</h4>
-          <FormField type="text" disabled value="proposal_name"/>
-          <FormField type="text" disabled value="price"/>
-          <FormField type="text" disabled value="final_filename"/>
-          <FormField type="text" disabled value="partner_name"/>
-          <FormField type="text" disabled value="partner_percentage"/>
-          <FormField type="text" disabled value="collab_filename"/>
+          <FormField type="text" disabled placeholder="proposal_name" value={proposal.name}/>
+          <FormField type="text" disabled placeholder="price" value={proposal.price}/>
+          <FormField type="text" disabled placeholder="final_filename" value={proposal.filename}/>
+          <FormField type="text" disabled placeholder="partner_name" value={proposal.approvals[0].name}/>
+          <FormField type="text" disabled placeholder="partner_percentage" value={proposal.approvals[0].percentage}/>
+          <FormField type="text" disabled placeholder="collab_filename" value={proposal.approvals[0].filename}/>
         </Col>
         <Col xs={12} sm={6}>
-          <h4>Collab Status : <span className={statusClasses}>{status}</span></h4>
-          <Col xs={12} sm={6}>
-            <button onClick={() => { this.actionProposal(proposal, 'accept') }} className="choice">
-              Accept
-            </button>
-          </Col>
-          <Col xs={12} sm={6}>
-            <button onClick={() => { this.actionProposal(proposal, 'reject') }} className="choice">
-              Reject
+          <h4>Collab Status: <span className={statusClasses}>{status}</span></h4>
+          <div className="nopad-child-cols two-cold-middle-pad">
+            <Col xs={12} sm={6}>
+              <ActionDom action='accept' />
+            </Col>
+            <Col xs={12} sm={6}>
+              <ActionDom action='reject' />
+            </Col>
+          </div>
+          <Col xs={12} className="nopad">
+            <button onClick={() => { this.cancelProposal(proposal) }} className="choice cancel">
+              Cancel Collaboration
             </button>
           </Col>
         </Col>

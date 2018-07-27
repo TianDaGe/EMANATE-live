@@ -28,7 +28,7 @@ class SummaryPage extends React.Component<Props> {
             </div>
           });
 
-    const url = proposal.proposal_name ? `${proposal.proposal_name}/${proposal.token}` : 'collabid/tokenid';
+    const url = proposal.name ? `details/${proposal.hash}` : 'details/tokenid';
 
     return (
       <CollaboratePage center="collaboration_dashboard" url={url} title="title:summary" centeredTitle>
