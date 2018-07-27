@@ -101,8 +101,8 @@ export default class mn8Api {
       return this.createRequest(apiFunction, 'POST', authToken, proposeData)
         .then((res) => {
           if (res && res.success) {
-            proposeData.parameters["token"] = 'token1234';
-            return { proposal: proposeData.parameters, res: res};
+            res.data["hash"] = btoa(JSON.stringify({ user: this.user.id, contract: res.data.name }));
+            return res;
           }
 
           return res;
@@ -114,11 +114,11 @@ export default class mn8Api {
    * Cancel contract
    */
   cancel(data) {
-    if (this.user === null) {
+    if (data.partner_user === null) {
       console.warn("User is not set, you can not call authorised functions.");
     }
 
-    let apiFunction = `user/${this.user.id}/collab`,
+    let apiFunction = `user/${data.partner_user}/collab`,
         cancelData = {
           parameters: {
               "proposer": data["proposer"],
@@ -134,12 +134,22 @@ export default class mn8Api {
   /**
    * Get contracts
    */
-  getContracts() {
-    if (this.user === null) {
-      console.warn("User is not set, you can not call authorised functions.");
-    }
+  getContracts(data) {
+    let user = data ? data.user : this.user.id,
+        apiFunction = `user/${user}/collab`;
 
-    let apiFunction = `user/${this.user.id}/collab`;
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'GET', authToken);
+    });
+  }
+
+  /**
+   * Get single contract
+   */
+  getContract(data) {
+    let user = data ? data.user : this.user.id,
+        contract = data ? data.contract : null,
+        apiFunction = `user/${user}/collab/${contract}`;
 
     return this.authenticate().then( (authToken) => {
       return this.createRequest(apiFunction, 'GET', authToken);
@@ -293,7 +303,7 @@ export default class mn8Api {
     }
 
     let listenTitle = data["title"],
-        apiFunction = `user/${this.user.id}/asset/play/${listenTitle}`;
+        apiFunction = `user/user25/asset/play/${listenTitle}`;
 
     return this.authenticate().then( (authToken) => {
       return this.createRequest(apiFunction, 'PUT', authToken);
