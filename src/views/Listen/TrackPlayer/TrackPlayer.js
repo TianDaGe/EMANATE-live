@@ -115,7 +115,6 @@ class TrackPlayer extends Component {
 
   playToggle() {
     var cur = this.playlist.getCurrentSound();
-    console.log('cur', cur);
     if(cur && this.props.sound.id === cur.id) {
       if(!this.state.playing) {
         this.soundengine.play();
@@ -325,22 +324,20 @@ class TrackPlayer extends Component {
         <Col xs={12}>
           <article className={classList}>
             <Row>
-              <Col xs={5}>
-                <Col xs={12} sm={6} className="artwork xs" style={{backgroundImage: `url(${coverUrl})`}}>
+              <Col xs={5} className="artwork-and-player">
+                <Col className="artwork xs" style={{backgroundImage: `url(${coverUrl})`}}>
                   {btnPlay}
                 </Col>
-                <Col sm={6} className="cover-and-wave" xsHidden>
+                <Col className="cover-and-play" xsHidden>
                   {cover}
                   {btnPlay}
                 </Col>
-                <Col xs={6} className="player-area" xsHidden>
-                  <div className="track-player-wave">
-                    <Waveform
-                      peaks={peaks}
-                      pos={this.state.pos} onPosChange={this.clickWaveform}
-                      options={{barWidth: 0, progressColor: '#65f9f6', cursorColor: 'rgba(0,0,0,0.0)'}}
-                    />
-                  </div>
+                <Col className="track-player-wave">
+                  <Waveform
+                    peaks={peaks}
+                    pos={this.state.pos} onPosChange={this.clickWaveform}
+                    options={{barWidth: 0, progressColor: '#65f9f6', cursorColor: 'rgba(0,0,0,0.0)'}}
+                  />
                 </Col>
               </Col>
               <Col xs={4} className="track-player-title">

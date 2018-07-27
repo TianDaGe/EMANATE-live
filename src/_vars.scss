@@ -20,6 +20,7 @@ $grey: #f4f7fd;
 $grey-darker: darken($grey, 50);
 $dark-blue-transparent: rgba(8,24,31, .7);
 $black-transparent: rgba(0, 0, 0, .7);
+$black-transparent-disabled: rgba(0, 0, 0, .3);
 
 $gutter: 20px;
 $border-radius: 20px;
@@ -40,6 +41,11 @@ $navbar-logo-height: 35px;
 // TrackBrowser
 $trackbrowser-height: calc(100vh - #{$navbar-height} - #{$gutter*3});
 $trackbrowser-height-blockconsole-open: calc(100vh - #{$navbar-height} - #{$gutter*3} - 20vh);
+
+// TrackPlayer
+$cover-image-width: 80px;
+$cover-image-width-playing: 100px;
+$bottom-player-btn-width: 25px;
 
 // home
 $home-section-height: calc(50vh - 20px);

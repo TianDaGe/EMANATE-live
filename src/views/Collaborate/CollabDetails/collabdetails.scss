@@ -16,6 +16,27 @@
     line-height: 80px;
     width: 100%;
     border-radius: $border-radius;
+    text-transform: capitalize;
+
+    @include xs-only {
+      margin: 0 0 $gutter;
+    }
+
+    &.disabled {
+      background: $black-transparent-disabled;
+
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+
+    &.cancel {
+      line-height: 50px;
+
+      @include small {
+        margin: $gutter 0 0;
+      }
+    }
 
     &:hover {
       cursor: pointer;

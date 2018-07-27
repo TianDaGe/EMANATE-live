@@ -40,8 +40,6 @@ class TopBar extends Component<Props, State> {
 
     this.auth = this.props.auth;
     this.mn8Api = this.props.mn8Api;
-
-    console.log('auth', this.state.authenticated);
   }
 
   setNavExpanded = function(expanded: boolean) {

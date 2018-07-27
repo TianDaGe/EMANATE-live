@@ -1,5 +1,47 @@
 @import './_vars';
 
+// MEDIA MIXINS
+@mixin xs-only {
+  @media (max-width: ($screen-xs-max - 1)) {
+    @content;
+  }
+}
+@mixin xsmall {
+  @media (min-width: $screen-xs-min) {
+    @content;
+  }
+}
+@mixin small {
+  @media (min-width: $screen-sm-min) {
+    @content;
+  }
+}
+@mixin small-only {
+  @media (min-width: $screen-sm-min) and  (max-width: $screen-sm-max) {
+    @content;
+  }
+}
+@mixin medium {
+  @media (min-width: $screen-md-min) {
+    @content;
+  }
+}
+@mixin medium-only {
+  @media (min-width: $screen-md-min) and  (max-width: $screen-md-max) {
+    @content;
+  }
+}
+@mixin large {
+  @media (min-width: $screen-lg-min) {
+    @content;
+  }
+}
+@mixin large-only {
+  @media (min-width: $screen-lg-min) and  (max-width: $screen-lg-max) {
+    @content;
+  }
+}
+
 // POSITION & SIZING UTILS
 .height100 {
   height: 100%;
@@ -9,6 +51,25 @@
 }
 .pull-right {
   float: right;
+}
+.nopad {
+  padding: 0 !important;
+}
+.nopad-child-cols {
+
+  > div {
+    padding: 0;
+  }
+  &.two-cold-middle-pad {
+    @include small {
+      > div:first-child {
+        padding-right: $gutter/2;
+      }
+      > div:last-child {
+        padding-left: $gutter/2;
+      }
+    }
+  }
 }
 
 // LOADING ANIMATIONS
@@ -80,48 +141,6 @@
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3871d0', endColorstr='#541db3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-// MEDIA MIXINS
-@mixin xs-only {
-  @media (max-width: ($screen-xs-max - 1)) {
-    @content;
-  }
-}
-@mixin xsmall {
-  @media (min-width: $screen-xs-min) {
-    @content;
-  }
-}
-@mixin small {
-  @media (min-width: $screen-sm-min) {
-    @content;
-  }
-}
-@mixin small-only {
-  @media (min-width: $screen-sm-min) and  (max-width: $screen-sm-max) {
-    @content;
-  }
-}
-@mixin medium {
-  @media (min-width: $screen-md-min) {
-    @content;
-  }
-}
-@mixin medium-only {
-  @media (min-width: $screen-md-min) and  (max-width: $screen-md-max) {
-    @content;
-  }
-}
-@mixin large {
-  @media (min-width: $screen-lg-min) {
-    @content;
-  }
-}
-@mixin large-only {
-  @media (min-width: $screen-lg-min) and  (max-width: $screen-lg-max) {
-    @content;
-  }
-}
-
 // tags
 .tag {
   color: #fff;
@@ -132,9 +151,18 @@
   margin: 0 $gutter/4;
   padding: 0 $gutter/4 3px $gutter/4;
   text-align: center;
+  text-transform: capitalize;
 
   &.pending {
     background-color: #fbff91;
+    color: #000;
+  }
+  &.accepted {
+    background-color: #aaff91;
+    color: #000;
+  }
+  &.rejected {
+    background-color: #ff4444;
     color: #000;
   }
 }

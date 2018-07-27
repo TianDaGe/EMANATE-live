@@ -1,33 +1,75 @@
 @import '../../../_vars';
 @import '../../../_utils';
 
-.artwork {
-  background-size: cover;
-  position: relative;
-  display: none;
-
-  @include xs-only {
-    width: 100%;
-    padding: 100% 0 0;
-    overflow: hidden;
-    display: block;
-
-    button.bottom-player-btn {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-    }
-  }
-}
-
 article.track-player {
   padding: $gutter/2 0;
   min-height: 100px;
+
+  // ARTWORK AND PLAYER
+  .artwork-and-player {
+    display: flex;
+
+    .artwork {
+      background-size: cover;
+      position: relative;
+      display: none;
+
+      @include xs-only {
+        width: 100%;
+        padding: 100% 0 0;
+        overflow: hidden;
+        display: block;
+
+        button.bottom-player-btn {
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          margin: 0;
+          padding: 0;
+          width: 100%;
+        }
+      }
+    }
+    .cover-and-play {
+      display: flex;
+      padding: 0;
+      margin: 0 0 0 $gutter/2;
+      max-width: $cover-image-width-playing + $gutter*2 + $bottom-player-btn-width;
+
+      .cover-image {
+        display: block;
+        min-width: $cover-image-width-playing;
+        width: $cover-image-width-playing;
+        height: $cover-image-width-playing;
+        background-size: $cover-image-width;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-image: linear-gradient(135deg,#f49b0b,#70929c);
+        // box-shadow: rgba(0,0,0,.1)0 0 0 1px inset;
+      }
+    }
+    // TEMPORARY OVERWRITES
+    .track-player-wave {
+      flex: 1;
+      padding: 0;
+      height: $cover-image-width;
+
+      wave {
+        height: $cover-image-width !important;
+      }
+    }
+    .bottom-player-area {
+      display: flex;
+    }
+    .track-player-wave {
+      wave {
+        height: $cover-image-width !important;
+        overflow: hidden !important;
+      }
+    }
+  }
 
   .track-player-title {
     font-family: 'BrownRegular';
@@ -56,55 +98,21 @@ article.track-player {
 
 
 
-  .cover-and-wave {
-    display: flex;
-    margin: 0;
-
-    .cover-image {
-      display: block;
-      min-width: 80px;
-      width: 80px;
-      height: 80px;
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-image: linear-gradient(135deg,#f49b0b,#70929c);
-      box-shadow: rgba(0,0,0,.1)0 0 0 1px inset;
-    }
-    .player-area {
-      flex: 1;
-
-      // TEMPORARY OVERWRITES
-      .track-player-wave {
-        height: 80px;
-
-        wave {
-          height: 80px !important;
-        }
-      }
-
-      .bottom-player-area {
-        display: flex;
-      }
-
-    }
-  }
-
+  // Playing
   &.playing {
     background: rgba(0,0,0,.1);
 
-    .cover-and-wave {
+    .cover-and-play {
+      max-width: $cover-image-width-playing + $gutter*2 + $bottom-player-btn-width;
+
       .cover-image {
-        width: 100px;
-        height: 100px;
+        background-size: $cover-image-width-playing;
+        width: $cover-image-width-playing;
+        height: $cover-image-width-playing;
       }
     }
   }
-  .track-player-wave {
-    wave {
-      height: 80px !important;
-      overflow: hidden !important;
-    }
-  }
+
 }
 .bottom-player-tags {
 
@@ -138,6 +146,8 @@ button.bottom-player-btn {
   color: $mn8-blue;
   text-align: center;
   margin: 0 $gutter;
+  padding: 0;
+  width: $bottom-player-btn-width;
 
   i {
     font-size: 28px;

@@ -2203,6 +2203,18 @@ input[type="button"].btn-block {
 .pull-right {
   float: right; }
 
+.nopad {
+  padding: 0 !important; }
+
+.nopad-child-cols > div {
+  padding: 0; }
+
+@media (min-width: 768px) {
+  .nopad-child-cols.two-cold-middle-pad > div:first-child {
+    padding-right: 10px; }
+  .nopad-child-cols.two-cold-middle-pad > div:last-child {
+    padding-left: 10px; } }
+
 @keyframes pulse {
   0% {
     fill: #ffffff;
@@ -2284,9 +2296,16 @@ input[type="button"].btn-block {
   line-height: 20px;
   margin: 0 5px;
   padding: 0 5px 3px 5px;
-  text-align: center; }
+  text-align: center;
+  text-transform: capitalize; }
   .tag.pending {
     background-color: #fbff91;
+    color: #000; }
+  .tag.accepted {
+    background-color: #aaff91;
+    color: #000; }
+  .tag.rejected {
+    background-color: #ff4444;
     color: #000; }
 
 @font-face {
