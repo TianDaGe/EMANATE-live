@@ -2,24 +2,15 @@
 @import '../../_utils';
 
 .Collaborate {
-  // margin: $gutter 0 0;
-  //
-  // @media (min-width: $screen-sm-min) {
-  //   margin: $gutter*3 0 0;
-  // }
+  // background: $black-transparent;
+  // border-radius: $border-radius;
+  // margin: 0 $gutter;
 
-  .collaborate_container {
-
-    /* UTILS */
-    .nopad {
-      padding: 0 !important;
-    }
-
-    .bordered_component {
-      border-radius: $border-radius;
-      border: 3px solid #e2e2e2;
-      margin: 25px 0;
-      padding: 0 13px;
+  &.blockconsole-open {
+    .collaborate_wrapper {
+      .collaborate_page {
+        max-height: $trackbrowser-height-blockconsole-open;
+      }
     }
   }
 
@@ -33,41 +24,43 @@
     }
 
     .collaborate_page {
-      .collaborate_content {
-        background: $black-transparent;
-        border-radius: $border-radius;
-        padding: $gutter;
+      background: $black-transparent;
+      border-radius: $border-radius;
+      // height: $trackbrowser-height;
+      transition: $common-transition;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: $gutter;
+      margin-bottom: $gutter;
+      // position: inherit;
 
-        @media (min-width: $screen-sm-min) {
-          padding: $gutter*2;
-        }
+    }
+    
+    .collaborate_navigation {
+      position: absolute;
+      bottom: 0;
+      padding: 0;
+      width: calc(50% - #{$gutter}/2);
+      display: flex;
+      justify-content: center;
+
+      @include small {
+        width: calc(50% - #{$gutter});
       }
-      .collaborate_navigation {
-        position: relative;
-        top: -$btn-line/2;
-        padding: 0;
-        width: calc(50% - #{$gutter}/2);
-        display: flex;
-        justify-content: center;
+
+      &.left {
+        left: $gutter/2;
 
         @include small {
-          width: calc(50% - #{$gutter});
+          left: $gutter;
         }
+      }
+      &.right {
+        float: right;
+        right: $gutter/2;
 
-        &.left {
-          left: $gutter/2;
-
-          @include small {
-            left: $gutter;
-          }
-        }
-        &.right {
-          float: right;
-          right: $gutter/2;
-
-          @include small {
-            right: $gutter;
-          }
+        @include small {
+          right: $gutter;
         }
       }
     }

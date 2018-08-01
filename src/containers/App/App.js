@@ -33,7 +33,6 @@ export default class App extends Component<Props, State> {
     this.auth = new Auth(this.mn8Api);
 
     this.blockconsole = new BlockConsoleControl();
-
   }
 
   getHome() {
@@ -90,7 +89,9 @@ export default class App extends Component<Props, State> {
           <Route path="/test" name="Collaborate" render={() => (
             <Test {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
           )}/>
-          <Route path="/" name="Home" component={this.getHome()}/>
+          <Route path="/" name="Home" render={() => (
+            <Home {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
+          )}/>
           <Redirect from="/" to={root}/>
         </Switch>
         <BlockConsole control={this.blockconsole}/>

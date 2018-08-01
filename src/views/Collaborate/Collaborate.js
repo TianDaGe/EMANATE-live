@@ -44,31 +44,13 @@ export type State = {
     ],
     agreement: number
   },
-  proposal: {}
+  proposal: {},
+  blockconsoleHidden: boolean
 };
 
 class Collaborate extends Component<Props, State> {
   recipientIdGen = new uniqueIdGenerator('recipient');
   tabindexing = new tabindexGenerator();
-
-  state: State = {
-    form: {
-      proposal_name: '', // proposal_name
-      recipients: [{
-        id: this.recipientIdGen.next(),
-        name: '',
-        email: '',
-        owner: true
-      },{
-        id: this.recipientIdGen.next(),
-        name: '',
-        email: '',
-        owner: false
-      }],
-      agreement: 0
-    },
-    proposal: {}
-  };
 
   bc: Blockchain;
   ipfs: Ipfs;
@@ -91,6 +73,30 @@ class Collaborate extends Component<Props, State> {
 
     this.blockconsole = props.blockconsole;
     this.blockconsole.update("Blockchain connection established.", "green");
+
+    this.blockconsole.on('showHide', (hidden) => {
+      this.setState({ blockconsoleHidden: hidden });
+    });
+
+    this.state = {
+      form: {
+        proposal_name: '', // proposal_name
+        recipients: [{
+          id: this.recipientIdGen.next(),
+          name: '',
+          email: '',
+          owner: true
+        },{
+          id: this.recipientIdGen.next(),
+          name: '',
+          email: '',
+          owner: false
+        }],
+        agreement: 0
+      },
+      proposal: {},
+      blockconsoleHidden: this.blockconsole.hidden
+    };
   }
 
   // Add recipient
@@ -211,10 +217,12 @@ class Collaborate extends Component<Props, State> {
   }
 
   render() {
+    const classNames = this.state.blockconsoleHidden ? 'Collaborate animated fadeIn' : 'Collaborate animated fadeIn blockconsole-open';
+
     return (
       <React.Fragment>
         <TopBar {...this.props} auth={this.props.auth} mn8Api={this.props.mn8Api} area="collaborate" />
-        <section className="Collaborate animated fadeIn">
+        <section className={classNames}>
           <Switch>
             <Route path="/collaborate/upload" name="Upload" render={() => (
               <FilesAndRecipients proposal_name={this.state.form.proposal_name}

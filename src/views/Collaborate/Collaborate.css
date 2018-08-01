@@ -192,15 +192,8 @@
     background-color: #ff4444;
     color: #000; }
 
-.Collaborate .collaborate_container {
-  /* UTILS */ }
-  .Collaborate .collaborate_container .nopad {
-    padding: 0 !important; }
-  .Collaborate .collaborate_container .bordered_component {
-    border-radius: 20px;
-    border: 3px solid #e2e2e2;
-    margin: 25px 0;
-    padding: 0 13px; }
+.Collaborate.blockconsole-open .collaborate_wrapper .collaborate_page {
+  max-height: calc(100vh - 40px - 60px - 20vh); }
 
 .Collaborate .collaborate_wrapper .collaborate_heading {
   display: block;
@@ -208,32 +201,33 @@
   margin: 0 0 20px;
   font-weight: 400; }
 
-.Collaborate .collaborate_wrapper .collaborate_page .collaborate_content {
+.Collaborate .collaborate_wrapper .collaborate_page {
   background: rgba(0, 0, 0, 0.7);
   border-radius: 20px;
-  padding: 20px; }
-  @media (min-width: 768px) {
-    .Collaborate .collaborate_wrapper .collaborate_page .collaborate_content {
-      padding: 40px; } }
+  transition: all 0.2s;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+  margin-bottom: 20px; }
 
-.Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation {
-  position: relative;
-  top: -17.5px;
+.Collaborate .collaborate_wrapper .collaborate_navigation {
+  position: absolute;
+  bottom: 0;
   padding: 0;
   width: calc(50% - 20px/2);
   display: flex;
   justify-content: center; }
   @media (min-width: 768px) {
-    .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation {
+    .Collaborate .collaborate_wrapper .collaborate_navigation {
       width: calc(50% - 20px); } }
-  .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.left {
+  .Collaborate .collaborate_wrapper .collaborate_navigation.left {
     left: 10px; }
     @media (min-width: 768px) {
-      .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.left {
+      .Collaborate .collaborate_wrapper .collaborate_navigation.left {
         left: 20px; } }
-  .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.right {
+  .Collaborate .collaborate_wrapper .collaborate_navigation.right {
     float: right;
     right: 10px; }
     @media (min-width: 768px) {
-      .Collaborate .collaborate_wrapper .collaborate_page .collaborate_navigation.right {
+      .Collaborate .collaborate_wrapper .collaborate_navigation.right {
         right: 20px; } }

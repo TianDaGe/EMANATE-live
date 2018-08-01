@@ -147,6 +147,8 @@ class CollaboratePage extends React.Component<Props, State> {
               </Row>
             </Col>
           </Row>
+        </Col>
+        <Col xs={12} md={10} mdOffset={1}>
           <Row>
             {centeredDom}
             {prevDom}
