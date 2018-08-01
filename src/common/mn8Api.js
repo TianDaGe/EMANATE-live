@@ -4,10 +4,11 @@ import { generateRandString } from './utils';
 export default class mn8Api {
   constructor() {
     this.rootUrl = 'http://emanate.dev.decentrawise.com:85/v1';
-    this.user = {
+    this.user = {  // TODO - Temporary test data
       id: 'user11',
       token: null
     };
+    this.listener = 'user25'; // TODO - Temporary test data
     this.activeCollab = {};
   }
 
@@ -199,6 +200,22 @@ export default class mn8Api {
   }
 
   /**
+  * listen
+  */
+  listen(data) {
+    if (this.user === null) {
+      console.warn("User is not set, you can not call authorised functions.");
+    }
+
+    let listenTitle = data["title"],
+        apiFunction = `user/${this.listener}/asset/play/${listenTitle}`;
+
+    return this.authenticate().then( (authToken) => {
+      return this.createRequest(apiFunction, 'PUT', authToken);
+    });
+  }
+
+  /**
   * Pay
   */
   pay(data) {
@@ -206,7 +223,7 @@ export default class mn8Api {
       console.warn("User is not set, you can not call authorised functions.");
     }
 
-    let apiFunction = `user/${this.user.id}/collab/pay`,
+    let apiFunction = `user/${this.listener}/collab/pay`,
         payData = {
           parameters: {
             "proposer": data["proposer"],
@@ -291,22 +308,6 @@ export default class mn8Api {
 
     return this.authenticate().then( (authToken) => {
       return this.createRequest(apiFunction, 'GET', authToken);
-    });
-  }
-
-  /**
-  * listen
-  */
-  listen(data) {
-    if (this.user === null) {
-      console.warn("User is not set, you can not call authorised functions.");
-    }
-
-    let listenTitle = data["title"],
-        apiFunction = `user/user25/asset/play/${listenTitle}`;
-
-    return this.authenticate().then( (authToken) => {
-      return this.createRequest(apiFunction, 'PUT', authToken);
     });
   }
 }
