@@ -2,15 +2,10 @@
 @import '../../../_utils';
 
 .TrackBrowser {
-  // background: $dark-blue-transparent;
-  // border-radius: $border-radius;
   margin: 0;
   height: $trackbrowser-height;
   overflow-y: scroll;
-
-  // @include small {
-  //   height: $trackbrowser-height-sm;
-  // }
+  transition: $common-transition;
 
   h1 {
     width: 100%;

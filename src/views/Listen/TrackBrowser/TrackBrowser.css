@@ -195,7 +195,8 @@
 .TrackBrowser {
   margin: 0;
   height: calc(100vh - 40px - 60px);
-  overflow-y: scroll; }
+  overflow-y: scroll;
+  transition: all 0.2s; }
   .TrackBrowser h1 {
     width: 100%;
     border-bottom: 1px solid #fff; }
