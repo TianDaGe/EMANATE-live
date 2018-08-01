@@ -11,6 +11,14 @@ type Props = {};
 type State = {};
 
 class Home extends Component<Props, State> {
+  constructor(props: Props) {
+    super();
+
+    if (!props.blockconsole.hidden) {
+      props.blockconsole.showHide();
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
