@@ -1,0 +1,6 @@
+{
+  "name": "Scatter",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Scatter.js"
+}

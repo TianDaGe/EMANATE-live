@@ -14,6 +14,10 @@ class Home extends Component<Props, State> {
   constructor(props: Props) {
     super();
 
+    // this.scatter = props.scatter.then((scat) => {
+    //   console.log('home scat', scat);
+    // });
+
     if (!props.blockconsole.hidden) {
       props.blockconsole.showHide();
     }

@@ -217,6 +217,11 @@
   width: calc(50% - 20px/2);
   display: flex;
   justify-content: center; }
+  @media (max-width: 766px) {
+    .Collaborate .collaborate_wrapper .collaborate_navigation .btn {
+      padding: 5px 10px 0;
+      line-height: 22px;
+      font-size: 11px; } }
   @media (min-width: 768px) {
     .Collaborate .collaborate_wrapper .collaborate_navigation {
       width: calc(50% - 20px); } }

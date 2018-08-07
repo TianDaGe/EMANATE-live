@@ -38,6 +38,8 @@ class TrackPlayer extends Component {
       pos: 0
     };
 
+    this.blockconsole = this.props.blockconsole;
+
     // Bind event handlers
     this.handleSoundEnginePause = this.handleSoundEnginePause.bind(this);
     this.handleSoundEnginePlay = this.handleSoundEnginePlay.bind(this);
@@ -64,6 +66,7 @@ class TrackPlayer extends Component {
     if(playing) {
       this.soundengine.on('audioprocess', this.handleSoundEngineProgress);
     }
+    this.blockconsole.updateConsole("Play sound");
   }
 
   handleSoundEnginePause() {
@@ -71,6 +74,7 @@ class TrackPlayer extends Component {
       playing: false
     });
     this.soundengine.un('audioprocess', this.handleSoundEngineProgress);
+    this.blockconsole.updateConsole("Pause sound");
   }
 
   handleSoundEngineProgress(time, duration) {

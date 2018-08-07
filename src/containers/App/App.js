@@ -5,9 +5,11 @@ import { Redirect, Switch, Route } from 'react-router-dom';
 import mn8Api from '../../common/mn8Api';
 
 import './App.css';
-import TopBar from '../../views/common/TopBar';
 import { BlockConsoleControl, BlockConsole } from '../../views/common/BlockConsole/BlockConsole';
 import Auth from '../../common/Auth';
+import Scatter from '../../common/Scatter';
+
+import TopBar from '../../views/common/TopBar';
 import Home from '../../views/Home';
 import Signin from '../../views/Auth/Signin';
 import Register from '../../views/Auth/Register';
@@ -31,6 +33,9 @@ export default class App extends Component<Props, State> {
     // Create the Auth service
     this.mn8Api = new mn8Api();
     this.auth = new Auth(this.mn8Api);
+
+    // Initiate Scatter
+    this.scatter = new Scatter();
 
     this.blockconsole = new BlockConsoleControl();
   }
@@ -81,16 +86,16 @@ export default class App extends Component<Props, State> {
       <div className="App">
         <Switch>
           <Route path="/listen" name="Listen" render={() => (
-            <Listen {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
+            <Listen {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} scatter={this.scatter} />
           )}/>
           <Route path="/collaborate" name="Collaborate" render={() => (
-            <Collaborate {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
+            <Collaborate {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} scatter={this.scatter} />
           )}/>
           <Route path="/test" name="Collaborate" render={() => (
-            <Test {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} />
+            <Test {...this.props} auth={this.auth} blockconsole={this.blockconsole} mn8Api={this.mn8Api} scatter={this.scatter} />
           )}/>
           <Route path="/" name="Home" render={() => (
-            <Home {...this.props} auth={this.auth} blockconsole={this.blockconsole} />
+            <Home {...this.props} auth={this.auth} blockconsole={this.blockconsole} scatter={this.scatter} />
           )}/>
           <Redirect from="/" to={root}/>
         </Switch>

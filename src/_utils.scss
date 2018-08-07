@@ -21,6 +21,11 @@
     @content;
   }
 }
+@mixin small-down {
+  @media (max-width: $screen-sm-max) {
+    @content;
+  }
+}
 @mixin medium {
   @media (min-width: $screen-md-min) {
     @content;

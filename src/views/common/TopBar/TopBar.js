@@ -15,7 +15,8 @@ type Props = {
 
   location: any,
   history: any,
-  intl: intlShape
+  intl: intlShape,
+  scatter: {}
 };
 
 type State = {
@@ -40,6 +41,19 @@ class TopBar extends Component<Props, State> {
 
     this.auth = this.props.auth;
     this.mn8Api = this.props.mn8Api;
+
+    this.props.scatter.then((scat) => {
+      console.log('init', scat);
+      this.scatter = scat;
+    });
+
+  }
+
+  loginWithScatter = () => {
+    console.log('login');
+    this.scatter.getIdentity().then((iden) => {
+      console.log('iden', this.scatter);
+    });
   }
 
   setNavExpanded = function(expanded: boolean) {
@@ -67,7 +81,8 @@ class TopBar extends Component<Props, State> {
   }
 
   render() {
-    const loggedin = true;
+    // const loggedin = this.scatter.identity !== null;
+    const loggedin = false;
 
     const user = loggedin ? (
       <React.Fragment>
@@ -75,7 +90,10 @@ class TopBar extends Component<Props, State> {
         <a>Logout</a>
       </React.Fragment>
     ) : (
-      <a onClick={this.handleLogin.bind(this)} className="btn btn-radius btn-inline navigation">Authorise</a>
+      <React.Fragment>
+        <span className="user-avatar"></span>
+        <a onClick={this.loginWithScatter.bind(this)}>Login with Scatter</a>
+      </React.Fragment>
     );
 
     // Decide on TopBar Column layout depending on section
@@ -118,7 +136,7 @@ class TopBar extends Component<Props, State> {
               <img src="./img/emanate-logo.svg" alt="Emanate" id="topbar-logo" />
             </LinkContainer>
           </div>
-          <Col id="navbar-user" xsHidden>
+          <Col id="navbar-user">
             {user}
           </Col>
         </Row>

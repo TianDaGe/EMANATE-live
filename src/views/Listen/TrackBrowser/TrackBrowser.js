@@ -189,6 +189,7 @@ class TrackBrowser extends Component<Props, State> {
       soundengine={this.soundengine}
       playlist={this.playlist}
       sound={sound}
+      blockconsole={this.blockconsole}
     />);
   }
 
