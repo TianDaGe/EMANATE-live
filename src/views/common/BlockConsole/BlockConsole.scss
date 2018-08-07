@@ -10,11 +10,25 @@
   width: 100%;
   height: $blockconsole-height;
   z-index: $z-index-console;
-  padding: $gutter;
   transition: bottom .3s;
 
   &.minimised {
     bottom: - $blockconsole-height;
+  }
+
+  .scroll-container {
+    padding: 0 0 $gutter/2 0;
+    margin: $gutter/2 $gutter/2 0 $gutter/2;
+    height: calc(100% - #{$gutter});
+    width: calc(100% - #{$gutter});
+    overflow-y: scroll;
+
+    .end-of-console {
+      display: block;
+      width: 100%;
+      height: 0;
+      background: red;
+    }
   }
 
   span {

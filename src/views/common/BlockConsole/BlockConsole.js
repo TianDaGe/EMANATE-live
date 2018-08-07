@@ -52,17 +52,24 @@ export class BlockConsole extends Component<Props, State> {
     };
 
     this.control.on('update', (lines) => {
-      this.setState({lines: lines});
+      this.setState({lines: lines}, () => {
+        this.scrollToBottom();
+      });
     })
 
     this.control.on('showHide', (hidden) => {
       this.setState({hidden: hidden});
+      this.scrollToBottom();
     })
 
     this.toggleConsole = () => {
       var toggleState = !this.state.hidden;
       this.setState({hidden: toggleState});
     };
+
+    this.scrollToBottom = () => {
+      this.endOfConsole.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   render() {
@@ -76,9 +83,12 @@ export class BlockConsole extends Component<Props, State> {
     return (
       <div className={classList}>
         <span className="blockconsole-toggle" onClick={this.control.showHide}>{toggleDom}</span>
-        <span className="blue">Emanate Prototype BlockConsole</span>
-        <div className="lines-container">
-          {linesDom}
+        <div className="scroll-container">
+          <span className="blue">Emanate Prototype BlockConsole</span>
+          <div className="lines-container">
+            {linesDom}
+          </div>
+          <div className="end-of-console" ref={(el) => { this.endOfConsole = el; }}></div>
         </div>
       </div>
     );

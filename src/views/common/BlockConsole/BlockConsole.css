@@ -48,10 +48,20 @@
   width: 100%;
   height: 20vh;
   z-index: 9;
-  padding: 20px;
   transition: bottom .3s; }
   .BlockConsole.minimised {
     bottom: -20vh; }
+  .BlockConsole .scroll-container {
+    padding: 0 0 10px 0;
+    margin: 10px 10px 0 10px;
+    height: calc(100% - 20px);
+    width: calc(100% - 20px);
+    overflow-y: scroll; }
+    .BlockConsole .scroll-container .end-of-console {
+      display: block;
+      width: 100%;
+      height: 0;
+      background: red; }
   .BlockConsole span {
     display: block; }
     .BlockConsole span.blockconsole-toggle {
